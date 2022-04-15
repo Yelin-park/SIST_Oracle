@@ -1,23 +1,22 @@
--- [ SCOTT¿¡ Á¢¼ÓµÈ ½ºÅ©¸³Æ® ÆÄÀÏ ]
----- º¹½À¹®Á¦ ----
+-- [ SCOTTì— ì ‘ì†ëœ ìŠ¤í¬ë¦½íŠ¸ íŒŒì¼ ]
+---- ë³µìŠµë¬¸ì œ ----
 
-1. ¿À¶óÅ¬ °¢ DataType ¿¡ ´ëÇØ »ó¼¼È÷ ¼³¸íÇÏ¼¼¿ä
-DATE ³â,¿ù,ÀÏ,½Ã,ºÐ,ÃÊ±îÁö ³ª¿À´Â ³¯Â¥Çü
-TIMESTAMP DATEÀÇ È®ÀåÇüÀ¸·Î n°ªÀ» 0~9¸¦ ÁÙ ¼ö ÀÖ°í ns±îÁö Ç¥ÇöÇÒ ¼ö ÀÖ´Ù.
+1. ì˜¤ë¼í´ ê° DataType ì— ëŒ€í•´ ìƒì„¸ížˆ ì„¤ëª…í•˜ì„¸ìš”
+days09 ìžë£Œ ì°¸ê³ 
 
-2.  emp Å×ÀÌºí¿¡¼­ [³âµµº°] [¿ùº°] ÀÔ»ç»ç¿ø¼ö Ãâ·Â.( PIVOT() ÇÔ¼ö »ç¿ë )
+2.  emp í…Œì´ë¸”ì—ì„œ [ë…„ë„ë³„] [ì›”ë³„] ìž…ì‚¬ì‚¬ì›ìˆ˜ ì¶œë ¥.( PIVOT() í•¨ìˆ˜ ì‚¬ìš© )
 
-    [½ÇÇà°á°ú]
+    [ì‹¤í–‰ê²°ê³¼]
     1982	1	0	0	0	0	0	0	0	0	0	0	0
     1980	0	0	0	0	0	0	0	0	0	0	0	1
     1981	0	2	0	1	1	1	0	0	2	0	1	2
 
 SELECT *    
-FROM (SELECT TO_CHAR(hiredate, 'YYYY') ÀÔ»ç³âµµ, TO_CHAR(hiredate, 'FMMM') ÀÔ»ç¿ù FROM emp )
-PIVOT(COUNT(*) FOR ÀÔ»ç¿ù IN(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
+FROM (SELECT TO_CHAR(hiredate, 'YYYY') ìž…ì‚¬ë…„ë„, TO_CHAR(hiredate, 'FMMM') ìž…ì‚¬ì›” FROM emp )
+PIVOT(COUNT(*) FOR ìž…ì‚¬ì›” IN(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
     
-2-2.   emp Å×ÀÌºí¿¡¼­ °¢ JOBº° ÀÔ»ç³âµµº° 1¿ù~ 12¿ù ÀÔ»çÀÎ¿ø¼ö Ãâ·Â.  ( PIVOT() ÇÔ¼ö »ç¿ë ) 
-    [½ÇÇà°á°ú]
+2-2.   emp í…Œì´ë¸”ì—ì„œ ê° JOBë³„ ìž…ì‚¬ë…„ë„ë³„ 1ì›”~ 12ì›” ìž…ì‚¬ì¸ì›ìˆ˜ ì¶œë ¥.  ( PIVOT() í•¨ìˆ˜ ì‚¬ìš© ) 
+    [ì‹¤í–‰ê²°ê³¼]
     ANALYST		1981	0	0	0	0	0	0	0	0	0	0	0	1
     CLERK		1980	0	0	0	0	0	0	0	0	0	0	0	1
     CLERK		1981	0	0	0	0	0	0	0	0	0	0	0	1
@@ -27,18 +26,18 @@ PIVOT(COUNT(*) FOR ÀÔ»ç¿ù IN(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
     SALESMAN	1981	0	2	0	0	0	0	0	0       
 
 SELECT *
-FROM (SELECT job, TO_CHAR(hiredate, 'YYYY') ÀÔ»ç³âµµ, TO_CHAR(hiredate, 'FMMM') ÀÔ»ç¿ù FROM emp )
-PIVOT(COUNT(*) FOR ÀÔ»ç¿ù IN(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
+FROM (SELECT job, TO_CHAR(hiredate, 'YYYY') ìž…ì‚¬ë…„ë„, TO_CHAR(hiredate, 'FMMM') ìž…ì‚¬ì›” FROM emp )
+PIVOT(COUNT(*) FOR ìž…ì‚¬ì›” IN(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
 ORDER BY job;
 
 
-3. empÅ×ÀÌºí¿¡¼­ ÀÔ»çÀÏÀÚ°¡ ¿À·¡µÈ ¼øÀ¸·Î 3¸í Ãâ·Â ( TOP 3 )
-    [½ÇÇà°á°ú]
+3. empí…Œì´ë¸”ì—ì„œ ìž…ì‚¬ì¼ìžê°€ ì˜¤ëž˜ëœ ìˆœìœ¼ë¡œ 3ëª… ì¶œë ¥ ( TOP 3 )
+    [ì‹¤í–‰ê²°ê³¼]
     1	7369	SMITH	CLERK	    7902	80/12/17	800		    20
     2	7499	ALLEN	SALESMAN	7698	81/02/20	1600	300	30
     3	7521	WARD	SALESMAN	7698	81/02/22	1250	500	30    
 
-Ç®ÀÌ1) RANK()
+í’€ì´1) RANK()
 SELECT *
 FROM(
     SELECT RANK() OVER(ORDER BY hiredate) rn
@@ -47,7 +46,7 @@ FROM(
 ) t
 WHERE rn <= 3;
 
-Ç®ÀÌ2) TOP-N
+í’€ì´2) TOP-N
 
 SELECT ROWNUM, t.*
 FROM(
@@ -58,32 +57,32 @@ FROM(
 WHERE ROWNUM <= 3;
 
 
-4. SMS ÀÎÁõ¹øÈ£  ÀÓÀÇÀÇ  6ÀÚ¸® ¼ýÀÚ Ãâ·Â ( dbms_random  ÆÐÅ°Áö »ç¿ë )
+4. SMS ì¸ì¦ë²ˆí˜¸  ìž„ì˜ì˜  6ìžë¦¬ ìˆ«ìž ì¶œë ¥ ( dbms_random  íŒ¨í‚¤ì§€ ì‚¬ìš© )
 SELECT ROUND(dbms_random.value(0, 1000000))
     , SUBSTR(LTRIM(LTRIM(dbms_random.value, '0.'), '0'), 0, 6)
     , TRUNC(dbms_random.value(100000, 1000000))
 FROM dual;
 
-4-2. ÀÓÀÇÀÇ ´ë¼Ò¹®ÀÚ 5±ÛÀÚ Ãâ·Â( dbms_random  ÆÐÅ°Áö »ç¿ë )
+4-2. ìž„ì˜ì˜ ëŒ€ì†Œë¬¸ìž 5ê¸€ìž ì¶œë ¥( dbms_random  íŒ¨í‚¤ì§€ ì‚¬ìš© )
 SELECT dbms_random.string('A', 5)
 FROM dual;
 
-5. °Ô½Ã±ÛÀ» ÀúÀåÇÏ´Â Å×ÀÌºí »ý¼º
-   ¤¡.   Å×ÀÌºí¸í : tbl_test
-   ¤¤.   ÄÃ·³                   ÀÚ·áÇü  Å©±â    ³ÎÇã¿ë¿©ºÎ    °íÀ¯Å°
-         ±Û¹øÈ£    seq          NUMBER        NOT NULL     PRIMARY KEY
-         ÀÛ¼ºÀÚ    writer       VARCHAR2(20)    NOT NULL   
-         ºñ¹Ð¹øÈ£ passwd        VARCHAR2(15)    NOT NULL
-         ±ÛÁ¦¸ñ    title         VARCHAR2(20) NOT NULL
-         ±Û³»¿ë    content        VARCHAR2 
-         ÀÛ¼ºÀÏ    regdate     DATE
-    ¤§.  ±Û¹øÈ£, ÀÛ¼ºÀÚ, ºñ¹Ð¹øÈ£, ±Û Á¦¸ñÀº ÇÊ¼ö ÀÔ·Â »çÇ×À¸·Î ÁöÁ¤
-    ¤©.  ±Û¹øÈ£°¡  ±âº»Å°( PK )·Î ÁöÁ¤
-    ¤±.  ÀÛ¼ºÀÏÀº ÇöÀç ½Ã½ºÅÛÀÇ ³¯Â¥·Î ÀÚµ¿ ¼³Á¤
+5. ê²Œì‹œê¸€ì„ ì €ìž¥í•˜ëŠ” í…Œì´ë¸” ìƒì„±
+   ã„±.   í…Œì´ë¸”ëª… : tbl_test
+   ã„´.   ì»¬ëŸ¼                   ìžë£Œí˜•  í¬ê¸°    ë„í—ˆìš©ì—¬ë¶€    ê³ ìœ í‚¤
+         ê¸€ë²ˆí˜¸    seq          NUMBER        NOT NULL     PRIMARY KEY
+         ìž‘ì„±ìž    writer       VARCHAR2(20)    NOT NULL   
+         ë¹„ë°€ë²ˆí˜¸ passwd        VARCHAR2(15)    NOT NULL
+         ê¸€ì œëª©    title         VARCHAR2(20) NOT NULL
+         ê¸€ë‚´ìš©    content        VARCHAR2 
+         ìž‘ì„±ì¼    regdate     DATE
+    ã„·.  ê¸€ë²ˆí˜¸, ìž‘ì„±ìž, ë¹„ë°€ë²ˆí˜¸, ê¸€ ì œëª©ì€ í•„ìˆ˜ ìž…ë ¥ ì‚¬í•­ìœ¼ë¡œ ì§€ì •
+    ã„¹.  ê¸€ë²ˆí˜¸ê°€  ê¸°ë³¸í‚¤( PK )ë¡œ ì§€ì •
+    ã….  ìž‘ì„±ì¼ì€ í˜„ìž¬ ì‹œìŠ¤í…œì˜ ë‚ ì§œë¡œ ìžë™ ì„¤ì •
 
 
 CREATE TABLE tbl_test(
-    -- seq NUMBER NOT NULL [CONSTRAINTS PKÁ¦¾àÁ¶°ÇÀÌ¸§] PRIMARY KEY
+    -- seq NUMBER NOT NULL [CONSTRAINTS PKì œì•½ì¡°ê±´ì´ë¦„] PRIMARY KEY
      seq NUMBER NOT NULL CONSTRAINTS PK_tbltest_seq PRIMARY KEY
     , writer VARCHAR2(20) NOT NULL
     , passwd VARCHAR2(20) NOT NULL
@@ -91,22 +90,22 @@ CREATE TABLE tbl_test(
     , content LONG
     , regdate DATE DEFAULT SYSDATE
 );
--- Table TBL_TESTÀÌ(°¡) »ý¼ºµÇ¾ú½À´Ï´Ù.
+-- Table TBL_TESTì´(ê°€) ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.
 
-5-2. Á¶È¸¼ö    read   ÄÃ·³À» Ãß°¡ ( ±âº»°ª 0 À¸·Î  ¼³Á¤ ) 
+5-2. ì¡°íšŒìˆ˜    read   ì»¬ëŸ¼ì„ ì¶”ê°€ ( ê¸°ë³¸ê°’ 0 ìœ¼ë¡œ  ì„¤ì • ) 
 ALTER TABLE tbl_test
 ADD read NUMBER DEFAULT 0;
--- Table TBL_TESTÀÌ(°¡) º¯°æµÇ¾ú½À´Ï´Ù.
+-- Table TBL_TESTì´(ê°€) ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤.
 
-5-3. ±Û³»¿ë    content ÄÃ·³ÀÇ ÀÚ·áÇüÀ» clob ·Î ¼öÁ¤ 
+5-3. ê¸€ë‚´ìš©    content ì»¬ëŸ¼ì˜ ìžë£Œí˜•ì„ clob ë¡œ ìˆ˜ì • 
 ALTER TABLE tbl_test
 MODIFY(content CLOB);
--- Table TBL_TESTÀÌ(°¡) º¯°æµÇ¾ú½À´Ï´Ù.
+-- Table TBL_TESTì´(ê°€) ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤.
 
-5-4. Å×ÀÌºí ±¸Á¶ È®ÀÎ
+5-4. í…Œì´ë¸” êµ¬ì¡° í™•ì¸
 DESC tbl_test;
 
-ÀÌ¸§      ³Î?       À¯Çü            
+ì´ë¦„      ë„?       ìœ í˜•            
 ------- -------- ------------- 
 SEQ     NOT NULL NUMBER        
 WRITER  NOT NULL VARCHAR2(20)  
@@ -116,20 +115,20 @@ CONTENT          CLOB
 REGDATE          DATE          
 READ             NUMBER    
 
-5-5. ±ÛÁ¦¸ñ     title À»   subject·Î ¼öÁ¤ 
-±»ÀÌ ¹Ù²ÙÁö ¾Ê¾Æµµ º°Äª »ç¿ë °¡´É!
+5-5. ê¸€ì œëª©     title ì„   subjectë¡œ ìˆ˜ì • 
+êµ³ì´ ë°”ê¾¸ì§€ ì•Šì•„ë„ ë³„ì¹­ ì‚¬ìš© ê°€ëŠ¥!
 SELECT title subject
 FROM tbl_test;
 
 ALTER TABLE tbl_test
 RENAME COLUMN title TO subject;
--- Table TBL_TESTÀÌ(°¡) º¯°æµÇ¾ú½À´Ï´Ù.
+-- Table TBL_TESTì´(ê°€) ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤.
 
-5-6.  tbl_test  -> tbl_board Å×ÀÌºí¸í º¯°æ 
+5-6.  tbl_test  -> tbl_board í…Œì´ë¸”ëª… ë³€ê²½ 
 RENAME tbl_test TO tbl_board;
--- Å×ÀÌºí ÀÌ¸§ÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+-- í…Œì´ë¸” ì´ë¦„ì´ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤.
 
-ÀÌ¸§      ³Î?       À¯Çü            
+ì´ë¦„      ë„?       ìœ í˜•            
 ------- -------- ------------- 
 SEQ     NOT NULL NUMBER        
 WRITER  NOT NULL VARCHAR2(20)  
@@ -140,81 +139,81 @@ REGDATE          DATE
 READ             NUMBER  
 
 5-7. CRUD  ( insert, select, update, delete ) 
-   ¤¡. ÀÓÀÇÀÇ °Ô½Ã±Û 5°³¸¦ Ãß°¡ insert
+   ã„±. ìž„ì˜ì˜ ê²Œì‹œê¸€ 5ê°œë¥¼ ì¶”ê°€ insert
    INSERT INTO tbl_board (seq, writer, passwd, subject, content, regdate, read)
                 VALUES(1, 'admin', '1234', 'test 1', 'test 1', SYSDATE, 0);
    
-   -- regdate, read ÄÃ·³ »ý·« - DEFAULT ¼³Á¤ µÇ¾î ÀÖ¾î¼­             
+   -- regdate, read ì»¬ëŸ¼ ìƒëžµ - DEFAULT ì„¤ì • ë˜ì–´ ìžˆì–´ì„œ             
    INSERT INTO tbl_board (seq, writer, passwd, subject, content)
-                VALUES(2, 'È«±æµ¿', '1234', 'È«±æµ¿ 1', 'È«±æµ¿ 1');             
+                VALUES(2, 'í™ê¸¸ë™', '1234', 'í™ê¸¸ë™ 1', 'í™ê¸¸ë™ 1');             
    
-   -- ±Û³»¿ë(content) ÇÊ¼öÀÔ·Â»çÇ× X             
+   -- ê¸€ë‚´ìš©(content) í•„ìˆ˜ìž…ë ¥ì‚¬í•­ X             
    INSERT INTO tbl_board (seq, writer, passwd, subject)
-                VALUES(3, 'ÀÍ¼øÀÌ', '1234', 'È«±æµ¿ 1'); 
+                VALUES(3, 'ìµìˆœì´', '1234', 'í™ê¸¸ë™ 1'); 
                 
    COMMIT;
    
-   ¤¤. °Ô½Ã±Û Á¶È¸ select
+   ã„´. ê²Œì‹œê¸€ ì¡°íšŒ select
    SELECT *
    FROM tbl_board;
    
-   ¤§. 3¹ø °Ô½Ã±ÛÀÇ ±Û Á¦¸ñ, ³»¿ë ¼öÁ¤ update
-   -- °Ô½Ã±Û »èÁ¦, ¼öÁ¤ÇÒ ¶§´Â °Ë»ö ÈÄ¿¡ °Ô½Ã±ÛÀ» »èÁ¦ÇÏ°Å³ª ¼öÁ¤ÇÑ´Ù.
-   1) °Ë»öÀÛ¾÷
+   ã„·. 3ë²ˆ ê²Œì‹œê¸€ì˜ ê¸€ ì œëª©, ë‚´ìš© ìˆ˜ì • update
+   -- ê²Œì‹œê¸€ ì‚­ì œ, ìˆ˜ì •í•  ë•ŒëŠ” ê²€ìƒ‰ í›„ì— ê²Œì‹œê¸€ì„ ì‚­ì œí•˜ê±°ë‚˜ ìˆ˜ì •í•œë‹¤.
+   1) ê²€ìƒ‰ìž‘ì—…
    SELECT seq, subject, content
    FROM tbl_board
    WHERE seq = 3;
    
-   2) ³»¿ë¼öÁ¤
+   2) ë‚´ìš©ìˆ˜ì •
    UPDATE tbl_board
-   SET subject = '[e]'|| subject , content = '[e]' || NVL(content, '¾Æ¹«³»¿ë')
+   SET subject = '[e]'|| subject , content = '[e]' || NVL(content, 'ì•„ë¬´ë‚´ìš©')
    WHERE seq = 3;
    
-   3) º¯°æ³»¿ë È®ÀÎ
+   3) ë³€ê²½ë‚´ìš© í™•ì¸
    SELECT *
    FROM tbl_board;
    
-   4) Ä¿¹Ô
+   4) ì»¤ë°‹
    COMMIT;
    
-   ¤©. 4¹ø °Ô½Ã±Û »èÁ¦ delete
+   ã„¹. 4ë²ˆ ê²Œì‹œê¸€ ì‚­ì œ delete
    DELETE tbl_board
    WHERE seq = 4;
-   -- 0°³ Çà ÀÌ(°¡) »èÁ¦µÇ¾ú½À´Ï´Ù.
-   4¹øÂ° °Ô½Ã±ÛÀÌ ¾ø±â ¶§¹®¿¡ À§¿Í °°Àº ¸Þ½ÃÁö°¡ ³ª¿È Áï, °Ë»öÇÏ´Â ÀÛ¾÷À» ¸ÕÀúÇØ¾ßµÈ´Ù!
+   -- 0ê°œ í–‰ ì´(ê°€) ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.
+   4ë²ˆì§¸ ê²Œì‹œê¸€ì´ ì—†ê¸° ë•Œë¬¸ì— ìœ„ì™€ ê°™ì€ ë©”ì‹œì§€ê°€ ë‚˜ì˜´ ì¦‰, ê²€ìƒ‰í•˜ëŠ” ìž‘ì—…ì„ ë¨¼ì €í•´ì•¼ëœë‹¤!
    
-5-8. tbl_board Å×ÀÌºí »èÁ¦  
+5-8. tbl_board í…Œì´ë¸” ì‚­ì œ  
 DROP TABLE tbl_board PURGE;
--- PUGE ¿É¼Ç Å×ÀÌºíÀ» ÈÞÁöÅë¿¡ ³Ö´Â °ÍÀÌ ¾Æ´Ï¶ó ¿ÏÀüÈ÷ »èÁ¦ÇØ¼­ º¹±¸½ÃÅ°Áö ¸øÇÏµµ·Ï ÇÏ°Ú´Ù.
+-- PUGE ì˜µì…˜ í…Œì´ë¸”ì„ íœ´ì§€í†µì— ë„£ëŠ” ê²ƒì´ ì•„ë‹ˆë¼ ì™„ì „ížˆ ì‚­ì œí•´ì„œ ë³µêµ¬ì‹œí‚¤ì§€ ëª»í•˜ë„ë¡ í•˜ê² ë‹¤.
 
 
-6-1. ¿À´ÃÀÇ ³¯Â¥¿Í ¿äÀÏ Ãâ·Â 
- [½ÇÇà°á°ú]
-¿À´Ã³¯Â¥  ¼ýÀÚ¿äÀÏ  ÇÑÀÚ¸®¿äÀÏ       ¿äÀÏ
+6-1. ì˜¤ëŠ˜ì˜ ë‚ ì§œì™€ ìš”ì¼ ì¶œë ¥ 
+ [ì‹¤í–‰ê²°ê³¼]
+ì˜¤ëŠ˜ë‚ ì§œ  ìˆ«ìžìš”ì¼  í•œìžë¦¬ìš”ì¼       ìš”ì¼
 -------- ---        ------   ------------
-22/04/15  6             ±Ý      ±Ý¿äÀÏ      
+22/04/15  6             ê¸ˆ      ê¸ˆìš”ì¼      
 
-SELECT SYSDATE ¿À´Ã³¯Â¥
-    , TO_CHAR(SYSDATE, 'D') ¼ýÀÚ¿äÀÏ
-    , TO_CHAR(SYSDATE, 'DY') ÇÑÀÚ¸®¿äÀÏ
-    , TO_CHAR(SYSDATE, 'DAY') ¿äÀÏ
+SELECT SYSDATE ì˜¤ëŠ˜ë‚ ì§œ
+    , TO_CHAR(SYSDATE, 'D') ìˆ«ìžìš”ì¼
+    , TO_CHAR(SYSDATE, 'DY') í•œìžë¦¬ìš”ì¼
+    , TO_CHAR(SYSDATE, 'DAY') ìš”ì¼
 FROM dual;
 
-6-2. ÀÌ¹ø ´ÞÀÇ ¸¶Áö¸· ³¯°ú ³¯Â¥¸¸ Ãâ·Â 
- [½ÇÇà°á°ú]
-¿À´Ã³¯Â¥  ÀÌ¹ø´Þ¸¶Áö¸·³¯Â¥                  ¸¶Áö¸·³¯Â¥(ÀÏ)
+6-2. ì´ë²ˆ ë‹¬ì˜ ë§ˆì§€ë§‰ ë‚ ê³¼ ë‚ ì§œë§Œ ì¶œë ¥ 
+ [ì‹¤í–‰ê²°ê³¼]
+ì˜¤ëŠ˜ë‚ ì§œ  ì´ë²ˆë‹¬ë§ˆì§€ë§‰ë‚ ì§œ                  ë§ˆì§€ë§‰ë‚ ì§œ(ì¼)
 -------- -------- -- ---------------------------------
 22/04/15 22/04/30 30                                30
 
-SELECT SYSDATE ¿À´Ã³¯Â¥
-    , LAST_DAY(SYSDATE) ÀÌ¹ø´Þ¸¶Áö¸·³¯Â¥
+SELECT SYSDATE ì˜¤ëŠ˜ë‚ ì§œ
+    , LAST_DAY(SYSDATE) ì´ë²ˆë‹¬ë§ˆì§€ë§‰ë‚ ì§œ
     , TO_CHAR(LAST_DAY(SYSDATE), 'DD')
 FROM dual;
 
 
 6-3.
- [½ÇÇà°á°ú]
-¿À´Ã³¯Â¥    ¿ùÀÇÁÖÂ÷ ³âÀÇÁÖÂ÷ ³âÀÇ ÁÖÂ÷
+ [ì‹¤í–‰ê²°ê³¼]
+ì˜¤ëŠ˜ë‚ ì§œ    ì›”ì˜ì£¼ì°¨ ë…„ì˜ì£¼ì°¨ ë…„ì˜ ì£¼ì°¨
 --------    -       --      --
 22/04/15    3       15      15
 
@@ -225,73 +224,73 @@ SELECT SYSDATE
 FROM dual;
 
 ------------------------------------------
-!!»õ·Î¿î °³³ä~!!
+!!ìƒˆë¡œìš´ ê°œë…~!!
 
-1. [³â ÁÖÂ÷]
- - "WW"¿Í "IW" ¸ðµÎ 1³âÀÇ ¸î ÁÖÂ÷(1~53)·Î Á¶È¸ÇÏ´Â Æ÷¸Ë ÀÌ´Ù.
- - "WW" :  1ÀÏ ~ 7ÀÏÀ» 1ÁÖÂ÷·Î ½ÃÀÛ -> Áï, ÇØ´ç³âµµÀÇ 1ÀÏ~7ÀÏÀÌ 1ÁÖÂ÷ 7ÀÏÂ÷¾¿ ²÷¾î¼­ °è»êµÇ´Â °Í
- - "IW" : ¿ù ~ ÀÏ¿äÀÏ ±âÁØ(½ÇÁ¦ ´Þ·Â¿¡ ¸Â°Ô ÁÖÂ÷°¡ °è»ê)
+1. [ë…„ ì£¼ì°¨]
+ - "WW"ì™€ "IW" ëª¨ë‘ 1ë…„ì˜ ëª‡ ì£¼ì°¨(1~53)ë¡œ ì¡°íšŒí•˜ëŠ” í¬ë§· ì´ë‹¤.
+ - "WW" :  1ì¼ ~ 7ì¼ì„ 1ì£¼ì°¨ë¡œ ì‹œìž‘ -> ì¦‰, í•´ë‹¹ë…„ë„ì˜ 1ì¼~7ì¼ì´ 1ì£¼ì°¨ 7ì¼ì°¨ì”© ëŠì–´ì„œ ê³„ì‚°ë˜ëŠ” ê²ƒ
+ - "IW" : ì›” ~ ì¼ìš”ì¼ ê¸°ì¤€(ì‹¤ì œ ë‹¬ë ¥ì— ë§žê²Œ ì£¼ì°¨ê°€ ê³„ì‚°)
 
 1/2/3   4
 IW 13   14
-WW 13  2ÀÏºÎÅÍ 14
+WW 13  2ì¼ë¶€í„° 14
 SELECT TO_CHAR(TO_DATE('2022.4.4'), 'IW')
     ,TO_CHAR(TO_DATE('2022.4.4'), 'WW')
 FROM dual;
 
 -----------------------------------------------------
-2. [CREATE TABLE ¹®¿¡ ÀÇÇÑ Å×ÀÌºí »ý¼º]
-    ? *** Å×ÀÌºíÀ» ¸¸µå´Â °¡Àå ´Ü¼øÇÏ¸é¼­µµ ÀÏ¹ÝÀûÀÎ ¸í·É Çü½ÄÀ¸·Î ¸¸µå´Â ¹æ¹ý  -> ¿ì¸®°¡ °è¼Ó »ç¿ëÇß´ø ¹æ¹ý
+2. [CREATE TABLE ë¬¸ì— ì˜í•œ í…Œì´ë¸” ìƒì„±]
+    ? *** í…Œì´ë¸”ì„ ë§Œë“œëŠ” ê°€ìž¥ ë‹¨ìˆœí•˜ë©´ì„œë„ ì¼ë°˜ì ì¸ ëª…ë ¹ í˜•ì‹ìœ¼ë¡œ ë§Œë“œëŠ” ë°©ë²•  -> ìš°ë¦¬ê°€ ê³„ì† ì‚¬ìš©í–ˆë˜ ë°©ë²•
     
-    ? Extend table »ý¼º -> »ç¿ëÇÒÀÏ ¾øÀ»µí~
-        ¡¼Çü½Ä¡½
+    ? Extend table ìƒì„± -> ì‚¬ìš©í• ì¼ ì—†ì„ë“¯~
+        ã€í˜•ì‹ã€‘
         CREATE TABLE table
-        ( ÄÃ·³1  	µ¥ÀÌÅÍÅ¸ÀÔ,
-          ÄÃ·³2  	µ¥ÀÌÅÍÅ¸ÀÔ,...)
-        STORAGE    (INITIAL  	Å©±â
-                NEXT	Å©±â
-                MINEXTENTS	Å©±â
-                MAXEXTENTS	Å©±â
+        ( ì»¬ëŸ¼1  	ë°ì´í„°íƒ€ìž…,
+          ì»¬ëŸ¼2  	ë°ì´í„°íƒ€ìž…,...)
+        STORAGE    (INITIAL  	í¬ê¸°
+                NEXT	í¬ê¸°
+                MINEXTENTS	í¬ê¸°
+                MAXEXTENTS	í¬ê¸°
                 PCTINCREASE	n);
 
-        Ä³½Ì Å×ÀÌºíÀº ºó¹øÇÏ°Ô »ç¿ëµÇ´Â Å×ÀÌºí µ¥ÀÌÅÍ¸¦ µ¥ÀÌÅÍ¹öÆÛ Ä³½Ã¿µ¿ª¿¡ »óÁÖ½ÃÄÑ 
-        °Ë»ö½Ã ¼º´ÉÀ» Çâ»ó½ÃÅ´.
+        ìºì‹± í…Œì´ë¸”ì€ ë¹ˆë²ˆí•˜ê²Œ ì‚¬ìš©ë˜ëŠ” í…Œì´ë¸” ë°ì´í„°ë¥¼ ë°ì´í„°ë²„í¼ ìºì‹œì˜ì—­ì— ìƒì£¼ì‹œì¼œ 
+        ê²€ìƒ‰ì‹œ ì„±ëŠ¥ì„ í–¥ìƒì‹œí‚´.
         
-    ? *** Subquery¸¦ ÀÌ¿ëÇÑ table »ý¼º -> ¿À´Ã ¹è¿ï ¹æ¹ý!
+    ? *** Subqueryë¥¼ ì´ìš©í•œ table ìƒì„± -> ì˜¤ëŠ˜ ë°°ìš¸ ë°©ë²•!
     
-    ? External table »ý¼º -> »ç¿ëÇÒÀÏ ¾øÀ»µí~
-     - external Å×ÀÌºíÀº DB ¿ÜºÎ¿¡ ÀúÀåµÈ data source¸¦ Á¶ÀÛÇÏ±â À§ÇÑ Á¢±Ù ¹æ¹ýÀÇ ÇÏ³ª·Î ÀÐ±â Àü¿ë Å×ÀÌºíÀÌ´Ù.
+    ? External table ìƒì„± -> ì‚¬ìš©í• ì¼ ì—†ì„ë“¯~
+     - external í…Œì´ë¸”ì€ DB ì™¸ë¶€ì— ì €ìž¥ëœ data sourceë¥¼ ì¡°ìž‘í•˜ê¸° ìœ„í•œ ì ‘ê·¼ ë°©ë²•ì˜ í•˜ë‚˜ë¡œ ì½ê¸° ì „ìš© í…Œì´ë¸”ì´ë‹¤.
 
-    ? NESTED TABLE »ý¼º -> »ç¿ëÇÒÀÏ ¾øÀ»µí~
-    Å×ÀÌºíÀÇ ¾î´À ÄÃ·³ÀÌ ÇÏ³ªÀÇ µ¥ÀÌÅÍ¸¸ ³Ö´Â °ÍÀÌ ¾Æ´Ï¶ó ±× ÄÃ·³Àº ¿©·¯ °³ÀÇ ¼Ó¼ºÀ» °¡Áø µ¥ÀÌÅÍ¸¦ ³ÖÀ» ¼ö ÀÖ´Â Çü½ÄÀÇ µ¥ÀÌÅÍÅ¸ÀÔÀÌ´Ù.
-    Áï, Å×ÀÌºí ¼ÓÀÇ ¾î´À ÄÃ·³ÀÌ ¶Ç ´Ù¸¥ Å×ÀÌºí Çü½ÄÀ» °¡Áø´Ù.
+    ? NESTED TABLE ìƒì„± -> ì‚¬ìš©í• ì¼ ì—†ì„ë“¯~
+    í…Œì´ë¸”ì˜ ì–´ëŠ ì»¬ëŸ¼ì´ í•˜ë‚˜ì˜ ë°ì´í„°ë§Œ ë„£ëŠ” ê²ƒì´ ì•„ë‹ˆë¼ ê·¸ ì»¬ëŸ¼ì€ ì—¬ëŸ¬ ê°œì˜ ì†ì„±ì„ ê°€ì§„ ë°ì´í„°ë¥¼ ë„£ì„ ìˆ˜ ìžˆëŠ” í˜•ì‹ì˜ ë°ì´í„°íƒ€ìž…ì´ë‹¤.
+    ì¦‰, í…Œì´ë¸” ì†ì˜ ì–´ëŠ ì»¬ëŸ¼ì´ ë˜ ë‹¤ë¥¸ í…Œì´ë¸” í˜•ì‹ì„ ê°€ì§„ë‹¤.
     
-    ? Partitioned Tables & Indexes »ý¼º 
+    ? Partitioned Tables & Indexes ìƒì„± 
 
 -----
-[Subquery¸¦ ÀÌ¿ëÇÑ table »ý¼º]
---  ±âÁ¸ Å×ÀÌºí¿¡ ¿øÇÏ´Â µ¥ÀÌÅÍ°¡ ÀÌ¹Ì Á¸ÀçÇÒ °æ¿ì subquery¸¦ ÀÌ¿ëÇÏ¿© Å×ÀÌºíÀ» »ý¼ºÇÑ´Ù¸é
--- Å×ÀÌºí »ý¼º°ú µ¥ÀÌÅÍ ÀÔ·ÂÀ» µ¿½Ã¿¡ ÇÒ ¼ö ÀÖ´Ù.
+[Subqueryë¥¼ ì´ìš©í•œ table ìƒì„±]
+--  ê¸°ì¡´ í…Œì´ë¸”ì— ì›í•˜ëŠ” ë°ì´í„°ê°€ ì´ë¯¸ ì¡´ìž¬í•  ê²½ìš° subqueryë¥¼ ì´ìš©í•˜ì—¬ í…Œì´ë¸”ì„ ìƒì„±í•œë‹¤ë©´
+-- í…Œì´ë¸” ìƒì„±ê³¼ ë°ì´í„° ìž…ë ¥ì„ ë™ì‹œì— í•  ìˆ˜ ìžˆë‹¤.
 
-1) ÀÌ¹Ì Á¸ÀçÇÏ´Â Å×ÀÌºíÀÌ ÀÖ°í
-2) SELECT ~ ¼­ºêÄõ¸®¸¦ ÀÌ¿ëÇØ¼­
-3) »õ·Î¿î Å×ÀÌºíÀ» »ý¼º + µ¥ÀÌÅÍ Ãß°¡(INSERT) ÇÒ ¼ö ÀÖ´Ù.
+1) ì´ë¯¸ ì¡´ìž¬í•˜ëŠ” í…Œì´ë¸”ì´ ìžˆê³ 
+2) SELECT ~ ì„œë¸Œì¿¼ë¦¬ë¥¼ ì´ìš©í•´ì„œ
+3) ìƒˆë¡œìš´ í…Œì´ë¸”ì„ ìƒì„± + ë°ì´í„° ì¶”ê°€(INSERT) í•  ìˆ˜ ìžˆë‹¤.
 
-4)¡¼Çü½Ä¡½
-	CREATE TABLE Å×ÀÌºí¸í [ÄÃ·³¸í (,ÄÃ·³¸í),...] -- ÄÃ·³¸íÀ» ¸í½ÃÇØÁÖ¸é ÄÃ·³¸íÀ» ¹Ù²Ü ¼ö ÀÖ´Ù.
+4)ã€í˜•ì‹ã€‘
+	CREATE TABLE í…Œì´ë¸”ëª… [ì»¬ëŸ¼ëª… (,ì»¬ëŸ¼ëª…),...] -- ì»¬ëŸ¼ëª…ì„ ëª…ì‹œí•´ì£¼ë©´ ì»¬ëŸ¼ëª…ì„ ë°”ê¿€ ìˆ˜ ìžˆë‹¤.
 	AS subquery;
     
-    ? ´Ù¸¥ Å×ÀÌºí¿¡ Á¸ÀçÇÏ´Â Æ¯Á¤ ÄÃ·³°ú ÇàÀ» ÀÌ¿ëÇÑ Å×ÀÌºíÀ» »ý¼ºÇÏ°í ½ÍÀ» ¶§ »ç¿ë
-    ? SubqueryÀÇ °á°ú°ªÀ¸·Î tableÀÌ »ý¼ºµÊ
-    ? ÄÃ·³¸íÀ» ¸í½ÃÇÒ °æ¿ì subqueryÀÇ ÄÃ·³¼ö¿Í Å×ÀÌºíÀÇ ÄÃ·³¼ö¸¦ °°°ÔÇØ¾ß ÇÑ´Ù.
-        -> ÄÃ·³¸íÀ» ¸í½ÃÇØÁÖ¸é ÄÃ·³¸íÀ» ¹Ù²Ü ¼ö ÀÖ´Ù. ´Ü, °¹¼ö°¡ °°¾Æ¾ßÇÑ´Ù.
-    ? ÄÃ·³À» ¸í½ÃÇÏÁö ¾ÊÀ» °æ¿ì, ÄÃ·³¸íÀº subqueryÀÇ ÄÃ·³¸í°ú °°°Ô µÈ´Ù.
-        -> [ÄÃ·³¸í (,ÄÃ·³¸í),...] ¸í½ÃÇÏÁö ¾ÊÀ¸¸é ¶È°°ÀÌ °¡Á®°£´Ù.
-    ? subquery¸¦ ÀÌ¿ëÇØ Å×ÀÌºíÀ» »ý¼ºÇÒ ¶§ CREATE TABLE Å×ÀÌºí¸í µÚ¿¡ ÄÃ·³¸íÀ» ¸í½ÃÇØ ÁÖ´Â °ÍÀÌ ÁÁ´Ù.
+    ? ë‹¤ë¥¸ í…Œì´ë¸”ì— ì¡´ìž¬í•˜ëŠ” íŠ¹ì • ì»¬ëŸ¼ê³¼ í–‰ì„ ì´ìš©í•œ í…Œì´ë¸”ì„ ìƒì„±í•˜ê³  ì‹¶ì„ ë•Œ ì‚¬ìš©
+    ? Subqueryì˜ ê²°ê³¼ê°’ìœ¼ë¡œ tableì´ ìƒì„±ë¨
+    ? ì»¬ëŸ¼ëª…ì„ ëª…ì‹œí•  ê²½ìš° subqueryì˜ ì»¬ëŸ¼ìˆ˜ì™€ í…Œì´ë¸”ì˜ ì»¬ëŸ¼ìˆ˜ë¥¼ ê°™ê²Œí•´ì•¼ í•œë‹¤.
+        -> ì»¬ëŸ¼ëª…ì„ ëª…ì‹œí•´ì£¼ë©´ ì»¬ëŸ¼ëª…ì„ ë°”ê¿€ ìˆ˜ ìžˆë‹¤. ë‹¨, ê°¯ìˆ˜ê°€ ê°™ì•„ì•¼í•œë‹¤.
+    ? ì»¬ëŸ¼ì„ ëª…ì‹œí•˜ì§€ ì•Šì„ ê²½ìš°, ì»¬ëŸ¼ëª…ì€ subqueryì˜ ì»¬ëŸ¼ëª…ê³¼ ê°™ê²Œ ëœë‹¤.
+        -> [ì»¬ëŸ¼ëª… (,ì»¬ëŸ¼ëª…),...] ëª…ì‹œí•˜ì§€ ì•Šìœ¼ë©´ ë˜‘ê°™ì´ ê°€ì ¸ê°„ë‹¤.
+    ? subqueryë¥¼ ì´ìš©í•´ í…Œì´ë¸”ì„ ìƒì„±í•  ë•Œ CREATE TABLE í…Œì´ë¸”ëª… ë’¤ì— ì»¬ëŸ¼ëª…ì„ ëª…ì‹œí•´ ì£¼ëŠ” ê²ƒì´ ì¢‹ë‹¤.
     
-5) ¿¹)
-    ¤¡. emp Å×ÀÌºí¿¡¼­ 10¹ø ºÎ¼­¿øµé¸¸ °Ë»ö -> empno, ename, hiredate, sal + NVL(comm, 0) pay ÀÌ·± µ¥ÀÌÅÍ¸¸ °¡Áö´Â
-        »õ·Î¿î Å×ÀÌºíÀ» »ý¼º
+5) ì˜ˆ)
+    ã„±. emp í…Œì´ë¸”ì—ì„œ 10ë²ˆ ë¶€ì„œì›ë“¤ë§Œ ê²€ìƒ‰ -> empno, ename, hiredate, sal + NVL(comm, 0) pay ì´ëŸ° ë°ì´í„°ë§Œ ê°€ì§€ëŠ”
+        ìƒˆë¡œìš´ í…Œì´ë¸”ì„ ìƒì„±
         
     CREATE TABLE tbl_emp10 -- (no, name, ibsadate, pay) 
     AS (
@@ -299,148 +298,148 @@ FROM dual;
         FROM emp
         WHERE deptno = 10
     );
-    -- Table TBL_EMP10ÀÌ(°¡) »ý¼ºµÇ¾ú½À´Ï´Ù.
+    -- Table TBL_EMP10ì´(ê°€) ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.
     
-6) Å×ÀÌºíÀÇ ±¸Á¶È®ÀÎ
+6) í…Œì´ë¸”ì˜ êµ¬ì¡°í™•ì¸
     DESC tbl_emp10;
     
-    ÀÌ¸§       ³Î? À¯Çü           
+    ì´ë¦„       ë„? ìœ í˜•           
     -------- -- ------------ 
-    EMPNO       NUMBER(4)       emp Å×ÀÌºíÀÇ ÀÚ·áÇü
-    ENAME       VARCHAR2(10)    emp Å×ÀÌºíÀÇ ÀÚ·áÇü
-    HIREDATE    DATE            emp Å×ÀÌºíÀÇ ÀÚ·áÇü
-    PAY         NUMBER          ½Ã½ºÅÛÀÌ ÀÚµ¿À¸·Î ÀÚ·áÇü ¼³Á¤
+    EMPNO       NUMBER(4)       emp í…Œì´ë¸”ì˜ ìžë£Œí˜•
+    ENAME       VARCHAR2(10)    emp í…Œì´ë¸”ì˜ ìžë£Œí˜•
+    HIREDATE    DATE            emp í…Œì´ë¸”ì˜ ìžë£Œí˜•
+    PAY         NUMBER          ì‹œìŠ¤í…œì´ ìžë™ìœ¼ë¡œ ìžë£Œí˜• ì„¤ì •
 
-7) ¿ø·¡ Å×ÀÌºíÀº ±×´ë·Î µÎ°í, Å×ÀÌºíÀ» º¹»çÇØ¼­ »ç¿ëÇÏ°í ½ÍÀ» ¶§
-    Áï, ¿øº»Àº µÎ°í º¹»çÇØ¼­ »ç¿ë
+7) ì›ëž˜ í…Œì´ë¸”ì€ ê·¸ëŒ€ë¡œ ë‘ê³ , í…Œì´ë¸”ì„ ë³µì‚¬í•´ì„œ ì‚¬ìš©í•˜ê³  ì‹¶ì„ ë•Œ
+    ì¦‰, ì›ë³¸ì€ ë‘ê³  ë³µì‚¬í•´ì„œ ì‚¬ìš©
     CREATE TABLE tbl_empcopy
     AS( SELECT * FROM emp );
-    -- Table TBL_EMPCOPYÀÌ(°¡) »ý¼ºµÇ¾ú½À´Ï´Ù.
-    -- emp Å×ÀÌºíÀÇ ±¸Á¶ + 12¸íÀÇ »ç¿ø(µ¥ÀÌÅÍ) ±×´ë·Î º¹»ç -> »õ·Î¿î Å×ÀÌºí »ý¼º
+    -- Table TBL_EMPCOPYì´(ê°€) ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.
+    -- emp í…Œì´ë¸”ì˜ êµ¬ì¡° + 12ëª…ì˜ ì‚¬ì›(ë°ì´í„°) ê·¸ëŒ€ë¡œ ë³µì‚¬ -> ìƒˆë¡œìš´ í…Œì´ë¸” ìƒì„±
     
     DESC tbl_empcopy;
     
     SELECT *
     FROM tbl_empcopy;
     
-8) Á¦¾àÁ¶°ÇÀº º¹»çµÇÁö ¾Ê´Â´Ù. (NOT NULL Á¦¾àÁ¶°ÇÀº ¿¹¿Ü! º¹»çµÈ´Ù)
-    ¤¡. emp Á¦¾àÁ¶°Ç È®ÀÎ
+8) ì œì•½ì¡°ê±´ì€ ë³µì‚¬ë˜ì§€ ì•ŠëŠ”ë‹¤. (NOT NULL ì œì•½ì¡°ê±´ì€ ì˜ˆì™¸! ë³µì‚¬ëœë‹¤)
+    ã„±. emp ì œì•½ì¡°ê±´ í™•ì¸
     SELECT *
-    FROM user_constraints -- Á¦¾àÁ¶°Ç È®ÀÎ
+    FROM user_constraints -- ì œì•½ì¡°ê±´ í™•ì¸
     WHERE table_name = UPPER('emp');
     
     OWNER   CONSTRAINT_NAME   CONSTRAINT_TYPE  
-    ¼ÒÀ¯ÀÚ     Á¦¾àÁ¶°ÇÀÌ¸§      Á¦¾àÁ¶°ÇÅ¸ÀÔ
+    ì†Œìœ ìž     ì œì•½ì¡°ê±´ì´ë¦„      ì œì•½ì¡°ê±´íƒ€ìž…
     SCOTT	PK_EMP	            P           -> PK
     SCOTT	FK_DEPTNO	        R           -> FK
     
-    ¤¤. º¹»çÇÑ tbl_empcopy Á¦¾àÁ¶°Ç È®ÀÎ -- Á¦¾àÁ¶°ÇÀº ¾Æ¹«°Íµµ º¹»ç°¡ µÇÁö ¾È¾ÒÀ½
+    ã„´. ë³µì‚¬í•œ tbl_empcopy ì œì•½ì¡°ê±´ í™•ì¸ -- ì œì•½ì¡°ê±´ì€ ì•„ë¬´ê²ƒë„ ë³µì‚¬ê°€ ë˜ì§€ ì•ˆì•˜ìŒ
     SELECT *
-    FROM user_constraints -- Á¦¾àÁ¶°Ç È®ÀÎ
+    FROM user_constraints -- ì œì•½ì¡°ê±´ í™•ì¸
     WHERE table_name = UPPER('tbl_empcopy');
 
-9) Å×ÀÌºí »èÁ¦
+9) í…Œì´ë¸” ì‚­ì œ
     DROP TABLE tbl_emp10 PURGE;
     DROP TABLE tbl_empcopy PURGE;
     
     COMMIT;
     
-10) ¹®Á¦ - Å×ÀÌºíÀº ±âÁ¸Å×ÀÌºí ¼­ºêÄõ¸®¸¦ »ç¿ëÇØ¼­ »ý¼º + µ¥ÀÌÅÍ´Â Ãß°¡ X
+10) ë¬¸ì œ - í…Œì´ë¸”ì€ ê¸°ì¡´í…Œì´ë¸” ì„œë¸Œì¿¼ë¦¬ë¥¼ ì‚¬ìš©í•´ì„œ ìƒì„± + ë°ì´í„°ëŠ” ì¶”ê°€ X
 
-Ç®ÀÌ1)
-    ¤¡. Å×ÀÌºí º¹»ç
+í’€ì´1)
+    ã„±. í…Œì´ë¸” ë³µì‚¬
     CREATE TABLE tbl_empcopy
     AS (
         SELECT *
         FROM emp
     );
     
-    ¤¤. È®ÀÎ
+    ã„´. í™•ì¸
     SELECT *
     FROM tbl_empcopy;
     
-    ¤§. µ¥ÀÌÅÍ »èÁ¦
-    DELETE FROM tbl_empcopy; -- WHERE Á¶°ÇÀ» ¾ÈÁÖ¸é ±¸Á¶´Â µÎ°í µ¥ÀÌÅÍ¸¸ »èÁ¦ÇÔ
+    ã„·. ë°ì´í„° ì‚­ì œ
+    DELETE FROM tbl_empcopy; -- WHERE ì¡°ê±´ì„ ì•ˆì£¼ë©´ êµ¬ì¡°ëŠ” ë‘ê³  ë°ì´í„°ë§Œ ì‚­ì œí•¨
     
-    ¤©. Ä¿¹Ô
+    ã„¹. ì»¤ë°‹
     COMMIT;
     
-    ¤±. È®ÀÎ
+    ã…. í™•ì¸
     SELECT *
     FROM tbl_empcopy;
 
-Ç®ÀÌ2) *** °ÅÁþ Á¶°ÇÀ» Áà¼­ ±¸Á¶¸¸ º¹»çÇÏ±â
+í’€ì´2) *** ê±°ì§“ ì¡°ê±´ì„ ì¤˜ì„œ êµ¬ì¡°ë§Œ ë³µì‚¬í•˜ê¸°
     CREATE TABLE tbl_empcopy
     AS (
         SELECT *
         FROM emp
-        WHERE 1 = 0 -- °ÅÁþ Á¶°ÇÀ» ÁØ´Ù.
+        WHERE 1 = 0 -- ê±°ì§“ ì¡°ê±´ì„ ì¤€ë‹¤.
     );
     
     SELECT *
     FROM tbl_empcopy;
 
 -------------------------------------------------------------------------------------
-3. [DML »ç¿ëÇÏ±â]
+3. [DML ì‚¬ìš©í•˜ê¸°]
 
-1) tbl_member Å×ÀÌºí ÀÖ´ÂÁö È®ÀÎ
+1) tbl_member í…Œì´ë¸” ìžˆëŠ”ì§€ í™•ì¸
     SELECT *
     FROM user_tables
     WHERE REGEXP_LIKE (table_name, 'member', 'i');
     
-2) tbl_member »èÁ¦ ¹× È®ÀÎ
+2) tbl_member ì‚­ì œ ë° í™•ì¸
     DROP TABLE tbl_member;
     COMMIT;
     
-3) Å×ÀÌºí »ý¼º
-rrn ÁÖ¹Îµî·Ï¹øÈ£¸¦ ÄÃ·³(¼Ó¼º)À¸·Î Ãß°¡ÇÏ¸é ³ªÀÌ, »ýÀÏ, ¼ºº°À» ÃßÃâÇÒ ¼ö ÀÖÀ½ -> ³ªÀÌ, »ýÀÏ, ¼ºº°Àº ÃßÃâ ¼Ó¼ºÀÌ¶ó°í ÇÑ´Ù.
-±×·¡¼­ ¾Æ·¡¿Í °°ÀÌ ÄÃ·³À» ³Ö´Â°Ô ¾Æ´Ï¶ó rrnÀ¸·Î ³Ö´Â °ÍÀÌ ÁÁ´Ù! ¸ðµ¨¸µ ¹è¿ï ¶§ ´Ù½Ã ¼³¸í~
+3) í…Œì´ë¸” ìƒì„±
+rrn ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ë¥¼ ì»¬ëŸ¼(ì†ì„±)ìœ¼ë¡œ ì¶”ê°€í•˜ë©´ ë‚˜ì´, ìƒì¼, ì„±ë³„ì„ ì¶”ì¶œí•  ìˆ˜ ìžˆìŒ -> ë‚˜ì´, ìƒì¼, ì„±ë³„ì€ ì¶”ì¶œ ì†ì„±ì´ë¼ê³  í•œë‹¤.
+ê·¸ëž˜ì„œ ì•„ëž˜ì™€ ê°™ì´ ì»¬ëŸ¼ì„ ë„£ëŠ”ê²Œ ì•„ë‹ˆë¼ rrnìœ¼ë¡œ ë„£ëŠ” ê²ƒì´ ì¢‹ë‹¤! ëª¨ë¸ë§ ë°°ìš¸ ë•Œ ë‹¤ì‹œ ì„¤ëª…~
     
-    -- PRIMARY KEY¸¦ È¸¼öÇØ¼­ ´Ù¸¥ ÄÃ·³À¸·Î ¹Ù²ã¹ö¸®¸é NOT NULL Á¦¾àÁ¶°ÇÀ» ¾ÈÁÖ¸é »ç¶óÁö±â ¶§¹®¿¡ NOT NULLÀ» ³Ö¾îÁÖ´Â°Ô ÁÁÀ½
+    -- PRIMARY KEYë¥¼ íšŒìˆ˜í•´ì„œ ë‹¤ë¥¸ ì»¬ëŸ¼ìœ¼ë¡œ ë°”ê¿”ë²„ë¦¬ë©´ NOT NULL ì œì•½ì¡°ê±´ì„ ì•ˆì£¼ë©´ ì‚¬ë¼ì§€ê¸° ë•Œë¬¸ì— NOT NULLì„ ë„£ì–´ì£¼ëŠ”ê²Œ ì¢‹ìŒ
     CREATE TABLE tbl_member(
-        id VARCHAR2(10) NOT NULL CONSTRAINTS PK_TBLMEMBER_ID PRIMARY KEY -- È¸¿øID / °íÀ¯Å°(PK) == UK(À¯ÀÏ¼º) + NN(NOT NULL) Æ÷ÇÔ
-        , name VARCHAR2(20) NOT NULL-- È¸¿øÀÌ¸§
-        , age NUMBER(3) -- È¸¿ø³ªÀÌ
-        , birth DATE -- È¸¿ø»ýÀÏ
-        , regdate DATE DEFAULT SYSDATE -- È¸¿ø°¡ÀÔÀÏ
-        , point NUMBER DEFAULT 100 -- È¸¿øÆ÷ÀÎÆ®        
+        id VARCHAR2(10) NOT NULL CONSTRAINTS PK_TBLMEMBER_ID PRIMARY KEY -- íšŒì›ID / ê³ ìœ í‚¤(PK) == UK(ìœ ì¼ì„±) + NN(NOT NULL) í¬í•¨
+        , name VARCHAR2(20) NOT NULL-- íšŒì›ì´ë¦„
+        , age NUMBER(3) -- íšŒì›ë‚˜ì´
+        , birth DATE -- íšŒì›ìƒì¼
+        , regdate DATE DEFAULT SYSDATE -- íšŒì›ê°€ìž…ì¼
+        , point NUMBER DEFAULT 100 -- íšŒì›í¬ì¸íŠ¸        
     );
-    -- Table TBL_MEMBERÀÌ(°¡) »ý¼ºµÇ¾ú½À´Ï´Ù.
+    -- Table TBL_MEMBERì´(ê°€) ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.
     
-4) Á¦¾àÁ¶°Ç È®ÀÎ
+4) ì œì•½ì¡°ê±´ í™•ì¸
     SELECT *
     FROM user_constraints
     WHERE table_name = UPPER('tbl_member');
-    Á¦¾àÁ¶°Ç      Å¸ÀÔ
+    ì œì•½ì¡°ê±´      íƒ€ìž…
     PK           P
     NN           C
     FK           R
-    -- Á¦¾àÁ¶°Ç ¸íÀ» ÁöÁ¤ÇÏÁö ¾ÊÀ¸¸é ÀÚµ¿À¸·Î SYS_~~~ ¼³Á¤
+    -- ì œì•½ì¡°ê±´ ëª…ì„ ì§€ì •í•˜ì§€ ì•Šìœ¼ë©´ ìžë™ìœ¼ë¡œ SYS_~~~ ì„¤ì •
     -- ex) SYS_C007078
 
-5) ¸â¹ö Ãß°¡
+5) ë©¤ë²„ ì¶”ê°€
 INSERT INTO tbl_member (id, name, age, birth, regdate, point)
-            VALUES('admin', '°ü¸®ÀÚ', 32, TO_DATE('03/04/1991', 'MM/DD/YYYY'), SYSDATE, 100);
+            VALUES('admin', 'ê´€ë¦¬ìž', 32, TO_DATE('03/04/1991', 'MM/DD/YYYY'), SYSDATE, 100);
 -- ORA-01830: date format picture ends before converting entire input string
--- ³¯Â¥ Çü½Ä ¾È¸Â¾Æ¼­ ¹ß»ý.. TO_DATE·Î ³¯Â¥ Çü½Ä ¹Ù²ãÁÖ±â
+-- ë‚ ì§œ í˜•ì‹ ì•ˆë§žì•„ì„œ ë°œìƒ.. TO_DATEë¡œ ë‚ ì§œ í˜•ì‹ ë°”ê¿”ì£¼ê¸°
 
 INSERT INTO tbl_member (id, name, age, birth, regdate, point)
-            VALUES('admin', 'È«±æµ¿', 22, '2001.01.01', SYSDATE, 100);
+            VALUES('admin', 'í™ê¸¸ë™', 22, '2001.01.01', SYSDATE, 100);
 -- ORA-00001: unique constraint (SCOTT.PK_TBLMEMBER_ID) violated
--- PK Á¦¾àÁ¶°ÇÀ» ÁÖ¸é UK(À¯ÀÏ¼º) + NN(NOT NULL) Æ÷ÇÔ
+-- PK ì œì•½ì¡°ê±´ì„ ì£¼ë©´ UK(ìœ ì¼ì„±) + NN(NOT NULL) í¬í•¨
 
-INSERT INTO tbl_member -- (id, name, age, birth, regdate, point) -> ¼ø¼­´ë·Î ÀÔ·ÂÇÒ °ÍÀÌ¶ó ÄÃ·³¸í »ý·« °¡´É
-            VALUES('hong', 'È«±æµ¿', 22, '2001.01.01', SYSDATE, 100);
+INSERT INTO tbl_member -- (id, name, age, birth, regdate, point) -> ìˆœì„œëŒ€ë¡œ ìž…ë ¥í•  ê²ƒì´ë¼ ì»¬ëŸ¼ëª… ìƒëžµ ê°€ëŠ¥
+            VALUES('hong', 'í™ê¸¸ë™', 22, '2001.01.01', SYSDATE, 100);
 
-INSERT INTO tbl_member VALUES('park', '¹ÚÁö¼º', 25, '1998.5.9');
--- SQL ¿À·ù: ORA-00947: not enough values
--- VALUES °ªÀÌ ÃæºÐÇÏÁö ¾ÊÀ½ -> ÄÃ·³¸íÀ» ³Ö¾îÁà¾ß °¡´É
+INSERT INTO tbl_member VALUES('park', 'ë°•ì§€ì„±', 25, '1998.5.9');
+-- SQL ì˜¤ë¥˜: ORA-00947: not enough values
+-- VALUES ê°’ì´ ì¶©ë¶„í•˜ì§€ ì•ŠìŒ -> ì»¬ëŸ¼ëª…ì„ ë„£ì–´ì¤˜ì•¼ ê°€ëŠ¥
 
-INSERT INTO tbl_member (id, name, age, birth) VALUES('park', '¹ÚÁö¼º', 25, '1998.5.9');
+INSERT INTO tbl_member (id, name, age, birth) VALUES('park', 'ë°•ì§€ì„±', 25, '1998.5.9');
 
-INSERT INTO tbl_member (name, birth, id, age) VALUES('¾ß¸®´Ï', null, 'yaliny', 25);
--- ÄÃ·³¸íÀº ²À ¼ø¼­´ë·Î ÁÖÁö ¾Ê¾Æµµ µÈ´Ù. ÀÔ·ÂÇÏ´Â °ª°ú ¼ø¼­°¡ µ¿ÀÏÇÏ¸é µÊ
--- NULLÀ» Çã¿ëÇÏ´Â ÄÃ·³Àº NULL·Î µ¥ÀÌÅÍ¸¦ ÁÖ¾îµµ µÈ´Ù.
+INSERT INTO tbl_member (name, birth, id, age) VALUES('ì•¼ë¦¬ë‹ˆ', null, 'yaliny', 25);
+-- ì»¬ëŸ¼ëª…ì€ ê¼­ ìˆœì„œëŒ€ë¡œ ì£¼ì§€ ì•Šì•„ë„ ëœë‹¤. ìž…ë ¥í•˜ëŠ” ê°’ê³¼ ìˆœì„œê°€ ë™ì¼í•˜ë©´ ë¨
+-- NULLì„ í—ˆìš©í•˜ëŠ” ì»¬ëŸ¼ì€ NULLë¡œ ë°ì´í„°ë¥¼ ì£¼ì–´ë„ ëœë‹¤.
 
 COMMIT; 
 
@@ -448,64 +447,64 @@ SELECT *
 FROM tbl_member;
 
 -----------
-4. [¼­ºêÄõ¸®¸¦ »ç¿ëÇØ¼­ INSERT ÇÒ ¼ö ÀÖ´Ù.]
-[Çü½Ä]
-    INSERT INTO Å×ÀÌºí¸í (¼­ºêÄõ¸®);
+4. [ì„œë¸Œì¿¼ë¦¬ë¥¼ ì‚¬ìš©í•´ì„œ INSERT í•  ìˆ˜ ìžˆë‹¤.]
+[í˜•ì‹]
+    INSERT INTO í…Œì´ë¸”ëª… (ì„œë¸Œì¿¼ë¦¬);
 
-¿¹Á¦)
-1) tbl_emp10 Å×ÀÌºí À¯¹« È®ÀÎÈÄ ÀÖ´Ù¸é Å×ÀÌºí »èÁ¦
-2) emp Å×ÀÌºíÀ» ±¸Á¶ º¹»ç, µ¥ÀÌÅÍ º¹»ç X -> tbl_emp10 Å×ÀÌºí »ý¼º 
+ì˜ˆì œ)
+1) tbl_emp10 í…Œì´ë¸” ìœ ë¬´ í™•ì¸í›„ ìžˆë‹¤ë©´ í…Œì´ë¸” ì‚­ì œ
+2) emp í…Œì´ë¸”ì„ êµ¬ì¡° ë³µì‚¬, ë°ì´í„° ë³µì‚¬ X -> tbl_emp10 í…Œì´ë¸” ìƒì„± 
 
-    CREATE TABLE tbl_emp10 -- ÄÃ·³¸í...
+    CREATE TABLE tbl_emp10 -- ì»¬ëŸ¼ëª…...
     AS(
         SELECT *
         FROM emp
         WHERE 1 = 0
     );
--- Table TBL_EMP10ÀÌ(°¡) »ý¼ºµÇ¾ú½À´Ï´Ù.
+-- Table TBL_EMP10ì´(ê°€) ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.
 
     SELECT *
     FROM tbl_emp10;
 
-3) emp Å×ÀÌºíÀÇ 10¹øºÎ¼­¿øµéÀ» SELECTÇØ¼­ tbl_emp10 Å×ÀÌºí¿¡ Ãß°¡
+3) emp í…Œì´ë¸”ì˜ 10ë²ˆë¶€ì„œì›ë“¤ì„ SELECTí•´ì„œ tbl_emp10 í…Œì´ë¸”ì— ì¶”ê°€
     INSERT INTO tbl_emp10(SELECT * FROM emp WHERE deptno = 10);
-    -- 3°³ Çà ÀÌ(°¡) »ðÀÔµÇ¾ú½À´Ï´Ù.
+    -- 3ê°œ í–‰ ì´(ê°€) ì‚½ìž…ë˜ì—ˆìŠµë‹ˆë‹¤.
     COMMIT;
     
     DROP TABLE tbl_emp10 PURGE;
 
 --------------------
-5. [MULTITABLE INSERT ¹®]
-- ÇÏ³ªÀÇ insert ¹®À¸·Î ¿©·¯ °³ÀÇ Å×ÀÌºí¿¡ µ¿½Ã¿¡ ÇÏ³ªÀÇ ÇàÀ» ÀÔ·ÂÇÏ´Â °ÍÀÌ´Ù.
-- 4°¡Áö Á¾·ù
-- conditional / unconditional : Á¶°ÇÀÇ À¯¹«
-- all / first : ÀüºÎ / Ã¹¹øÂ°ÇÑÅ×¸¸
-- pivoting : ÇÇ¹þ
-    ¤¡. unconditional insert all
-    ¤¤. conditional insert all
-    ¤§. conditional first insert
-    ¤©. pivoting insert 
+5. [MULTITABLE INSERT ë¬¸]
+- í•˜ë‚˜ì˜ insert ë¬¸ìœ¼ë¡œ ì—¬ëŸ¬ ê°œì˜ í…Œì´ë¸”ì— ë™ì‹œì— í•˜ë‚˜ì˜ í–‰ì„ ìž…ë ¥í•˜ëŠ” ê²ƒì´ë‹¤.
+- 4ê°€ì§€ ì¢…ë¥˜
+- conditional / unconditional : ì¡°ê±´ì˜ ìœ ë¬´
+- all / first : ì „ë¶€ / ì²«ë²ˆì§¸í•œí…Œë§Œ
+- pivoting : í”¼ë²—
+    ã„±. unconditional insert all
+    ã„´. conditional insert all
+    ã„·. conditional first insert
+    ã„¹. pivoting insert 
 
-1) ¤¡. unconditional insert all
-- Á¶°Ç°ú »ó°ü¾øÀÌ ¿©·¯ °³ÀÇ Å×ÀÌºí¿¡ µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÑ´Ù.
-? ¼­ºêÄõ¸®·ÎºÎÅÍ ÇÑ¹ø¿¡ ÇÏ³ªÀÇ ÇàÀ» ¹ÝÈ¯¹Þ¾Æ °¢°¢ insert ÀýÀ» ¼öÇàÇÑ´Ù.
-? into Àý°ú values Àý¿¡ ±â¼úÇÑ ÄÃ·³ÀÇ °³¼ö¿Í µ¥ÀÌÅÍ Å¸ÀÔÀº µ¿ÀÏÇØ¾ß ÇÑ´Ù.
+1) ã„±. unconditional insert all
+- ì¡°ê±´ê³¼ ìƒê´€ì—†ì´ ì—¬ëŸ¬ ê°œì˜ í…Œì´ë¸”ì— ë°ì´í„°ë¥¼ ìž…ë ¥í•œë‹¤.
+? ì„œë¸Œì¿¼ë¦¬ë¡œë¶€í„° í•œë²ˆì— í•˜ë‚˜ì˜ í–‰ì„ ë°˜í™˜ë°›ì•„ ê°ê° insert ì ˆì„ ìˆ˜í–‰í•œë‹¤.
+? into ì ˆê³¼ values ì ˆì— ê¸°ìˆ í•œ ì»¬ëŸ¼ì˜ ê°œìˆ˜ì™€ ë°ì´í„° íƒ€ìž…ì€ ë™ì¼í•´ì•¼ í•œë‹¤.
 
-¡¼Çü½Ä¡½
+ã€í˜•ì‹ã€‘
 	INSERT ALL | FIRST
-	  [INTO Å×ÀÌºí1 VALUES (ÄÃ·³1,ÄÃ·³2,...)]
-	  [INTO Å×ÀÌºí2 VALUES (ÄÃ·³1,ÄÃ·³2,...)]
+	  [INTO í…Œì´ë¸”1 VALUES (ì»¬ëŸ¼1,ì»¬ëŸ¼2,...)]
+	  [INTO í…Œì´ë¸”2 VALUES (ì»¬ëŸ¼1,ì»¬ëŸ¼2,...)]
 	  .......
-	¼­ºêÄõ¸®;
+	ì„œë¸Œì¿¼ë¦¬;
 
 ---
-    <»ý¼º>
+    <ìƒì„±>
     CREATE TABLE dept_10 AS SELECT * FROM dept WHERE 1=0;
     CREATE TABLE dept_20 AS SELECT * FROM dept WHERE 1=0;
     CREATE TABLE dept_30 AS SELECT * FROM dept WHERE 1=0;
     CREATE TABLE dept_40 AS SELECT * FROM dept WHERE 1=0;
     
-    <È®ÀÎ>
+    <í™•ì¸>
     SELECT * FROM dept_10;
     SELECT * FROM dept_20;
     SELECT * FROM dept_30;
@@ -518,7 +517,7 @@ FROM tbl_member;
             INTO dept_40 VALUES(deptno, dname, loc)
     SELECT deptno, dname, loc
     FROM dept; 
-    -- 16°³ Çà ÀÌ(°¡) »ðÀÔµÇ¾ú½À´Ï´Ù.
+    -- 16ê°œ í–‰ ì´(ê°€) ì‚½ìž…ë˜ì—ˆìŠµë‹ˆë‹¤.
         
     ROLLBACK;
 
@@ -528,41 +527,41 @@ DROP TABLE dept_30;
 DROP TABLE dept_40;
 COMMIT;
 ---------------
-2) ¤¤. conditional insert all
-Æ¯Á¤ Á¶°ÇµéÀ» ±â¼úÇÏ¿© ±× Á¶°Ç¿¡ ¸Â´Â ÇàµéÀ» ¿øÇÏ´Â Å×ÀÌºí¿¡ ³ª´©¾î »ðÀÔÇÑ´Ù.
-¼­ºêÄõ¸®·ÎºÎÅÍ ÇÑ¹ø¿¡ ÇÏ³ªÀÇ ÇàÀ» ¹ÝÈ¯¹Þ¾Æ when ... then Àý¿¡¼­ Á¶°ÇÀ» Ã¼Å©ÇÑ ÈÄ
-Á¶°Ç¿¡ ¸Â´Â Àý¿¡ ±â¼úµÈ Å×ÀÌºí¿¡ insert ÀýÀ» ¼öÇàÇÑ´Ù.
+2) ã„´. conditional insert all
+íŠ¹ì • ì¡°ê±´ë“¤ì„ ê¸°ìˆ í•˜ì—¬ ê·¸ ì¡°ê±´ì— ë§žëŠ” í–‰ë“¤ì„ ì›í•˜ëŠ” í…Œì´ë¸”ì— ë‚˜ëˆ„ì–´ ì‚½ìž…í•œë‹¤.
+ì„œë¸Œì¿¼ë¦¬ë¡œë¶€í„° í•œë²ˆì— í•˜ë‚˜ì˜ í–‰ì„ ë°˜í™˜ë°›ì•„ when ... then ì ˆì—ì„œ ì¡°ê±´ì„ ì²´í¬í•œ í›„
+ì¡°ê±´ì— ë§žëŠ” ì ˆì— ê¸°ìˆ ëœ í…Œì´ë¸”ì— insert ì ˆì„ ìˆ˜í–‰í•œë‹¤.
 
-¡¼Çü½Ä¡½
+ã€í˜•ì‹ã€‘
 	INSERT ALL
-	WHEN Á¶°ÇÀý1 THEN
-	  INTO [Å×ÀÌºí1] VALUES (ÄÃ·³1,ÄÃ·³2,...)
-	WHEN Á¶°ÇÀý2 THEN
-	  INTO [Å×ÀÌºí2] VALUES (ÄÃ·³1,ÄÃ·³2,...)
+	WHEN ì¡°ê±´ì ˆ1 THEN
+	  INTO [í…Œì´ë¸”1] VALUES (ì»¬ëŸ¼1,ì»¬ëŸ¼2,...)
+	WHEN ì¡°ê±´ì ˆ2 THEN
+	  INTO [í…Œì´ë¸”2] VALUES (ì»¬ëŸ¼1,ì»¬ëŸ¼2,...)
 	........
 	ELSE
-	  INTO [Å×ÀÌºí3] VALUES (ÄÃ·³1,ÄÃ·³2,...)
+	  INTO [í…Œì´ë¸”3] VALUES (ì»¬ëŸ¼1,ì»¬ëŸ¼2,...)
 	Subquery;
     
-? subquery·ÎºÎÅÍ ÇÑ¹ø¿¡ ÇÏ³ª¾¿ ÇàÀ» ¸®ÅÏ¹Þ¾Æ WHEN...THENÀý¿¡¼­ Ã¼Å©ÇÑ ÈÄ,
-    Á¶°Ç¿¡ ¸Â´Â Àý¿¡ ±â¼úµÈ Å×ÀÌºí¿¡ insert ÀýÀ» ¼öÇàÇÑ´Ù.
-? VALUES Àý¿¡ ÁöÁ¤ÇÑ DEFAULT °ªÀ» »ç¿ëÇÒ ¼ö ÀÖ´Ù. ¸¸¾à default°ªÀÌ ÁöÁ¤µÇ¾î ÀÖÁö ¾Ê´Ù¸é, NULL °ªÀÌ »ðÀÔµÈ´Ù.
+? subqueryë¡œë¶€í„° í•œë²ˆì— í•˜ë‚˜ì”© í–‰ì„ ë¦¬í„´ë°›ì•„ WHEN...THENì ˆì—ì„œ ì²´í¬í•œ í›„,
+    ì¡°ê±´ì— ë§žëŠ” ì ˆì— ê¸°ìˆ ëœ í…Œì´ë¸”ì— insert ì ˆì„ ìˆ˜í–‰í•œë‹¤.
+? VALUES ì ˆì— ì§€ì •í•œ DEFAULT ê°’ì„ ì‚¬ìš©í•  ìˆ˜ ìžˆë‹¤. ë§Œì•½ defaultê°’ì´ ì§€ì •ë˜ì–´ ìžˆì§€ ì•Šë‹¤ë©´, NULL ê°’ì´ ì‚½ìž…ëœë‹¤.
 
-¹®Á¦) emp_10, emp_20, emp_30, emp_40 Å×ÀÌºí »ý¼º
-    emp »ç¿øÅ×ÀÌºí -> 10 ºÎ¼­¿ø -> 10_emp INSERT
-    emp »ç¿øÅ×ÀÌºí -> 20 ºÎ¼­¿ø -> 20_emp INSERT
-    emp »ç¿øÅ×ÀÌºí -> 30 ºÎ¼­¿ø -> 30_emp INSERT
-    emp »ç¿øÅ×ÀÌºí -> 40 ºÎ¼­¿ø -> 40_emp INSERT
+ë¬¸ì œ) emp_10, emp_20, emp_30, emp_40 í…Œì´ë¸” ìƒì„±
+    emp ì‚¬ì›í…Œì´ë¸” -> 10 ë¶€ì„œì› -> 10_emp INSERT
+    emp ì‚¬ì›í…Œì´ë¸” -> 20 ë¶€ì„œì› -> 20_emp INSERT
+    emp ì‚¬ì›í…Œì´ë¸” -> 30 ë¶€ì„œì› -> 30_emp INSERT
+    emp ì‚¬ì›í…Œì´ë¸” -> 40 ë¶€ì„œì› -> 40_emp INSERT
     
-À§ÀÇ ÀÛ¾÷À» ÇÑ ¹ø¿¡ ´Ù Ã³¸®ÇÏ°Ú´Ù.
+ìœ„ì˜ ìž‘ì—…ì„ í•œ ë²ˆì— ë‹¤ ì²˜ë¦¬í•˜ê² ë‹¤.
 
-    1) emp Å×ÀÌºíÀÇ ±¸Á¶¸¸ º¹»çÇØ¼­ Å×ÀÌºí 4°³ »ý¼º
+    1) emp í…Œì´ë¸”ì˜ êµ¬ì¡°ë§Œ ë³µì‚¬í•´ì„œ í…Œì´ë¸” 4ê°œ ìƒì„±
     CREATE TABLE emp_10 AS SELECT * FROM emp WHERE 1=0;
     CREATE TABLE emp_20 AS SELECT * FROM emp WHERE 1=0;
     CREATE TABLE emp_30 AS SELECT * FROM emp WHERE 1=0;
     CREATE TABLE emp_40 AS SELECT * FROM emp WHERE 1=0;
 
-    2) conditional insert all »ç¿ëÇÏ¿© µ¥ÀÌÅÍ Ãß°¡ÇÏ±â
+    2) conditional insert all ì‚¬ìš©í•˜ì—¬ ë°ì´í„° ì¶”ê°€í•˜ê¸°
     INSERT ALL
      WHEN deptno = 10 THEN
         INTO emp_10 VALUES(empno, ename, job, mgr, hiredate, sal, comm, deptno)
@@ -574,54 +573,54 @@ COMMIT;
         INTO emp_40 VALUES(empno, ename, job, mgr, hiredate, sal, comm, deptno)
     SELECT * FROM emp;
     
-    3) È®ÀÎ
+    3) í™•ì¸
     SELECT * FROM emp_10;
     SELECT * FROM emp_20;
     SELECT * FROM emp_30;
     SELECT * FROM emp_40;    
 
-    3) ·¹ÄÚµå »èÁ¦
-+ ·¹ÄÚµå »èÁ¦ ¹æ¹ý 2°¡Áö(DMLÀÇ DELETE¿Í TRUNCATE)
--- emp_10 ·¹ÄÚµå ¸ðµÎ »èÁ¦
-    DELETE FROM emp_10; -- WHERE Á¶°ÇÀÌ ¾øÀ¸¸é ±× ¾È¿¡ µ¥ÀÌÅÍ¸¦ ¸ðµÎ »èÁ¦
+    3) ë ˆì½”ë“œ ì‚­ì œ
++ ë ˆì½”ë“œ ì‚­ì œ ë°©ë²• 2ê°€ì§€(DMLì˜ DELETEì™€ TRUNCATE)
+-- emp_10 ë ˆì½”ë“œ ëª¨ë‘ ì‚­ì œ
+    DELETE FROM emp_10; -- WHERE ì¡°ê±´ì´ ì—†ìœ¼ë©´ ê·¸ ì•ˆì— ë°ì´í„°ë¥¼ ëª¨ë‘ ì‚­ì œ
     ROLLBACK;
     
-    TRUNCATE TABLE emp_10; -- ¸ðµç ·¹ÄÚµå »èÁ¦ + ÀÚµ¿ COMMIT / ´Ü, ·Ñ¹é ÇÒ ¼ö ¾øÀ½
+    TRUNCATE TABLE emp_10; -- ëª¨ë“  ë ˆì½”ë“œ ì‚­ì œ + ìžë™ COMMIT / ë‹¨, ë¡¤ë°± í•  ìˆ˜ ì—†ìŒ
     TRUNCATE TABLE emp_20;
     TRUNCATE TABLE emp_30;
     TRUNCATE TABLE emp_40;
     
 -------------
-3) ¤§. conditional first insert 
-Æ¯Á¤ Á¶°ÇµéÀ» ±â¼úÇÏ¿© ±× Á¶°Ç¿¡ ¸Â´Â Çà(row)µéÀ» ¿øÇÏ´Â Å×ÀÌºí¿¡ ³ª´©¾î »ðÀÔÇÏ°íÀÚ ÇÒ ¶§ »ç¿ëÇÏÁö¸¸,
-conditional insert all ¹®°ú ´Þ¸® Ã¹ ¹øÂ° when Àý¿¡¼­ Á¶°ÇÀ» ¸¸Á·ÇÒ °æ¿ì ´ÙÀ½ÀÇ when ÀýÀº ¼öÇàÇÏÁö ¾Ê´Â´Ù.
+3) ã„·. conditional first insert 
+íŠ¹ì • ì¡°ê±´ë“¤ì„ ê¸°ìˆ í•˜ì—¬ ê·¸ ì¡°ê±´ì— ë§žëŠ” í–‰(row)ë“¤ì„ ì›í•˜ëŠ” í…Œì´ë¸”ì— ë‚˜ëˆ„ì–´ ì‚½ìž…í•˜ê³ ìž í•  ë•Œ ì‚¬ìš©í•˜ì§€ë§Œ,
+conditional insert all ë¬¸ê³¼ ë‹¬ë¦¬ ì²« ë²ˆì§¸ when ì ˆì—ì„œ ì¡°ê±´ì„ ë§Œì¡±í•  ê²½ìš° ë‹¤ìŒì˜ when ì ˆì€ ìˆ˜í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
-¼­ºêÄõ¸®·ÎºÎÅÍ ÇÑ¹ø¿¡ ÇÏ³ªÀÇ ÇàÀ» ¹ÝÈ¯¹Þ¾Æ when ... then Àý¿¡¼­ Á¶°ÇÀ» Ã¼Å©ÇÑ ÈÄ
-Á¶°Ç¿¡ ¸Â´Â Àý¿¡ ±â¼úµÈ Å×ÀÌºí¿¡ insert ÀýÀ» ¼öÇàÇÑ´Ù.
+ì„œë¸Œì¿¼ë¦¬ë¡œë¶€í„° í•œë²ˆì— í•˜ë‚˜ì˜ í–‰ì„ ë°˜í™˜ë°›ì•„ when ... then ì ˆì—ì„œ ì¡°ê±´ì„ ì²´í¬í•œ í›„
+ì¡°ê±´ì— ë§žëŠ” ì ˆì— ê¸°ìˆ ëœ í…Œì´ë¸”ì— insert ì ˆì„ ìˆ˜í–‰í•œë‹¤.
 
-¿©·¯ °³ÀÇ when ... then ÀýÀ» »ç¿ëÇÏ¿© ¿©·¯ Á¶°ÇÀ» »ç¿ëÇÒ ¼ö ÀÖ´Ù.
-´Ü, Ã¹ ¹øÂ° when Àý¿¡¼­ Á¶°ÇÀ» ¸¸Á·ÇÏ¸é into ÀýÀ» ¼öÇàÇÑ ÈÄ ´ÙÀ½ÀÇ when ÀýÀº ¼öÇàÇÏÁö ¾Ê´Â´Ù. 
+ì—¬ëŸ¬ ê°œì˜ when ... then ì ˆì„ ì‚¬ìš©í•˜ì—¬ ì—¬ëŸ¬ ì¡°ê±´ì„ ì‚¬ìš©í•  ìˆ˜ ìžˆë‹¤.
+ë‹¨, ì²« ë²ˆì§¸ when ì ˆì—ì„œ ì¡°ê±´ì„ ë§Œì¡±í•˜ë©´ into ì ˆì„ ìˆ˜í–‰í•œ í›„ ë‹¤ìŒì˜ when ì ˆì€ ìˆ˜í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤. 
 
-¡¼Çü½Ä¡½
+ã€í˜•ì‹ã€‘
     INSERT FIRST
-    WHEN Á¶°ÇÀý1 THEN
-      INTO [Å×ÀÌºí1] VALUES (ÄÃ·³1,ÄÃ·³2,...)
-    WHEN Á¶°ÇÀý2 THEN
-      INTO [Å×ÀÌºí2] VALUES (ÄÃ·³1,ÄÃ·³2,...)
+    WHEN ì¡°ê±´ì ˆ1 THEN
+      INTO [í…Œì´ë¸”1] VALUES (ì»¬ëŸ¼1,ì»¬ëŸ¼2,...)
+    WHEN ì¡°ê±´ì ˆ2 THEN
+      INTO [í…Œì´ë¸”2] VALUES (ì»¬ëŸ¼1,ì»¬ëŸ¼2,...)
     ........
     ELSE
-      INTO [Å×ÀÌºí3] VALUES (ÄÃ·³1,ÄÃ·³2,...)
+      INTO [í…Œì´ë¸”3] VALUES (ì»¬ëŸ¼1,ì»¬ëŸ¼2,...)
     Subquery;
 
-? conditional INSERT FIRST´Â Á¶°ÇÀýÀ» ±â¼úÇÏ¿© Á¶°Ç¿¡ ¸Â´Â °ªµéÀ» ¿øÇÏ´Â Å×ÀÌºí¿¡ »ðÀÔÇÒ ¼ö ÀÖ´Ù.
-? ¿©·¯ °³ÀÇ WHEN...THENÀýÀ» »ç¿ëÇÏ¿© ¿©·¯ Á¶°Ç »ç¿ëÀÌ °¡´ÉÇÏ´Ù. ´Ü, Ã¹ ¹øÂ° WHEN Àý¿¡¼­ Á¶°ÇÀ» ¸¸Á·ÇÑ´Ù¸é, INTO ÀýÀ» ¼öÇàÇÑ ÈÄ ´ÙÀ½ÀÇ WHEN ÀýµéÀº ´õ ÀÌ»ó ¼öÇàÇÏÁö ¾Ê´Â´Ù.
-? subquery·ÎºÎÅÍ ÇÑ ¹ø¿¡ ÇÏ³ª¾¿ ÇàÀ» ¸®ÅÏ ¹Þ¾Æ when...thenÀý¿¡¼­ Á¶°ÇÀ» Ã¼Å©ÇÑ ÈÄ Á¶°Ç¿¡ ¸Â´Â Àý¿¡ ±â¼úµÈ Å×ÀÌºí¿¡ insert¸¦ ¼öÇàÇÑ´Ù.
-? Á¶°ÇÀ» ±â¼úÇÑ when ÀýµéÀ» ¸¸Á·ÇÏ´Â ÇàÀÌ ¾øÀ» °æ¿ì elseÀýÀ» »ç¿ëÇÏ¿© into ÀýÀ» ¼öÇàÇÒ ¼ö ÀÖ´Ù. elseÀýÀÌ ¾øÀ» °æ¿ì ¸®ÅÏµÈ ±×Çà¿¡ ´ëÇØ¼­´Â ¾Æ¹«·± ÀÛ¾÷µµ ¹ß»ýÇÏÁö ¾Ê´Â´Ù.
+? conditional INSERT FIRSTëŠ” ì¡°ê±´ì ˆì„ ê¸°ìˆ í•˜ì—¬ ì¡°ê±´ì— ë§žëŠ” ê°’ë“¤ì„ ì›í•˜ëŠ” í…Œì´ë¸”ì— ì‚½ìž…í•  ìˆ˜ ìžˆë‹¤.
+? ì—¬ëŸ¬ ê°œì˜ WHEN...THENì ˆì„ ì‚¬ìš©í•˜ì—¬ ì—¬ëŸ¬ ì¡°ê±´ ì‚¬ìš©ì´ ê°€ëŠ¥í•˜ë‹¤. ë‹¨, ì²« ë²ˆì§¸ WHEN ì ˆì—ì„œ ì¡°ê±´ì„ ë§Œì¡±í•œë‹¤ë©´, INTO ì ˆì„ ìˆ˜í–‰í•œ í›„ ë‹¤ìŒì˜ WHEN ì ˆë“¤ì€ ë” ì´ìƒ ìˆ˜í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
+? subqueryë¡œë¶€í„° í•œ ë²ˆì— í•˜ë‚˜ì”© í–‰ì„ ë¦¬í„´ ë°›ì•„ when...thenì ˆì—ì„œ ì¡°ê±´ì„ ì²´í¬í•œ í›„ ì¡°ê±´ì— ë§žëŠ” ì ˆì— ê¸°ìˆ ëœ í…Œì´ë¸”ì— insertë¥¼ ìˆ˜í–‰í•œë‹¤.
+? ì¡°ê±´ì„ ê¸°ìˆ í•œ when ì ˆë“¤ì„ ë§Œì¡±í•˜ëŠ” í–‰ì´ ì—†ì„ ê²½ìš° elseì ˆì„ ì‚¬ìš©í•˜ì—¬ into ì ˆì„ ìˆ˜í–‰í•  ìˆ˜ ìžˆë‹¤. elseì ˆì´ ì—†ì„ ê²½ìš° ë¦¬í„´ëœ ê·¸í–‰ì— ëŒ€í•´ì„œëŠ” ì•„ë¬´ëŸ° ìž‘ì—…ë„ ë°œìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
 
 SELECT *
 FROM emp
 WHERE deptno = 10;
-<°á°ú>
+<ê²°ê³¼>
 7782	CLARK	MANAGER	7839	81/06/09	2450		10
 7839	KING	PRESIDENT		81/11/17	5000		10
 [7934	MILLER	CLERK	7782	82/01/23	1300		10]
@@ -629,17 +628,17 @@ WHERE deptno = 10;
 SELECT *
 FROM emp
 WHERE job = 'CLERK';
-<°á°ú>
+<ê²°ê³¼>
 7369	SMITH	CLERK	7902	80/12/17	800		20
 7900	JAMES	CLERK	7698	81/12/03	950		30
 [7934	MILLER	CLERK	7782	82/01/23	1300	10]
 
--- MILLER´Â ºÎ¼­ 10 AND job CLERK
+-- MILLERëŠ” ë¶€ì„œ 10 AND job CLERK
 
-WHEN Á¶°ÇÀý ¸¸Á·ÇÏ¸é THENÀ» ½ÇÇà½ÃÅ°°í ¾Æ·¡¿¡ ÀÖ´Â Äõ¸®´Â ½ÇÇà X
-MILLER´Â ºÎ¼­¹øÈ£¿Í job Á¶°ÇÀÌ ¸ðµÎ µ¿ÀÏÇÏÁö¸¸, emp_10¿¡ µé¾î°¡°í emp_20¿¡´Â µé¾î°¡Áö ¾ÊÀ½
+WHEN ì¡°ê±´ì ˆ ë§Œì¡±í•˜ë©´ THENì„ ì‹¤í–‰ì‹œí‚¤ê³  ì•„ëž˜ì— ìžˆëŠ” ì¿¼ë¦¬ëŠ” ì‹¤í–‰ X
+MILLERëŠ” ë¶€ì„œë²ˆí˜¸ì™€ job ì¡°ê±´ì´ ëª¨ë‘ ë™ì¼í•˜ì§€ë§Œ, emp_10ì— ë“¤ì–´ê°€ê³  emp_20ì—ëŠ” ë“¤ì–´ê°€ì§€ ì•ŠìŒ
     
-    1) µ¥ÀÌÅÍ Ãß°¡
+    1) ë°ì´í„° ì¶”ê°€
     INSERT FIRST
         WHEN deptno = 10 THEN
             INTO emp_10 VALUES(empno, ename, job, mgr, hiredate, sal, comm, deptno)
@@ -649,34 +648,34 @@ MILLER´Â ºÎ¼­¹øÈ£¿Í job Á¶°ÇÀÌ ¸ðµÎ µ¿ÀÏÇÏÁö¸¸, emp_10¿¡ µé¾î°¡°í emp_20¿¡´Â µé¾
             INTO emp_40 VALUES(empno, ename, job, mgr, hiredate, sal, comm, deptno)
     SELECT * FROM emp;
 
-    2) È®ÀÎ
+    2) í™•ì¸
     SELECT * FROM emp_10;
     SELECT * FROM emp_20;
     SELECT * FROM emp_30;
     SELECT * FROM emp_40;
 
-    3) Å×ÀÌºí »èÁ¦
+    3) í…Œì´ë¸” ì‚­ì œ
     DROP TABLE emp_10 PURGE;
     DROP TABLE emp_20 PURGE;
     DROP TABLE emp_30 PURGE;
     DROP TABLE emp_40 PURGE;
 
 -----------------------
-4) ¤©. pivoting insert
-- ¿©·¯ °³ÀÇ into ÀýÀ» »ç¿ëÇÒ ¼ö ÀÖÁö¸¸, into Àý µÚ¿¡ ¿À´Â Å×ÀÌºíÀº ¸ðµÎ µ¿ÀÏÇØ¾ß ÇÑ´Ù. 
-¡¼Çü½Ä¡½
+4) ã„¹. pivoting insert
+- ì—¬ëŸ¬ ê°œì˜ into ì ˆì„ ì‚¬ìš©í•  ìˆ˜ ìžˆì§€ë§Œ, into ì ˆ ë’¤ì— ì˜¤ëŠ” í…Œì´ë¸”ì€ ëª¨ë‘ ë™ì¼í•´ì•¼ í•œë‹¤. 
+ã€í˜•ì‹ã€‘
     INSERT ALL
-    WHEN Á¶°ÇÀý1 THEN
-      INTO [Å×ÀÌºí1] VALUES (ÄÃ·³1,ÄÃ·³2,...)
-      INTO [Å×ÀÌºí1] VALUES (ÄÃ·³1,ÄÃ·³2,...)
+    WHEN ì¡°ê±´ì ˆ1 THEN
+      INTO [í…Œì´ë¸”1] VALUES (ì»¬ëŸ¼1,ì»¬ëŸ¼2,...)
+      INTO [í…Œì´ë¸”1] VALUES (ì»¬ëŸ¼1,ì»¬ëŸ¼2,...)
       ..........
     Subquery;
 
-? ¿©·¯ °³ÀÇ INTO ÀýÀ» »ç¿ëÇÒ ¼ö ÀÖÁö¸¸, INTO Àý µÚ¿¡ ¿À´Â Å×ÀÌºíÀº ¸ðµÎ µ¿ÀÏÇÏ¿©¾ß ÇÑ´Ù.
-? ÁÖ·Î ¿©·¯ °÷ÀÇ ½Ã½ºÅÛÀ¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ¹Þ¾Æ ÀÛ¾÷ÇÏ´Â dataware house¿¡ ÀûÇÕÇÏ´Ù. Á¤±ÔÈ­ µÇÁö ¾ÊÀº data sourceµéÀÌ³ª ´Ù¸¥ formatÀ¸·Î ÀúÀåµÈ data sourceµéÀ» OracleÀÇ °ü°èÇü DB¿¡¼­ »ç¿ëÇÏ±â¿¡ ÀûÇÕÇÑ ÇüÅÂ·Î º¯È¯ÇÑ´Ù.
-? Á¤±ÔÈ­ µÇÁö ¾ÊÀº µ¥ÀÌÅÍ¸¦ oracleÀÌ Á¦°øÇÏ´Â relationalÇÑ ÇüÅÂ·Î Å×ÀÌºíÀ» º¯°æÇÏ´Â ÀÛ¾÷À» pivotingÀÌ¶ó°í ÇÑ´Ù.
+? ì—¬ëŸ¬ ê°œì˜ INTO ì ˆì„ ì‚¬ìš©í•  ìˆ˜ ìžˆì§€ë§Œ, INTO ì ˆ ë’¤ì— ì˜¤ëŠ” í…Œì´ë¸”ì€ ëª¨ë‘ ë™ì¼í•˜ì—¬ì•¼ í•œë‹¤.
+? ì£¼ë¡œ ì—¬ëŸ¬ ê³³ì˜ ì‹œìŠ¤í…œìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ë°›ì•„ ìž‘ì—…í•˜ëŠ” dataware houseì— ì í•©í•˜ë‹¤. ì •ê·œí™” ë˜ì§€ ì•Šì€ data sourceë“¤ì´ë‚˜ ë‹¤ë¥¸ formatìœ¼ë¡œ ì €ìž¥ëœ data sourceë“¤ì„ Oracleì˜ ê´€ê³„í˜• DBì—ì„œ ì‚¬ìš©í•˜ê¸°ì— ì í•©í•œ í˜•íƒœë¡œ ë³€í™˜í•œë‹¤.
+? ì •ê·œí™” ë˜ì§€ ì•Šì€ ë°ì´í„°ë¥¼ oracleì´ ì œê³µí•˜ëŠ” relationalí•œ í˜•íƒœë¡œ í…Œì´ë¸”ì„ ë³€ê²½í•˜ëŠ” ìž‘ì—…ì„ pivotingì´ë¼ê³  í•œë‹¤.
 
-    1) Å×ÀÌºí »ý¼º
+    1) í…Œì´ë¸” ìƒì„±
     CREATE TABLE tbl_sales(
         employee_id       NUMBER(6),
         week_id            NUMBER(2),
@@ -686,14 +685,14 @@ MILLER´Â ºÎ¼­¹øÈ£¿Í job Á¶°ÇÀÌ ¸ðµÎ µ¿ÀÏÇÏÁö¸¸, emp_10¿¡ µé¾î°¡°í emp_20¿¡´Â µé¾
         sales_thu          NUMBER(8, 2),
         sales_fri          NUMBER(8, 2)
     );
-    -- Table TBL_SALESÀÌ(°¡) »ý¼ºµÇ¾ú½À´Ï´Ù.
+    -- Table TBL_SALESì´(ê°€) ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.
     
-    2) µ¥ÀÌÅÍ Ãß°¡
+    2) ë°ì´í„° ì¶”ê°€
     INSERT INTO tbl_sales VALUES(1101,4,100,150,80,60,120);
     INSERT INTO tbl_sales VALUES(1102,5,300,300,230,120,150);
     COMMIT;
     
-    3) È®ÀÎ
+    3) í™•ì¸
     SELECT *
     FROM tbl_sales;
     
@@ -703,15 +702,15 @@ MILLER´Â ºÎ¼­¹øÈ£¿Í job Á¶°ÇÀÌ ¸ðµÎ µ¿ÀÏÇÏÁö¸¸, emp_10¿¡ µé¾î°¡°í emp_20¿¡´Â µé¾
        1102          5        300        300        230        120        150
 
     
-    4) ¶Ç ´Ù¸¥ Å×ÀÌºí »ý¼º
+    4) ë˜ ë‹¤ë¥¸ í…Œì´ë¸” ìƒì„±
     CREATE TABLE tbl_sales_data(
     employee_id        NUMBER(6),
     week_id            NUMBER(2),
     sales              NUMBER(8, 2)
     );
-    -- Table TBL_SALES_DATAÀÌ(°¡) »ý¼ºµÇ¾ú½À´Ï´Ù.
+    -- Table TBL_SALES_DATAì´(ê°€) ìƒì„±ë˜ì—ˆìŠµë‹ˆë‹¤.
 
-    5) ¾Æ·¡¿Í °°Àº Çü½ÄÀ¸·Î µ¥ÀÌÅÍ Ãß°¡ -> ÇÇ¹þ
+    5) ì•„ëž˜ì™€ ê°™ì€ í˜•ì‹ìœ¼ë¡œ ë°ì´í„° ì¶”ê°€ -> í”¼ë²—
     
     EMPLOYEE_ID    WEEK_ID      SALES
     ----------- ---------- ----------
@@ -729,22 +728,22 @@ MILLER´Â ºÎ¼­¹øÈ£¿Í job Á¶°ÇÀÌ ¸ðµÎ µ¿ÀÏÇÏÁö¸¸, emp_10¿¡ µé¾î°¡°í emp_20¿¡´Â µé¾
      -- EMPLOYEE_ID    WEEK_ID  SALES_MON  SALES_TUE  SALES_WED  SALES_THU  SALES_FRI
      -- 1101          4        100        150         80         60        120
     INSERT ALL
-      INTO tbl_sales_data VALUES(employee_id, week_id, sales_mon) -- ¿ù
-      INTO tbl_sales_data VALUES(employee_id, week_id, sales_tue) -- È­
-      INTO tbl_sales_data VALUES(employee_id, week_id, sales_wed) -- ¼ö
-      INTO tbl_sales_data VALUES(employee_id, week_id, sales_thu) -- ¸ñ
-      INTO tbl_sales_data VALUES(employee_id, week_id, sales_fri) -- ±Ý
+      INTO tbl_sales_data VALUES(employee_id, week_id, sales_mon) -- ì›”
+      INTO tbl_sales_data VALUES(employee_id, week_id, sales_tue) -- í™”
+      INTO tbl_sales_data VALUES(employee_id, week_id, sales_wed) -- ìˆ˜
+      INTO tbl_sales_data VALUES(employee_id, week_id, sales_thu) -- ëª©
+      INTO tbl_sales_data VALUES(employee_id, week_id, sales_fri) -- ê¸ˆ
     SELECT employee_id, week_id, sales_mon, sales_tue, sales_wed, sales_thu, sales_fri
     FROM tbl_sales;
 
-    È®ÀÎ)
+    í™•ì¸)
     SELECT *
     FROM tbl_sales_data;
 
 -----
-¹®Á¦1) insa Å×ÀÌºíÀÇ num, name ÄÃ·³¸¸ º¹»çÇØ¼­ tbl_score Å×ÀÌºí »ý¼º
-    ÀÌ¹Ì Á¸ÀçÇÏ´Â Å×ÀÌºíÀ» »ç¿ëÇØ¼­ »õ·Î¿î Å×ÀÌºíÀ» »ý¼º
-    Á¶°Ç1) num <= 1005 ÀÚ·á(·¹ÄÚµå)¸¸ º¹»ç
+ë¬¸ì œ1) insa í…Œì´ë¸”ì˜ num, name ì»¬ëŸ¼ë§Œ ë³µì‚¬í•´ì„œ tbl_score í…Œì´ë¸” ìƒì„±
+    ì´ë¯¸ ì¡´ìž¬í•˜ëŠ” í…Œì´ë¸”ì„ ì‚¬ìš©í•´ì„œ ìƒˆë¡œìš´ í…Œì´ë¸”ì„ ìƒì„±
+    ì¡°ê±´1) num <= 1005 ìžë£Œ(ë ˆì½”ë“œ)ë§Œ ë³µì‚¬
     
     CREATE TABLE tbl_score
     AS(
@@ -757,8 +756,8 @@ MILLER´Â ºÎ¼­¹øÈ£¿Í job Á¶°ÇÀÌ ¸ðµÎ µ¿ÀÏÇÏÁö¸¸, emp_10¿¡ µé¾î°¡°í emp_20¿¡´Â µé¾
     FROM tbl_score;
     
 --    
-¹®Á¦2) tbl_score Å×ÀÌºí¿¡ kor, eng, mat, tot, avg, grade, rank ÄÃ·³ Ãß°¡
-                        k,e,mÀº ±âº»°ª 0, grade ÇÑ¹®ÀÚ
+ë¬¸ì œ2) tbl_score í…Œì´ë¸”ì— kor, eng, mat, tot, avg, grade, rank ì»¬ëŸ¼ ì¶”ê°€
+                        k,e,mì€ ê¸°ë³¸ê°’ 0, grade í•œë¬¸ìž
     ALTER TABLE tbl_score
     ADD(kor NUMBER(3) DEFAULT 0
         , eng NUMBER(3) DEFAULT 0
@@ -768,11 +767,11 @@ MILLER´Â ºÎ¼­¹øÈ£¿Í job Á¶°ÇÀÌ ¸ðµÎ µ¿ÀÏÇÏÁö¸¸, emp_10¿¡ µé¾î°¡°í emp_20¿¡´Â µé¾
         , grade CHAR(1 char)
         , rank NUMBER(3)
     ); 
-    -- Table TBL_SCOREÀÌ(°¡) º¯°æµÇ¾ú½À´Ï´Ù
+    -- Table TBL_SCOREì´(ê°€) ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤
     
     DESC tbl_score;
 
-ÀÌ¸§    ³Î?       À¯Çü           
+ì´ë¦„    ë„?       ìœ í˜•           
 ----- -------- ------------ 
 NUM   NOT NULL NUMBER(5)    
 NAME  NOT NULL VARCHAR2(20) 
@@ -785,8 +784,8 @@ GRADE          CHAR(1 CHAR)
 RANK           NUMBER(3) 
 
 --
-¹®Á¦3) 1001 ~ 1005, num, name 
-    kor, eng, mat Á¡¼ö¸¦ ÀÓÀÇÀÇ Á¡¼ö(0~100)¸¦ ¹ß»ý½ÃÄÑ¼­ ¼öÁ¤
+ë¬¸ì œ3) 1001 ~ 1005, num, name 
+    kor, eng, mat ì ìˆ˜ë¥¼ ìž„ì˜ì˜ ì ìˆ˜(0~100)ë¥¼ ë°œìƒì‹œì¼œì„œ ìˆ˜ì •
 
     UPDATE tbl_score
     SET kor = TRUNC(dbms_random.value(0, 101))
@@ -796,7 +795,7 @@ RANK           NUMBER(3)
     COMMIT;
 
 --
-¹®Á¦4) tbl_score Å×ÀÌºí¿¡ tot, avg °è»êÇØ¼­ ¼öÁ¤
+ë¬¸ì œ4) tbl_score í…Œì´ë¸”ì— tot, avg ê³„ì‚°í•´ì„œ ìˆ˜ì •
     UPDATE tbl_score
     SET tot = kor + eng + mat
         , avg = (kor + eng + mat) / 3;
@@ -804,14 +803,14 @@ RANK           NUMBER(3)
     COMMIT;
 
 --
-¹®Á¦5) ¾Æ·¡¿Í °°ÀÌ grade ¼öÁ¤ÇÏ±â
-Æò±ÕÀÌ 90 ÀÌ»ó A
+ë¬¸ì œ5) ì•„ëž˜ì™€ ê°™ì´ grade ìˆ˜ì •í•˜ê¸°
+í‰ê· ì´ 90 ì´ìƒ A
         80  B
         70  C
         60  D
             F
 
-³»°¡ ÀÛ¼ºÇÑ Äõ¸®)
+ë‚´ê°€ ìž‘ì„±í•œ ì¿¼ë¦¬)
     UPDATE tbl_score
     SET grade = 'A'
     WHERE avg BETWEEN 90 AND 100;
@@ -833,10 +832,10 @@ RANK           NUMBER(3)
     WHERE avg BETWEEN 0 AND 59;
 
 --
-´Ù¸¥ »ç¶÷ Äõ¸®)
+ë‹¤ë¥¸ ì‚¬ëžŒ ì¿¼ë¦¬)
     UPDATE tbl_score
     SET grade = CASE
-                    WHEN avg BETWEEN 90 AND 100 THEN 'A' -- avg >= 90 ÀÌ·¸°Ô Áàµµ µÊ
+                    WHEN avg BETWEEN 90 AND 100 THEN 'A' -- avg >= 90 ì´ë ‡ê²Œ ì¤˜ë„ ë¨
                     WHEN avg BETWEEN 80 AND 89 THEN 'B' -- avg >= 80
                     WHEN avg BETWEEN 70 AND 79 THEN 'C' -- avg >= 70
                     WHEN avg BETWEEN 60 AND 69 THEN 'D' -- avg >= 60
@@ -844,7 +843,7 @@ RANK           NUMBER(3)
                 END;
             
 --
-°­»ç´Ô Ç®ÀÌ)
+ê°•ì‚¬ë‹˜ í’€ì´)
     UPDATE tbl_score
     SET grade - DECODE(TRUNC(avg/10), 10, 'A', 9, 'A', 8, 'B', 7, 'C', 6, 'D', 'F');
     
@@ -854,9 +853,9 @@ RANK           NUMBER(3)
     COMMIT;
 
 ---
-¹®Á¦6) rank Ã³¸®ÇÏ±â
+ë¬¸ì œ6) rank ì²˜ë¦¬í•˜ê¸°
 
-    Ç®ÀÌ1)
+    í’€ì´1)
     UPDATE tbl_score ts
     SET rank = (SELECT rn
                 FROM(
@@ -865,7 +864,7 @@ RANK           NUMBER(3)
                 )t
                 WHERE ts.avg = t. avg);
 
-    Ç®ÀÌ2)
+    í’€ì´2)
     UPDATE tbl_score ts
     SET rank = (SELECT COUNT(*) + 1 FROM tbl_score WHERE tot > ts.tot);
 
@@ -874,7 +873,7 @@ COMMIT;
 ROLLBACK;
 
 --
-¹®Á¦7) ¸ðµç ÇÐ»ýÀÇ ±¹¾î Á¡¼ö¸¦ 5Á¡ Áõ°¡  -> PL/SQL »ç¿ë °¡´É
+ë¬¸ì œ7) ëª¨ë“  í•™ìƒì˜ êµ­ì–´ ì ìˆ˜ë¥¼ 5ì  ì¦ê°€  -> PL/SQL ì‚¬ìš© ê°€ëŠ¥
 UPDATE tbl_score
 SET kor = CASE
              WHEN avg BETWEEN 0 AND 95 THEN kor + 5
@@ -883,14 +882,14 @@ SET kor = CASE
 
     SELECT *
     FROM tbl_score;
-    1001	È«±æµ¿	37	62	72	171	57	    F	2
-    1002	ÀÌ¼ø½Å	69	29	33	131	43.67	F	4
-    1003	ÀÌ¼ø¾Ö	86	2	40	128	42.67	F	5
-    1004	±èÁ¤ÈÆ	61	17	88	166	55.33	F	3
-    1005	ÇÑ¼®ºÀ	95	100	63	258	86	    B	1
+    1001	í™ê¸¸ë™	37	62	72	171	57	    F	2
+    1002	ì´ìˆœì‹ 	69	29	33	131	43.67	F	4
+    1003	ì´ìˆœì• 	86	2	40	128	42.67	F	5
+    1004	ê¹€ì •í›ˆ	61	17	88	166	55.33	F	3
+    1005	í•œì„ë´‰	95	100	63	258	86	    B	1
 
 -- 
-¹®Á¦8) 1001¹ø ÇÐ»ýÀÇ ±¹¾î, ¿µ¾î Á¡¼ö¸¦ 1005¹ø ÇÐ»ýÀÇ ±¹¾î, ¿µ¾î Á¡¼ö·Î ¼öÁ¤
+ë¬¸ì œ8) 1001ë²ˆ í•™ìƒì˜ êµ­ì–´, ì˜ì–´ ì ìˆ˜ë¥¼ 1005ë²ˆ í•™ìƒì˜ êµ­ì–´, ì˜ì–´ ì ìˆ˜ë¡œ ìˆ˜ì •
 UPDATE tbl_score
 SET kor = ( SELECT kor FROM tbl_score WHERE num = 1005 )
     , eng = ( SELECT eng FROM tbl_score WHERE num = 1005)
@@ -898,14 +897,14 @@ WHERE num = 1001;
 
 COMMIT;
 
--- ¾Æ·¡ Äõ¸® ¿Ü¿ì±â~
+-- ì•„ëž˜ ì¿¼ë¦¬ ì™¸ìš°ê¸°~
 UPDATE tbl_score
 SET (kor, eng) = (SELECT kor, eng FROM tbl_score WHERE num = 1005)
 WHERE num = 1001;
 
 --
-¹®Á¦9) tbl_score Å×ÀÌºí¿¡¼­ ¿©ÇÐ»ýµé¸¸ ¿µ¾î Á¡¼ö -- ÁÖ¸»¿¡ ÇØº¸±â
-        (JOIN ÇØ¾ß °¡´É)
+ë¬¸ì œ9) tbl_score í…Œì´ë¸”ì—ì„œ ì—¬í•™ìƒë“¤ë§Œ ì˜ì–´ ì ìˆ˜ -- ì£¼ë§ì— í•´ë³´ê¸°
+        (JOIN í•´ì•¼ ê°€ëŠ¥)
 SELECT *
 FROM tbl_scroe;
 
@@ -913,41 +912,41 @@ SELECT *
 FROM insa;
 
 --
-[¸¸³â´Þ·Â]
+[ë§Œë…„ë‹¬ë ¥]
 SELECT   
-        -- TO_CHAR(dates, 'D') ÀÌ °ªÀÌ ÀÏ(1) ~ Åä(7)¿¡ µû¶ó¼­ ÇØ´çÇÏ´Â ÄÃ·³¿¡ °ªÀ» ³Ö±â
-          NVL( MIN( DECODE( TO_CHAR(dates, 'D'), 1, TO_CHAR(dates, 'DD') ) ), ' ') ÀÏ
-         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 2, TO_CHAR(dates, 'DD') ) ), ' ') ¿ù
-         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 3, TO_CHAR(dates, 'DD') ) ), ' ') È­
-         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 4, TO_CHAR(dates, 'DD') ) ), ' ') ¼ö
-         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 5, TO_CHAR(dates, 'DD') ) ), ' ') ¸ñ
-         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 6, TO_CHAR(dates, 'DD') ) ), ' ') ±Ý
-         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 7, TO_CHAR(dates, 'DD') ) ), ' ') Åä         
+        -- TO_CHAR(dates, 'D') ì´ ê°’ì´ ì¼(1) ~ í† (7)ì— ë”°ë¼ì„œ í•´ë‹¹í•˜ëŠ” ì»¬ëŸ¼ì— ê°’ì„ ë„£ê¸°
+          NVL( MIN( DECODE( TO_CHAR(dates, 'D'), 1, TO_CHAR(dates, 'DD') ) ), ' ') ì¼
+         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 2, TO_CHAR(dates, 'DD') ) ), ' ') ì›”
+         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 3, TO_CHAR(dates, 'DD') ) ), ' ') í™”
+         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 4, TO_CHAR(dates, 'DD') ) ), ' ') ìˆ˜
+         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 5, TO_CHAR(dates, 'DD') ) ), ' ') ëª©
+         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 6, TO_CHAR(dates, 'DD') ) ), ' ') ê¸ˆ
+         , NVL( MIN(  DECODE( TO_CHAR(dates, 'D'), 7, TO_CHAR(dates, 'DD') ) ), ' ') í†          
 FROM (
-        SELECT TO_DATE( :yyyymm, 'YYYYMM') + (LEVEL -1) dates -- 4¿ù 1ÀÏ + 30-1(29) ÀÌ´Ï±î 4¿ù 30ÀÏÀÌ µÈ´Ù.
+        SELECT TO_DATE( :yyyymm, 'YYYYMM') + (LEVEL -1) dates -- 4ì›” 1ì¼ + 30-1(29) ì´ë‹ˆê¹Œ 4ì›” 30ì¼ì´ ëœë‹¤.
         FROM dual
         CONNECT BY LEVEL <= EXTRACT( DAY FROM LAST_DAY( TO_DATE( :yyyymm , 'YYYYMM') ) )
       ) t      
-GROUP BY  DECODE( TO_CHAR(dates, 'D'), 1, TO_CHAR( dates, 'IW') +1,  TO_CHAR( dates, 'IW')   )  -- ÀÏ¿äÀÏ(1)ÀÌ¸é ÁÖÂ÷¸¦ Ç¥½Ã.
+GROUP BY  DECODE( TO_CHAR(dates, 'D'), 1, TO_CHAR( dates, 'IW') +1,  TO_CHAR( dates, 'IW')   )  -- ì¼ìš”ì¼(1)ì´ë©´ ì£¼ì°¨ë¥¼ í‘œì‹œ.
 ORDER BY  DECODE( TO_CHAR(dates, 'D'), 1, TO_CHAR( dates, 'IW') +1,  TO_CHAR( dates, 'IW')   );
 
 
 -- ORA-01788: CONNECT BY clause required in this query block
--- ÇØ¼®:  CONNECT BY ÀýÀÌ ÇÊ¿äÇÏ´Ù.
+-- í•´ì„:  CONNECT BY ì ˆì´ í•„ìš”í•˜ë‹¤.
 
 
-SELECT TO_DATE( :yyyymm, 'YYYYMM') + (LEVEL -1) dates -- 4¿ù 1ÀÏ + 30-1(29) ÀÌ´Ï±î 4¿ù 30ÀÏÀÌ µÈ´Ù.
+SELECT TO_DATE( :yyyymm, 'YYYYMM') + (LEVEL -1) dates -- 4ì›” 1ì¼ + 30-1(29) ì´ë‹ˆê¹Œ 4ì›” 30ì¼ì´ ëœë‹¤.
 FROM dual
 CONNECT BY LEVEL <= EXTRACT( DAY FROM LAST_DAY( TO_DATE( :yyyymm , 'YYYYMM') ) );
 
-SELECT TO_DATE( '202203', 'YYYYMM') + (LEVEL -1) -- 4¿ù 1ÀÏ + 30-1(29) ÀÌ´Ï±î 4¿ù 30ÀÏÀÌ µÈ´Ù.
+SELECT TO_DATE( '202203', 'YYYYMM') + (LEVEL -1) -- 4ì›” 1ì¼ + 30-1(29) ì´ë‹ˆê¹Œ 4ì›” 30ì¼ì´ ëœë‹¤.
 FROM dual
 CONNECT BY LEVEL <= 31;
 -- CONNECT BY LEVEL <= EXTRACT( DAY FROM LAST_DAY( TO_DATE( :yyyymm , 'YYYYMM') ) );
 
 
-SELECT TO_DATE( :yyyymm, 'YYYYMM') + 29 dates -- 4¿ù 1ÀÏ + 30-1(29) ÀÌ´Ï±î 4¿ù 30ÀÏÀÌ µÈ´Ù.
-    , TO_CHAR(TO_DATE( :yyyymm, 'YYYYMM') + 29, 'DD') -- Åä¿äÀÏ
+SELECT TO_DATE( :yyyymm, 'YYYYMM') + 29 dates -- 4ì›” 1ì¼ + 30-1(29) ì´ë‹ˆê¹Œ 4ì›” 30ì¼ì´ ëœë‹¤.
+    , TO_CHAR(TO_DATE( :yyyymm, 'YYYYMM') + 29, 'DD') -- í† ìš”ì¼
     , DECODE( TO_CHAR(TO_DATE( :yyyymm, 'YYYYMM') + 29, 'D'), 1, TO_CHAR( TO_DATE( :yyyymm, 'YYYYMM') + 29, 'IW') +1,  TO_CHAR( TO_DATE( :yyyymm, 'YYYYMM') + 29, 'IW')   ) 
     DECODE( TO_CHAR(dates, 'D'), 1, TO_CHAR( dates, 'IW') +1,  TO_CHAR( dates, 'IW')
 FROM dual;
