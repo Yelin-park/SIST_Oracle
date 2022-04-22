@@ -1,242 +1,35 @@
--- [ SCOTT¿¡ Á¢¼ÓµÈ ½ºÅ©¸³Æ® ÆÄÀÏ ]        
---------------------------------------------------------------------------------
-[¼ö¾÷³»¿ë½ÃÀÛ]
-
-SELECT *
-FROM tabs
-WHERE table_name LIKE 'T\_%' ESCAPE '\';
-
-SELECT *
-FROM T_SAMPLE;
-
-----------------------------------------------------------------------------
-T_MEMBER -- È¸¿ø
-T_POLL -- ¼³¹®
-T_POLLSUB -- ¼³¹®Ç×¸ñµé
-T_VOTER -- ÅõÇ¥
-
-È¸¿ø
-1) È¸¿ø°¡ÀÔ / Å»Åð / ¼öÁ¤
-'È¸¿ø ½ÃÄö½º »ý¼º'
-CREATE SEQUENCE seq_member
-INCREMENT BY 1
-START WITH 1
-MAXVALUE 9999
-NOCACHE;
-
-'µ¥ÀÌÅÍ Ãß°¡'
-INSERT INTO T_MEMBER ( MemberSeq, MemberID, MemberPasswd, MemberName,MemberPhone, MemberAddress  )
-VALUES (seq_member.nextval, 'admin', '1234', '°ü¸®ÀÚ', '010-1111-1111', '¼­¿ï °­³²±¸');
-INSERT INTO T_MEMBER ( MemberSeq, MemberID, MemberPasswd, MemberName,MemberPhone, MemberAddress  )
-VALUES (seq_member.nextval, 'hong', '1234', 'È«±æµ¿', '010-1111-1111', '¼­¿ï µµºÀ±¸');
-INSERT INTO T_MEMBER ( MemberSeq, MemberID, MemberPasswd, MemberName,MemberPhone, MemberAddress  )
-VALUES (seq_member.nextval, 'kim', '1234', 'ÀÍ¼øÀÌ', '010-1111-1111', '¼­¿ï ¸¶Æ÷±¸');
-COMMIT;
-
-'È®ÀÎ'
-SELECT *
-FROM t_member;
-
-
-2) ¼³¹® µî·Ï(ÀÛ¼º) / ¼öÁ¤ / »èÁ¦
-'¼³¹® ½ÃÄö½º »ý¼º'
-CREATE SEQUENCE seq_poll;
-
-'µ¥ÀÌÅÍ Ãß°¡'
-INSERT INTO T_POLL (PollSeq,Question,SDate, EDAte , ItemCount,PollTotal, RegDate, MemberSEQ )
-VALUES (seq_poll.nextval, 'ÁÁ¾ÆÇÏ´Â ¿©¹è¿ì?'
-            , TO_DATE('2022-03-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' )
-            , TO_DATE('2022-03-15 18:00:00', 'YYYY-MM-DD HH24:MI:SS' )
-            , 5
-            , 0
-            , TO_DATE('2022-02-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' )
-            , 1
-        );
-
-INSERT INTO T_POLL (PollSeq,Question,SDate, EDAte , ItemCount,PollTotal, RegDate, MemberSEQ )
-VALUES (seq_poll.nextval, 'ÁÁ¾ÆÇÏ´Â °ú¸ñ?'
-            , TO_DATE('2022-04-20 00:00:00', 'YYYY-MM-DD HH24:MI:SS' )
-            , TO_DATE('2022-05-01 18:00:00', 'YYYY-MM-DD HH24:MI:SS' )
-            , 4
-            , 0
-            , TO_DATE('2022-04-15 00:00:00', 'YYYY-MM-DD HH24:MI:SS' )
-            , 1
-        );
-
-INSERT INTO T_POLL (PollSeq,Question,SDate, EDAte , ItemCount,PollTotal, RegDate, MemberSEQ )
-VALUES (seq_poll.nextval, '5¿ù 5ÀÏ ÈÞ°­ Âù¹Ý'
-            , TO_DATE('2022-05-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' )
-            , TO_DATE('2022-05-04 18:00:00', 'YYYY-MM-DD HH24:MI:SS' )
-            , 2
-            , 0
-            , SYSDATE
-            , 1
-        );        
-
-COMMIT;
-
-'È®ÀÎ'
-SELECT *
-FROM t_poll;
-
-2-1) ¼¼ºÎ Ç×¸ñ Ãß°¡ÇÏ´Â Äõ¸® ÀÛ¼º
-'¼ø¹ø ½ÃÄö½º »ý¼º'
-CREATE SEQUENCE seq_pollsub;
-
-'µ¥ÀÌÅÍ Ãß°¡'
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, '¹è½½±â', 0, 1);
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, '±è¿Áºó', 0, 1);
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, '¾ÆÀÌÀ¯', 0, 1);
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, '±è¼±¾Æ', 0, 1);
-
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, '¼öÇÐ', 0, 2);
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, '±¹¾î', 0, 2);
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, '¿µ¾î', 0, 2);
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, '»çÈ¸', 0, 2);
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, '°úÇÐ', 0, 2);
-
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, 'Âù¼º', 0, 3);
-INSERT INTO T_PollSub (PollSubSeq , Answer , ACount , PollSeq  )
-VALUES (seq_pollsub.nextval, '¹Ý´ë', 0, 3);
-
-COMMIT;
-
-'È®ÀÎ'
-SELECT *
-FROM t_pollsub;
-
-3) ¼³¹® ¸ñ·Ï ÆäÀÌÁö¿Í ¿¬µ¿µÇ´Â Äõ¸®
-Áú¹®¹øÈ£, Áú¹®³»¿ë, ÀÛ¼ºÀÚ, ½ÃÀÛÀÏ, Á¾·áÀÏ, Ç×¸ñ¼ö, Âü¿©ÀÚ¼ö, »óÅÂ 
-
-SELECT pollseq, question, membername, sdate, edate, itemcount, polltotal
-        , CASE
-            WHEN SYSDATE > edate THEN 'Á¾·á'
-            WHEN SYSDATE BETWEEN sdate AND edate THEN 'ÁøÇàÁß'
-            ELSE '½ÃÀÛÀü'
-          END state
-FROM t_poll p JOIN t_member m ON p.memberseq = m.memberseq;
-
-SELECT *
-FROM t_member;
-
-4) ¼³¹® ÅõÇ¥ -> 1)+2)+3) 3°¡Áö ÀÛ¾÷ -> PL/SQL ¸¸µé¸é µÈ´Ù.
-'ÅõÇ¥¹øÈ£ ½ÃÄö½º »ý¼º'
-CREATE SEQUENCE seq_vector;
-
--- ÀÛ¾÷1)
-INSERT INTO t_voter (VectorSeq , UserName,RegDate, PollSeq,PollSubSeq, MemberSeq) 
-VALUES (seq_vector.nextval, 'È«±æµ¿', SYSDATE, 1, 3 ,2);
-
--- ÀÛ¾÷2)
-UPDATE t_poll
-SET polltotal = polltotal + 1
-WHERE pollseq = 1;
-
--- ÀÛ¾÷3)
-UPDATE t_pollsub
-SET acount = acount + 1
-WHERE pollsubseq = 3;
-
--- ÀÛ¾÷1)
-INSERT INTO t_voter (VectorSeq , UserName,RegDate, PollSeq,PollSubSeq, MemberSeq) 
-VALUES (seq_vector.nextval, 'ÀÍ¼øÀÌ', SYSDATE, 1, 3 ,2);
-
--- ÀÛ¾÷2)
-UPDATE t_poll
-SET polltotal = polltotal + 1
-WHERE pollseq = 1;
-
--- ÀÛ¾÷3)
-UPDATE t_pollsub
-SET acount = acount + 1
-WHERE pollsubseq = 3;
-
-
--- ÀÛ¾÷1)
-INSERT INTO t_voter (VectorSeq , UserName,RegDate, PollSeq,PollSubSeq, MemberSeq) 
-VALUES (seq_vector.nextval, '°ü¸®ÀÚ', SYSDATE, 1, 2 ,2);
-
--- ÀÛ¾÷2)
-UPDATE t_poll
-SET polltotal = polltotal + 1
-WHERE pollseq = 1;
-
--- ÀÛ¾÷3)
-UPDATE t_pollsub
-SET acount = acount + 1
-WHERE pollsubseq = 2;
-
-COMMIT;
-
-SELECT * FROM t_voter;
-SELECT * FROM t_poll;
-SELECT * FROM t_pollsub;
-
-5) 1¹ø ¼³¹®¿¡ ´ëÇÑ ÅõÇ¥ °á°ú º¸±â
-(1) ÃÑ Âü¿©ÀÚ¼ö
-SELECT polltotal
-FROM t_poll
-WHERE pollseq = 1;
-
--- ¾Æ·¡ Äõ¸®·Î ÇÏ¸é ¼º´ÉÀÌ ¶³¾îÁö±â ¶§¹®¿¡ À§¿Í °°ÀÌ ÄÃ·³À» Ãß°¡ÇØ¼­ È®ÀÎÇÒ ¼ö ÀÖµµ·Ï ÇÏ¿´´Ù.
-SELECT COUNT(*)
-FROM t_voter
-WHERE pollseq = 1;
-
-
-(2) ÅõÇ¥ °á°ú º¸±â
-SELECT question, answer
-        , RPAD(' ', v+1, '#') || acount || '(' || v || '%)'
-FROM(   
-    SELECT question, answer, acount, polltotal
-            , ROUND(acount / polltotal * 100) v
-    FROM t_pollsub s JOIN t_poll p ON s.pollseq = p.pollseq
-    WHERE p.pollseq = 1
-) t;
-
-
-
+-- [ SCOTTì— ì ‘ì†ëœ ìŠ¤í¬ë¦½íŠ¸ íŒŒì¼ ]        
 ------------------------------------------------------------------------------------------------
 1. PL/SQL
-    1) SQL È®Àå + PL == [P]rocedural [L]anguage extensions to SQLÀ» ÀÇ¹Ì
+    1) SQL í™•ìž¥ + PL == [P]rocedural [L]anguage extensions to SQLì„ ì˜ë¯¸
     
-    2) ÀÌ´Â ºñÀýÂ÷ÀûÀÎ SQL ¾ð¾î¸¦ ÀýÂ÷ÀûÀ¸·Î »ç¿ëÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù. 
-                                ¤¡. º¯¼ö ¼±¾ð
-                                ¤¤. Á¦¾î¹®
-                                ¤§. ¿¹¿Ü Ã³¸® µîµî
+    2) ì´ëŠ” ë¹„ì ˆì°¨ì ì¸ SQL ì–¸ì–´ë¥¼ ì ˆì°¨ì ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ìžˆë„ë¡ í•œë‹¤. 
+                                ã„±. ë³€ìˆ˜ ì„ ì–¸
+                                ã„´. ì œì–´ë¬¸
+                                ã„·. ì˜ˆì™¸ ì²˜ë¦¬ ë“±ë“±
                                 
-    3) PL/SQLÀº ºí·Ï ±¸Á¶·Î µÈ ¾ð¾îÀÌ¸ç, 3°¡ÁöÀÇ ºí·°À¸·Î ±¸Á¶µÇ¾îÀÖ´Ù.
-        [ ¼±¾ð ±â´É ºí·° ]
-        [ ½ÇÇà ±â´É ºí·° ]
-        [ ¿¹¿Ü Ã³¸® ºí·° ]
+    3) PL/SQLì€ ë¸”ë¡ êµ¬ì¡°ë¡œ ëœ ì–¸ì–´ì´ë©°, 3ê°€ì§€ì˜ ë¸”ëŸ­ìœ¼ë¡œ êµ¬ì¡°ë˜ì–´ìžˆë‹¤.
+        [ ì„ ì–¸ ê¸°ëŠ¥ ë¸”ëŸ­ ]
+        [ ì‹¤í–‰ ê¸°ëŠ¥ ë¸”ëŸ­ ]
+        [ ì˜ˆì™¸ ì²˜ë¦¬ ë¸”ëŸ­ ]
     
-    4) PL/SQL ¼±¾ð Çü½Ä ***
-      ¡¼Çü½Ä¡½
-       [ DECLARE ]   -- ¼±¾ðºí·°(declarations) : º¯¼ö ¼±¾ð, »ó¼ö ¼±¾ð
-       BEGIN         -- ½ÇÇàºí·°(statements) : INSERT, DELETE, UPDATE µî
-       [ EXCEPTION ] -- ¿¹¿Ü Ã³¸® ºí·°(handlers) 
+    4) PL/SQL ì„ ì–¸ í˜•ì‹ ***
+      ã€í˜•ì‹ã€‘
+       [ DECLARE ]   -- ì„ ì–¸ë¸”ëŸ­(declarations) : ë³€ìˆ˜ ì„ ì–¸, ìƒìˆ˜ ì„ ì–¸
+       BEGIN         -- ì‹¤í–‰ë¸”ëŸ­(statements) : INSERT, DELETE, UPDATE ë“±
+       [ EXCEPTION ] -- ì˜ˆì™¸ ì²˜ë¦¬ ë¸”ëŸ­(handlers) 
        END; 
        
-      [ DECLARE       -- ¼±¾ðºí·°(declarations) : º¯¼ö ¼±¾ð, »ó¼ö ¼±¾ð
-            º¯¼ö¸í ÀÚ·áÇü(Å©±â)
-            º¯¼ö¸í ÀÚ·áÇü(Å©±â)
+      [ DECLARE       -- ì„ ì–¸ë¸”ëŸ­(declarations) : ë³€ìˆ˜ ì„ ì–¸, ìƒìˆ˜ ì„ ì–¸
+            ë³€ìˆ˜ëª… ìžë£Œí˜•(í¬ê¸°)
+            ë³€ìˆ˜ëª… ìžë£Œí˜•(í¬ê¸°)
                  :           ]   
-       BEGIN         -- ½ÇÇàºí·°(statements) : INSERT, DELETE, UPDATE µî
-       [ EXCEPTION ] -- ¿¹¿Ü Ã³¸® ºí·°(handlers) 
+       BEGIN         -- ì‹¤í–‰ë¸”ëŸ­(statements) : INSERT, DELETE, UPDATE ë“±
+       [ EXCEPTION ] -- ì˜ˆì™¸ ì²˜ë¦¬ ë¸”ëŸ­(handlers) 
        END;
        
-    5) PL/SQLÀÇ ºí·Ï ÀÛ¼º¿ä·É 
-    > ºí·° ³»¿¡ SQL ¹®À» ¿©·¯¹ø »ç¿ëÇÒ ¼ö ÀÖÀ½ *
+    5) PL/SQLì˜ ë¸”ë¡ ìž‘ì„±ìš”ë ¹ 
+    > ë¸”ëŸ­ ë‚´ì— SQL ë¬¸ì„ ì—¬ëŸ¬ë²ˆ ì‚¬ìš©í•  ìˆ˜ ìžˆìŒ *
        DECLARE
             INSERT
             SELECT
@@ -247,29 +40,29 @@ FROM(
        EXCEPTION
        END;
        
-    > ºí·° ³»¿¡´Â CREATEST, LEAST, DECODE, ±×·ìÇÔ¼ö¸¦ »ç¿ëÇÒ ¼ö ¾øÀ½ *
-    --  ½Äº°ÀÚ´Â ÃÖ´ë 30¹®ÀÚ·Î ÀÛ¼º 
-    --  ½Äº°ÀÚ´Â Å×ÀÌºí ¶Ç´Â ÄÃ·³¸í°ú °°À» ¼ö ¾øÀ½ 
-    --  ½Äº°ÀÚ´Â ¾ËÆÄºªÀ¸·Î ½ÃÀÛÇØ¾ß ÇÔ 
-    --  ¹®ÀÚ¿Í ³¯Â¥ Å¸ÀÔÀº ´ÜÀÏ ÀÎ¿ëºÎÈ£·Î Ç¥½ÃÇÔ 
-    --  ÁÖ¼®Àº ´ÜÀÏ ¶óÀÎÀÎ °æ¿ì 2°³ÀÇ ´ë½Ã(--), ¿©·¯ ¶óÀÎ °æ¿ì /* ... */·Î Ç¥±â
+    > ë¸”ëŸ­ ë‚´ì—ëŠ” CREATEST, LEAST, DECODE, ê·¸ë£¹í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŒ *
+    --  ì‹ë³„ìžëŠ” ìµœëŒ€ 30ë¬¸ìžë¡œ ìž‘ì„± 
+    --  ì‹ë³„ìžëŠ” í…Œì´ë¸” ë˜ëŠ” ì»¬ëŸ¼ëª…ê³¼ ê°™ì„ ìˆ˜ ì—†ìŒ 
+    --  ì‹ë³„ìžëŠ” ì•ŒíŒŒë²³ìœ¼ë¡œ ì‹œìž‘í•´ì•¼ í•¨ 
+    --  ë¬¸ìžì™€ ë‚ ì§œ íƒ€ìž…ì€ ë‹¨ì¼ ì¸ìš©ë¶€í˜¸ë¡œ í‘œì‹œí•¨ 
+    --  ì£¼ì„ì€ ë‹¨ì¼ ë¼ì¸ì¸ ê²½ìš° 2ê°œì˜ ëŒ€ì‹œ(--), ì—¬ëŸ¬ ë¼ì¸ ê²½ìš° /* ... */ë¡œ í‘œê¸°
 
-    6) PL/SQLÀÇ 6°¡Áö Á¾·ù
-        (1) ÀÍ¸í ÇÁ·Î½ÃÀú(anonymous procedure)  anonymous PL/SQLÀº DECLARE ...·Î ½ÃÀÛµÇ¸ç, »ç¿ëÀÚ°¡ ¹Ýº¹ÀûÀ¸·Î ½ÇÇàÇÏ·Á´Â SQL¹®À» ÇÊ¿äÇÒ ¶§¸¶´Ù ÀÛ¼ºÇÏ¿© ½ÇÇàÇÏ´Â ¹æ¹ý, µ¥ÀÌÅÍº£ÀÌ½º¿¡ ±× Á¤º¸°¡ ÀúÀåµÇÁö ¾ÊÀ½  
-        (2) ÀúÀå ÇÁ·Î½ÃÀú(stored procedure)     CREATE PROCEDURE name ...¹®¿¡ ÀÇÇØ¼­ »ý¼ºµÈ ÈÄ, µ¥ÀÌÅÍº£ÀÌ½º ³»¿¡ ±× Á¤º¸°¡ ÀúÀåµÊ. stored procedure´Â ·ÎÁ÷À» Ã³¸®¸¸ ÇÏ°í ³¡³²  
-        (3) ÀúÀå ÇÔ¼ö(stored function)         stored procedure¿Í °°À¸¸ç, stored procedure´Â ·ÎÁ÷À» Ã³¸®¸¸ ÇÏ°í ³¡³ªÁö¸¸, stored functionÀº ±× Ã³¸® °á°ú¸¦ »ç¿ëÀÚ¿¡°Ô ¹ÝÈ¯ÇÔ.  
-        (4) ÆÐÅ°Áö(package)                    ÀÚÁÖ »ç¿ëµÇ´Â ¿©·¯ procedure, functionµéÀ» ÇÏ³ªÀÇ package¹­¾î¼­ °ü¸®¿¡ Æí¸®Åä·Ï ÇÔ  -> ex) dbms_random ÆÐÅ°Áö
-        (5) Æ®¸®°Å(trigger)                    ¾î¶² ÀÛ¾÷Àü, ¶Ç´Â ÀÛ¾÷ ÈÄ trigger¿¡ Á¤ÀÇÇÑ ·ÎÁ÷À» ½ÇÇà½ÃÅ°´Â PL/SQL ºí·°ÀÓ. 
-        (6) °´Ã¼ Å¸ÀÔ(object type)             °´Ã¼¿¡ µ¥ÀÌÅÍ¸¦ ÀÔ·Â, ¼öÁ¤, »èÁ¦, Á¶È¸ÇÏ±â À§ÇØ¼­´Â ¹Ýµå½Ã PL/SQL ¾ð¾î¸¦ »ç¿ëÇØ¾ß ÇÔ  
+    6) PL/SQLì˜ 6ê°€ì§€ ì¢…ë¥˜
+        (1) ìµëª… í”„ë¡œì‹œì €(anonymous procedure)  anonymous PL/SQLì€ DECLARE ...ë¡œ ì‹œìž‘ë˜ë©°, ì‚¬ìš©ìžê°€ ë°˜ë³µì ìœ¼ë¡œ ì‹¤í–‰í•˜ë ¤ëŠ” SQLë¬¸ì„ í•„ìš”í•  ë•Œë§ˆë‹¤ ìž‘ì„±í•˜ì—¬ ì‹¤í–‰í•˜ëŠ” ë°©ë²•, ë°ì´í„°ë² ì´ìŠ¤ì— ê·¸ ì •ë³´ê°€ ì €ìž¥ë˜ì§€ ì•ŠìŒ  
+        (2) ì €ìž¥ í”„ë¡œì‹œì €(stored procedure)     CREATE PROCEDURE name ...ë¬¸ì— ì˜í•´ì„œ ìƒì„±ëœ í›„, ë°ì´í„°ë² ì´ìŠ¤ ë‚´ì— ê·¸ ì •ë³´ê°€ ì €ìž¥ë¨. stored procedureëŠ” ë¡œì§ì„ ì²˜ë¦¬ë§Œ í•˜ê³  ëë‚¨  
+        (3) ì €ìž¥ í•¨ìˆ˜(stored function)         stored procedureì™€ ê°™ìœ¼ë©°, stored procedureëŠ” ë¡œì§ì„ ì²˜ë¦¬ë§Œ í•˜ê³  ëë‚˜ì§€ë§Œ, stored functionì€ ê·¸ ì²˜ë¦¬ ê²°ê³¼ë¥¼ ì‚¬ìš©ìžì—ê²Œ ë°˜í™˜í•¨.  
+        (4) íŒ¨í‚¤ì§€(package)                    ìžì£¼ ì‚¬ìš©ë˜ëŠ” ì—¬ëŸ¬ procedure, functionë“¤ì„ í•˜ë‚˜ì˜ packageë¬¶ì–´ì„œ ê´€ë¦¬ì— íŽ¸ë¦¬í† ë¡ í•¨  -> ex) dbms_random íŒ¨í‚¤ì§€
+        (5) íŠ¸ë¦¬ê±°(trigger)                    ì–´ë–¤ ìž‘ì—…ì „, ë˜ëŠ” ìž‘ì—… í›„ triggerì— ì •ì˜í•œ ë¡œì§ì„ ì‹¤í–‰ì‹œí‚¤ëŠ” PL/SQL ë¸”ëŸ­ìž„. 
+        (6) ê°ì²´ íƒ€ìž…(object type)             ê°ì²´ì— ë°ì´í„°ë¥¼ ìž…ë ¥, ìˆ˜ì •, ì‚­ì œ, ì¡°íšŒí•˜ê¸° ìœ„í•´ì„œëŠ” ë°˜ë“œì‹œ PL/SQL ì–¸ì–´ë¥¼ ì‚¬ìš©í•´ì•¼ í•¨  
 
-    7) ÀÍ¸í ÇÁ·Î½ÃÀú ( anonymous procedure )
-    -- ½ÇÇàÇÒ ¶§ ¹Ýµå½Ã ¼±ÅÃÀ» ÇÑ ÈÄ ½ÇÇà***
-       [ DECLARE       -- ¼±¾ðºí·°(declarations) : º¯¼ö ¼±¾ð, »ó¼ö ¼±¾ð
-            º¯¼ö¸í ÀÚ·áÇü(Å©±â)
-            º¯¼ö¸í ÀÚ·áÇü(Å©±â)
+    7) ìµëª… í”„ë¡œì‹œì € ( anonymous procedure )
+    -- ì‹¤í–‰í•  ë•Œ ë°˜ë“œì‹œ ì„ íƒì„ í•œ í›„ ì‹¤í–‰***
+       [ DECLARE       -- ì„ ì–¸ë¸”ëŸ­(declarations) : ë³€ìˆ˜ ì„ ì–¸, ìƒìˆ˜ ì„ ì–¸
+            ë³€ìˆ˜ëª… ìžë£Œí˜•(í¬ê¸°)
+            ë³€ìˆ˜ëª… ìžë£Œí˜•(í¬ê¸°)
                  :           ]   
-       BEGIN         -- ½ÇÇàºí·°(statements) : INSERT, DELETE, UPDATE µî
-       [ EXCEPTION ] -- ¿¹¿Ü Ã³¸® ºí·°(handlers) 
+       BEGIN         -- ì‹¤í–‰ë¸”ëŸ­(statements) : INSERT, DELETE, UPDATE ë“±
+       [ EXCEPTION ] -- ì˜ˆì™¸ ì²˜ë¦¬ ë¸”ëŸ­(handlers) 
        END;
         
        DECLARE
@@ -277,7 +70,7 @@ FROM(
         vsal NUMBER(7, 2);
        BEGIN
         SELECT ename, sal
-                INTO vname, vsal -- SELECTÇÑ °á°ú¸¦ DECLATE¿¡ ¼±¾ðµÈ º¯¼ö¿¡ ´ã°Ú´Ù.
+                INTO vname, vsal -- SELECTí•œ ê²°ê³¼ë¥¼ DECLATEì— ì„ ì–¸ëœ ë³€ìˆ˜ì— ë‹´ê² ë‹¤.
         FROM emp
         WHERE empno = 7369;
 
@@ -287,8 +80,8 @@ FROM(
        -- WHEN THEN
        END;
 
--- EXCEPTION¿¡ WHEN THENÀÌ ¾ø¾î¼­ ¿À·ù ¹ß»ý       
---        ¿À·ù º¸°í -
+-- EXCEPTIONì— WHEN THENì´ ì—†ì–´ì„œ ì˜¤ë¥˜ ë°œìƒ       
+--        ì˜¤ë¥˜ ë³´ê³  -
 --        ORA-06550: line 13, column 8:
 --        PLS-00103: Encountered the symbol "END" when expecting one of the following:
 --        
@@ -297,31 +90,31 @@ FROM(
 --        *Cause:    Usually a PL/SQL compilation error.
 --        *Action:
 
-    --> PL/SQL ÇÁ·Î½ÃÀú°¡ ¼º°øÀûÀ¸·Î ¿Ï·áµÇ¾ú½À´Ï´Ù.
+    --> PL/SQL í”„ë¡œì‹œì €ê°€ ì„±ê³µì ìœ¼ë¡œ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.
     
-    + dbms_output ÆÐÅ°Áö
-      > ÀÌ ÆÐÅ°Áö´Â PL/SQL ³»¿¡¼­ Ã³¸®µÈ ¾î¶² °á°ú¸¦ »ç¿ëÀÚÀÇ È­¸é¿¡ Ãâ·ÂÇÒ ¶§ »ç¿ëÇÑ´Ù.
-      > DBMS_OUTPUT ÆÐÅ°ÁöÀÇ ¼­ºêÇÁ·Î±×·¥(ÇÔ¼ö)Àº ´ÙÀ½°ú °°´Ù.
-            put() ¶Ç´Â put_line() : Á¤ÀÇµÈ ¹®ÀÚ°ªÀ» È­¸é¿¡ Ãâ·ÂÇÏ´Â ÇÁ·Î¼¼¼­ 
-            NEW_LINE()           : GET_LINE¿¡ ÀÇÇØ ÀÐÈù ÇàÀÇ ´ÙÀ½ ¶óÀÎÀ» ÀÐÀ» ¶§ »ç¿ë 
-            GET_LINE() ¶Ç´Â GET_LINES() : ÇöÀç ¶óÀÎÀÇ ¹®ÀÚ°ªÀ» ÀÐ´Â ÇÁ·Î¼¼¼­ 
-            ENABLE()    : È­¸é¿¡ ¹®ÀÚ°ªÀ» Ãâ·ÂÇÏ´Â ¸ðµå·Î ¼³Á¤ÇÏ¸ç ¹®ÀÚ°ªÀ» ÁöÁ¤ÇÒ ¼ö ÀÖ´Â ¹öÆÛÅ©±â¸¦ Á¤ÀÇÇÔ 
-            DISABLE()   : È­¸é¿¡ ¹®ÀÚ°ªÀ» Ãâ·ÂÇÏ´Â ¸ðµå·Î ÇØÁ¦ÇÔ 
-    -- º¸±â -> DBMS Ãâ·ÂÇÏ¸é º¸¿©Áü
+    + dbms_output íŒ¨í‚¤ì§€
+      > ì´ íŒ¨í‚¤ì§€ëŠ” PL/SQL ë‚´ì—ì„œ ì²˜ë¦¬ëœ ì–´ë–¤ ê²°ê³¼ë¥¼ ì‚¬ìš©ìžì˜ í™”ë©´ì— ì¶œë ¥í•  ë•Œ ì‚¬ìš©í•œë‹¤.
+      > DBMS_OUTPUT íŒ¨í‚¤ì§€ì˜ ì„œë¸Œí”„ë¡œê·¸ëž¨(í•¨ìˆ˜)ì€ ë‹¤ìŒê³¼ ê°™ë‹¤.
+            put() ë˜ëŠ” put_line() : ì •ì˜ëœ ë¬¸ìžê°’ì„ í™”ë©´ì— ì¶œë ¥í•˜ëŠ” í”„ë¡œì„¸ì„œ 
+            NEW_LINE()           : GET_LINEì— ì˜í•´ ì½ížŒ í–‰ì˜ ë‹¤ìŒ ë¼ì¸ì„ ì½ì„ ë•Œ ì‚¬ìš© 
+            GET_LINE() ë˜ëŠ” GET_LINES() : í˜„ìž¬ ë¼ì¸ì˜ ë¬¸ìžê°’ì„ ì½ëŠ” í”„ë¡œì„¸ì„œ 
+            ENABLE()    : í™”ë©´ì— ë¬¸ìžê°’ì„ ì¶œë ¥í•˜ëŠ” ëª¨ë“œë¡œ ì„¤ì •í•˜ë©° ë¬¸ìžê°’ì„ ì§€ì •í•  ìˆ˜ ìžˆëŠ” ë²„í¼í¬ê¸°ë¥¼ ì •ì˜í•¨ 
+            DISABLE()   : í™”ë©´ì— ë¬¸ìžê°’ì„ ì¶œë ¥í•˜ëŠ” ëª¨ë“œë¡œ í•´ì œí•¨ 
+    -- ë³´ê¸° -> DBMS ì¶œë ¥í•˜ë©´ ë³´ì—¬ì§
     
-    ¿¹½Ã1) È«±æµ¿ÀÇ ÀÌ¸§°ú ³ªÀÌ¸¦ º¯¼ö¿¡ ÀúÀåÇØ¼­ DBMS·Î Ãâ·ÂÇÏ±â
+    ì˜ˆì‹œ1) í™ê¸¸ë™ì˜ ì´ë¦„ê³¼ ë‚˜ì´ë¥¼ ë³€ìˆ˜ì— ì €ìž¥í•´ì„œ DBMSë¡œ ì¶œë ¥í•˜ê¸°
     DECLARE
         vname VARCHAR2(20);
         vage NUMBER(3);
     BEGIN
-        vname := 'È«±æµ¿';
+        vname := 'í™ê¸¸ë™';
         vage := 20;
         
         DBMS_OUTPUT.PUT_LINE(vname || ', ' || vage);
     -- EXCEPTION
     END;
     
-    --¿À·ù º¸°í -
+    --ì˜¤ë¥˜ ë³´ê³  -
     --ORA-06550: line 5, column 15:
     --PLS-00103: Encountered the symbol "=" when expecting one of the following:
     --
@@ -330,9 +123,9 @@ FROM(
     --*Cause:    Usually a PL/SQL compilation error.
     --*Action:    
     
-    -- ¿øÀÎ : vname = 'È«±æµ¿';    -> = ÀÌ·¸°Ô ÇÏ¸é ¾ÈµÇ°í := ÀÌ°É·Î ÇØ¾ßµÊ
+    -- ì›ì¸ : vname = 'í™ê¸¸ë™';    -> = ì´ë ‡ê²Œ í•˜ë©´ ì•ˆë˜ê³  := ì´ê±¸ë¡œ í•´ì•¼ë¨
     
-    ¿¹½Ã2) 30¹ø ºÎ¼­ÀÇ Áö¿ª¸í(loc)¸¦ °¡Á®¿Í¼­ 10¹ø ºÎ¼­ÀÇ loc·Î ¼öÁ¤
+    ì˜ˆì‹œ2) 30ë²ˆ ë¶€ì„œì˜ ì§€ì—­ëª…(loc)ë¥¼ ê°€ì ¸ì™€ì„œ 10ë²ˆ ë¶€ì„œì˜ locë¡œ ìˆ˜ì •
    
     SELECT loc
     FROM dept
@@ -344,10 +137,10 @@ FROM(
     
     DESC dept;
     
-    -- ÀÍ¸í ÇÁ·Î½ÃÀú »ý¼º + ½ÇÇà
+    -- ìµëª… í”„ë¡œì‹œì € ìƒì„± + ì‹¤í–‰
     DECLARE
         -- vloc VARCHAR2(13);
-        vloc dept.loc%TYPE;  -- Å¸ÀÔÇü º¯¼ö(deptÀÇ loc¿Í ÀÚ·áÇüÀ» ¶È°°ÀÌ ÁÖ°Ú´Ù.)
+        vloc dept.loc%TYPE;  -- íƒ€ìž…í˜• ë³€ìˆ˜(deptì˜ locì™€ ìžë£Œí˜•ì„ ë˜‘ê°™ì´ ì£¼ê² ë‹¤.)
     BEGIN
         SELECT loc INTO vloc
         FROM dept
@@ -361,7 +154,7 @@ FROM(
     -- EXCEPTION
         -- ROLLBACK;
     END;
-    --> PL/SQL ÇÁ·Î½ÃÀú°¡ ¼º°øÀûÀ¸·Î ¿Ï·áµÇ¾ú½À´Ï´Ù.   
+    --> PL/SQL í”„ë¡œì‹œì €ê°€ ì„±ê³µì ìœ¼ë¡œ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.   
     
     SELECT *
     FROM dept;
@@ -369,31 +162,31 @@ FROM(
     ROLLBACK;   
     
 --------------------------------
-[¿©±â¼­ºÎÅÍ »õ·Î¿î °³³ä~]
+[ì—¬ê¸°ì„œë¶€í„° ìƒˆë¡œìš´ ê°œë…~]
 
-ÀÍ¸í ÇÁ·Î½ÃÀú º¹½ÀÇÏ±â..
+ìµëª… í”„ë¡œì‹œì € ë³µìŠµí•˜ê¸°..
 
-(1) ÀÌ¸§ Ãâ·ÂÇÏ±â
+(1) ì´ë¦„ ì¶œë ¥í•˜ê¸°
 --DECLARE
 BEGIN
-    dbms_output.put_line('È«±æµ¿');
+    dbms_output.put_line('í™ê¸¸ë™');
 --EXCEPTION
 END;
 
 (2)
 DECLARE
     vname VARCHAR2(20);
-    vage NUMBER(3) := 20; -- ¿©±â¼­ ¼±¾ðÇÏ¸é ±âº»°ª
+    vage NUMBER(3) := 20; -- ì—¬ê¸°ì„œ ì„ ì–¸í•˜ë©´ ê¸°ë³¸ê°’
 BEGIN
-    vname := 'ÀÍ¼øÀÌ';
-    vage := 28; -- ¼±¾ðÀ» ÇØÁÖ¸é ±âº»°ªÀÌ ¾Æ´Ñ ÀÌ °ªÀ¸·Î Ãâ·Â
+    vname := 'ìµìˆœì´';
+    vage := 28; -- ì„ ì–¸ì„ í•´ì£¼ë©´ ê¸°ë³¸ê°’ì´ ì•„ë‹Œ ì´ ê°’ìœ¼ë¡œ ì¶œë ¥
     DBMS_OUTPUT.PUT_LINE(vname || ', ' || vage);
 --EXCEPTION
 END;
 
         
-¹®Á¦1) emp Å×ÀÌºí¿¡¼­ 10¹ø ºÎ¼­¿ø Áß¿¡ ±Þ¿©¸¦ °¡Àå ¸¹ÀÌ ¹Þ´Â »ç¿øÀÇ Á¤º¸¸¦ Ãâ·ÂÇÏ´Â ÀÍ¸íÇÁ·Î½ÃÀú ÀÛ¼º
-        Á¤º¸) empno, deptno, ename, job, mgr, hiredate, pay(sal + comm)
+ë¬¸ì œ1) emp í…Œì´ë¸”ì—ì„œ 10ë²ˆ ë¶€ì„œì› ì¤‘ì— ê¸‰ì—¬ë¥¼ ê°€ìž¥ ë§Žì´ ë°›ëŠ” ì‚¬ì›ì˜ ì •ë³´ë¥¼ ì¶œë ¥í•˜ëŠ” ìµëª…í”„ë¡œì‹œì € ìž‘ì„±
+        ì •ë³´) empno, deptno, ename, job, mgr, hiredate, pay(sal + comm)
         
 DECLARE
     tempno emp.empno%TYPE;
@@ -414,7 +207,7 @@ BEGIN
 END;
 
 --------------------
-1. %TYPEÇü º¯¼ö : º¯¼ö¸í table¸í.column¸í%TYPE;
+1. %TYPEí˜• ë³€ìˆ˜ : ë³€ìˆ˜ëª… tableëª….columnëª…%TYPE;
 
 DECLARE
     tempno emp.empno%TYPE;
@@ -427,13 +220,13 @@ DECLARE
     
     vmax_pay NUMBER;
 BEGIN 
-    -- 1¹ø ¼öÇà *** ¼­ºêÄõ¸®¸¦ µû·Î »©¿Í¼­ º¯¼ö¿¡ ÀúÀå
+    -- 1ë²ˆ ìˆ˜í–‰ *** ì„œë¸Œì¿¼ë¦¬ë¥¼ ë”°ë¡œ ë¹¼ì™€ì„œ ë³€ìˆ˜ì— ì €ìž¥
     SELECT MAX(sal+NVL(comm,0)) max_pay
         INTO vmax_pay
     FROM emp
     WHERE deptno = 10;
 
-    -- 2¹ø ¼öÇà
+    -- 2ë²ˆ ìˆ˜í–‰
     SELECT empno, deptno, ename, job, mgr, hiredate, sal + NVL(comm, 0) pay
          INTO tempno, tdeptno, tename, tjob, tmgr, thiredate, tpay
     FROM emp
@@ -444,21 +237,21 @@ BEGIN
 END;
 
 --------------------
-2. %ROWTYPEÇü º¯¼ö : º¯¼ö¸í table¸í%ROWTYPE;
+2. %ROWTYPEí˜• ë³€ìˆ˜ : ë³€ìˆ˜ëª… tableëª…%ROWTYPE;
 
 DECLARE
-    -- emp Å×ÀÌºíÀÇ ÇÑ Çà(·¹ÄÚµå) ÀüÃ¼¸¦ ÀúÀåÇÒ º¯¼ö ¼±¾ð
+    -- emp í…Œì´ë¸”ì˜ í•œ í–‰(ë ˆì½”ë“œ) ì „ì²´ë¥¼ ì €ìž¥í•  ë³€ìˆ˜ ì„ ì–¸
     vemprow emp%ROWTYPE;
     vpay NUMBER;
     
     vmax_pay NUMBER;
 BEGIN 
-    -- 1¹ø ¼öÇà *** ¼­ºêÄõ¸®¸¦ µû·Î »©¿Í¼­ º¯¼ö¿¡ ÀúÀå
+    -- 1ë²ˆ ìˆ˜í–‰ *** ì„œë¸Œì¿¼ë¦¬ë¥¼ ë”°ë¡œ ë¹¼ì™€ì„œ ë³€ìˆ˜ì— ì €ìž¥
     SELECT MAX(sal+NVL(comm,0)) max_pay INTO vmax_pay
     FROM emp
     WHERE deptno = 10;
 
-    -- 2¹ø ¼öÇà
+    -- 2ë²ˆ ìˆ˜í–‰
     SELECT empno, deptno, ename, job, mgr, hiredate, sal + NVL(comm, 0) pay
          INTO vemprow.empno, vemprow.deptno, vemprow.ename, vemprow.job, vemprow.mgr, vemprow.hiredate, vpay
     FROM emp
@@ -470,16 +263,16 @@ BEGIN
 END;
 
 ------------------------------
-PL/SQL ¹® ¾È¿¡¼­ SELECTÇÑ Ã³¸® °á°ú°¡ ¿©·¯ °³ÀÇ ÇàÀ» ¹ÝÈ¯ÇÒ °æ¿ì¿¡´Â ¾Æ·¡¿Í °°ÀÌ ¿¡·¯°¡ ¹ß»ýÇÑ´Ù.
-µû¶ó¼­ ¹Ýµå½Ã 'Ä¿¼­(CURSOR)'¸¦ »ç¿ëÇØ¾ß µÈ´Ù.  -> ³ªÁß¿¡ ´Ù½Ã ¾Ë·ÁÁÖ½Ç ¿¹Á¤!
-    ¿¡·¯ : ORA-01422: exact fetch returns more than requested number of rows
-    ÇØ¼® : ¿äÃ»µÈ ÇàÀÇ ¼öº¸´Ù ´õ ¸¹ÀÌ °¡Á®¿Â´Ù.
+PL/SQL ë¬¸ ì•ˆì—ì„œ SELECTí•œ ì²˜ë¦¬ ê²°ê³¼ê°€ ì—¬ëŸ¬ ê°œì˜ í–‰ì„ ë°˜í™˜í•  ê²½ìš°ì—ëŠ” ì•„ëž˜ì™€ ê°™ì´ ì—ëŸ¬ê°€ ë°œìƒí•œë‹¤.
+ë”°ë¼ì„œ ë°˜ë“œì‹œ 'ì»¤ì„œ(CURSOR)'ë¥¼ ì‚¬ìš©í•´ì•¼ ëœë‹¤.  -> ë‚˜ì¤‘ì— ë‹¤ì‹œ ì•Œë ¤ì£¼ì‹¤ ì˜ˆì •!
+    ì—ëŸ¬ : ORA-01422: exact fetch returns more than requested number of rows
+    í•´ì„ : ìš”ì²­ëœ í–‰ì˜ ìˆ˜ë³´ë‹¤ ë” ë§Žì´ ê°€ì ¸ì˜¨ë‹¤.
     
     DECLARE
         vename emp.ename%TYPE;
         vjob emp.job%TYPE;
     BEGIN
-        SELECT ename, job -- 12¸í »ç¿ø == 12 row (Çà)
+        SELECT ename, job -- 12ëª… ì‚¬ì› == 12 row (í–‰)
             INTO vename, vjob
         FROM emp;
         --WHERE empno = 7369;
@@ -488,83 +281,83 @@ PL/SQL ¹® ¾È¿¡¼­ SELECTÇÑ Ã³¸® °á°ú°¡ ¿©·¯ °³ÀÇ ÇàÀ» ¹ÝÈ¯ÇÒ °æ¿ì¿¡´Â ¾Æ·¡¿Í °°ÀÌ
     END;
 
 ------------------------------
-3. [PL/SQLÀÇ Á¦¾î¹®]
-1) IF / ELSE IF¹®
+3. [PL/SQLì˜ ì œì–´ë¬¸]
+1) IF / ELSE IFë¬¸
 [Java]
-if(Á¶°Ç½Ä) {
+if(ì¡°ê±´ì‹) {
 }
 
 [PL/SQL]
-IF( Á¶°Ç½Ä ) THEN
-IF Á¶°Ç½Ä THEN
+IF( ì¡°ê±´ì‹ ) THEN
+IF ì¡°ê±´ì‹ THEN
 END IF;
 
 ----
 [Java]
-if(Á¶°Ç½Ä) {
+if(ì¡°ê±´ì‹) {
 } else {
 }
 
 [PL/SQL]
-IF( Á¶°Ç½Ä ) THEN
-    -- ÄÚµù
+IF( ì¡°ê±´ì‹ ) THEN
+    -- ì½”ë”©
 ELSE
-    -- ÄÚµù
+    -- ì½”ë”©
 END IF;
 
 ----
 [Java]
-if(Á¶°Ç½Ä) {
+if(ì¡°ê±´ì‹) {
 } else if() {
 } else if() {
 } else {
 }
 
 [PL/SQL]
-IF( Á¶°Ç½Ä ) THEN
-ELSIF( Á¶°Ç½Ä ) THEN
-ELSIF( Á¶°Ç½Ä ) THEN
-ELSIF( Á¶°Ç½Ä ) THEN
+IF( ì¡°ê±´ì‹ ) THEN
+ELSIF( ì¡°ê±´ì‹ ) THEN
+ELSIF( ì¡°ê±´ì‹ ) THEN
+ELSIF( ì¡°ê±´ì‹ ) THEN
 ELSE 
 END IF;
 
 
-    ¿¹½Ã1) º¯¼ö¸¦ ÇÏ³ª ¼±¾ðÇØ¼­ Á¤¼ö¸¦ ÀÔ·Â¹Þ¾Æ¼­ Â¦¼ö/È¦¼ö Ãâ·Â
+    ì˜ˆì‹œ1) ë³€ìˆ˜ë¥¼ í•˜ë‚˜ ì„ ì–¸í•´ì„œ ì •ìˆ˜ë¥¼ ìž…ë ¥ë°›ì•„ì„œ ì§ìˆ˜/í™€ìˆ˜ ì¶œë ¥
     
     DECLARE
         vnum NUMBER := 0;
         vresult VARCHAR2(20);
     BEGIN
-        vnum :=  :bindNumber; -- º¯¼ö¸¦ ÀÔ·Â¹Þ¾Æ¼­ ´ëÀÔÇÏ°Ú´Ù.
+        vnum :=  :bindNumber; -- ë³€ìˆ˜ë¥¼ ìž…ë ¥ë°›ì•„ì„œ ëŒ€ìž…í•˜ê² ë‹¤.
         
         IF(mod(vnum, 2) = 0) THEN
-            vresult := 'Â¦¼ö';
+            vresult := 'ì§ìˆ˜';
         ELSE
-            vresult := 'È¦¼ö';
+            vresult := 'í™€ìˆ˜';
         END IF;
         
         DBMS_OUTPUT.PUT_LINE(vresult);
     -- EXCEPTION
     END;
     
-    ¿¹½Ã2) ±¹¾î Á¡¼ö¸¦ ÀÔ·Â¹Þ¾Æ¼­ ¼ö¿ì¹Ì¾ç°¡¶ó°í Ãâ·ÂÇÏ´Â ÀÍ¸íÇÁ·Î½ÃÀú ÀÛ¼º
+    ì˜ˆì‹œ2) êµ­ì–´ ì ìˆ˜ë¥¼ ìž…ë ¥ë°›ì•„ì„œ ìˆ˜ìš°ë¯¸ì–‘ê°€ë¼ê³  ì¶œë ¥í•˜ëŠ” ìµëª…í”„ë¡œì‹œì € ìž‘ì„±
     
     DECLARE
         kor NUMBER(3) := 0;
-        grade VARCHAR2(3) := '°¡';
+        grade VARCHAR2(3) := 'ê°€';
     BEGIN
         kor := :bindNumber;
         
         IF kor >= 90 THEN
-            grade := '¼ö';
+            grade := 'ìˆ˜';
         ELSIF kor >= 80 THEN
-            grade := '¿ì';
+            grade := 'ìš°';
         ELSIF kor >= 70 THEN
-            grade := '¹Ì';
+            grade := 'ë¯¸';
         ELSIF kor >= 60 THEN
-            grade := '¾ç';        
+            grade := 'ì–‘';        
         ELSE
-            grade := '°¡';
+            grade := 'ê°€';
         END IF;
         
         DBMS_OUTPUT.PUT_LINE(grade);
@@ -573,22 +366,22 @@ END IF;
 
 
 -------
-CASE¹® »ç¿ë)
+CASEë¬¸ ì‚¬ìš©)
 
     DECLARE
         kor NUMBER(3) := 0;
-        grade VARCHAR2(3) := '°¡';
+        grade VARCHAR2(3) := 'ê°€';
     BEGIN
         kor := :bindKor;
         kor := TRUNC(kor / 10);
         
         CASE kor
-            WHEN 10 THEN grade := '¼ö';
-            WHEN 9 THEN grade := '¼ö';
-            WHEN 8 THEN grade := '¿ì';
-            WHEN 7 THEN grade := '¹Ì';
-            WHEN 6 THEN grade := '¾ç';
-            ELSE grade := '°¡';
+            WHEN 10 THEN grade := 'ìˆ˜';
+            WHEN 9 THEN grade := 'ìˆ˜';
+            WHEN 8 THEN grade := 'ìš°';
+            WHEN 7 THEN grade := 'ë¯¸';
+            WHEN 6 THEN grade := 'ì–‘';
+            ELSE grade := 'ê°€';
         END CASE;
         
         DBMS_OUTPUT.PUT_LINE(grade);
@@ -596,15 +389,15 @@ CASE¹® »ç¿ë)
     END;
 
 ------------
-2) FOR...LOOP ¹®(Á¦ÇÑÀû ¹Ýº¹)
-    ¡¼Çü½Ä¡½ 
-        FOR counterº¯¼ö IN [REVERSE] ½ÃÀÛ°ª .. ³¡°ª
+2) FOR...LOOP ë¬¸(ì œí•œì  ë°˜ë³µ)
+    ã€í˜•ì‹ã€‘ 
+        FOR counterë³€ìˆ˜ IN [REVERSE] ì‹œìž‘ê°’ .. ëê°’
         LOOP 
-          ½ÇÇà¹®; -- ¹Ýº¹Ã³¸®ÇÒ ÄÚµù
+          ì‹¤í–‰ë¬¸; -- ë°˜ë³µì²˜ë¦¬í•  ì½”ë”©
         END LOOP; 
     
-    ¿¹½Ã1) 1 ~ 10±îÁö ÇÕÀ» Ãâ·Â
-    1+2+3+4+5+6+7+8+9+10+=65 ¸¶Áö¸· + Á¦°Å
+    ì˜ˆì‹œ1) 1 ~ 10ê¹Œì§€ í•©ì„ ì¶œë ¥
+    1+2+3+4+5+6+7+8+9+10+=65 ë§ˆì§€ë§‰ + ì œê±°
     
     DECLARE
         vi NUMBER;
@@ -626,25 +419,25 @@ CASE¹® »ç¿ë)
     END;
 
 ------------
-3) WHILE...LOOP ¹®(Á¦ÇÑÀû ¹Ýº¹)           
+3) WHILE...LOOP ë¬¸(ì œí•œì  ë°˜ë³µ)           
 
- [Çü½Ä1]
+ [í˜•ì‹1]
      LOOP 
-       EXIT WHEN ºüÁ®³ª°¡´ÂÁ¶°Ç;
-       ½ÇÇà¹®; 
+       EXIT WHEN ë¹ ì ¸ë‚˜ê°€ëŠ”ì¡°ê±´;
+       ì‹¤í–‰ë¬¸; 
      END LOOP; 
     
- [Çü½Ä2]
-     WHILE Á¶°Ç
+ [í˜•ì‹2]
+     WHILE ì¡°ê±´
      LOOP
-       ½ÇÇà¹®; -- Á¶°ÇÀÌ ÂüÀÏµ¿¾È ½ÇÇàµÇ´Â ¹®
+       ì‹¤í–‰ë¬¸; -- ì¡°ê±´ì´ ì°¸ì¼ë™ì•ˆ ì‹¤í–‰ë˜ëŠ” ë¬¸
      END LOOP; 
 
 ----------
-    ¿¹½Ã1) 1 ~ 10±îÁö ÇÕÀ» Ãâ·Â
-    1+2+3+4+5+6+7+8+9+10+=65 ¸¶Áö¸· + Á¦°Å   
+    ì˜ˆì‹œ1) 1 ~ 10ê¹Œì§€ í•©ì„ ì¶œë ¥
+    1+2+3+4+5+6+7+8+9+10+=65 ë§ˆì§€ë§‰ + ì œê±°   
     
-    Ç®ÀÌ1) LOOP END LOOP; ¹®
+    í’€ì´1) LOOP END LOOP; ë¬¸
     DECLARE
         vi NUMBER := 1;
         vsum NUMBER := 0;
@@ -662,7 +455,7 @@ CASE¹® »ç¿ë)
     END;
     
     
-    Ç®ÀÌ2) WHILE LOOP END LOOP; ¹®
+    í’€ì´2) WHILE LOOP END LOOP; ë¬¸
     DECLARE
         vi NUMBER := 1;
         vsum NUMBER := 0;
@@ -680,8 +473,8 @@ CASE¹® »ç¿ë)
     END;
 
 ----------
-    ¿¹½Ã2) ±¸±¸´Ü
-    1) FOR¹® 2°³ »ç¿ë
+    ì˜ˆì‹œ2) êµ¬êµ¬ë‹¨
+    1) FORë¬¸ 2ê°œ ì‚¬ìš©
     
     DECLARE
         vdan NUMBER(1);
@@ -698,7 +491,7 @@ CASE¹® »ç¿ë)
     -- EXCEPTION
     END;
     
-    2) WHILE¹® 2°³ »ç¿ë
+    2) WHILEë¬¸ 2ê°œ ì‚¬ìš©
     
     DECLARE
         vdan NUMBER(2) := 2;
@@ -718,9 +511,9 @@ CASE¹® »ç¿ë)
     END;
     
     
-    3) LOOP END LOOP ¹® »ç¿ë   
+    3) LOOP END LOOP ë¬¸ ì‚¬ìš©   
          
-    -- °æÈ¯¾²~  
+    -- ê²½í™˜ì“°~  
     DECLARE
         vdan NUMBER;
         vnum NUMBER;
@@ -742,15 +535,15 @@ CASE¹® »ç¿ë)
     END;
 
 ----------------------------------------------------------
-4. [RECORDÇü º¯¼ö ¼³¸í]
-    emp / deptÁ¶ÀÎ
+4. [RECORDí˜• ë³€ìˆ˜ ì„¤ëª…]
+    emp / deptì¡°ì¸
     deptno, dname, empno, ename
     
     SELECT d.deptno, dname, empno, ename, sal + NVL(comm, 0) pay
     FROM emp e JOIN dept d ON e.deptno = d.deptno
     WHERE empno = 7369;
 
-1) %TYPEÇü º¯¼ö ¼±¾ð
+1) %TYPEí˜• ë³€ìˆ˜ ì„ ì–¸
     DECLARE
         vdeptno dept.deptno%TYPE; 
         vdname dept.dname%TYPE;
@@ -768,7 +561,7 @@ CASE¹® »ç¿ë)
     END;
 
 -------
-2) %ROWTYPEÇü º¯¼ö ¼±¾ð
+2) %ROWTYPEí˜• ë³€ìˆ˜ ì„ ì–¸
     DECLARE
         vdrow dept%ROWTYPE;
         verow emp%ROWTYPE; 
@@ -785,19 +578,19 @@ CASE¹® »ç¿ë)
     END;
 
 ----------------------------   
-3) RECORDÇü º¯¼ö    
+3) RECORDí˜• ë³€ìˆ˜    
     DECLARE
-        -- »ç¿ëÀÚ°¡ Á¤ÀÇÇÏ´Â »õ·Î¿î ±¸Á¶ÀÇ ÀÚ·áÇü => '»ç¿ëÀÚ Á¤ÀÇ ±¸Á¶Ã¼'
-        TYPE EmpDeptType IS RECORD -- ±¸Á¶Ã¼ ÀÌ¸§ Á¤ÀÇ
+        -- ì‚¬ìš©ìžê°€ ì •ì˜í•˜ëŠ” ìƒˆë¡œìš´ êµ¬ì¡°ì˜ ìžë£Œí˜• => 'ì‚¬ìš©ìž ì •ì˜ êµ¬ì¡°ì²´'
+        TYPE EmpDeptType IS RECORD -- êµ¬ì¡°ì²´ ì´ë¦„ ì •ì˜
         (
             vdeptno dept.deptno%TYPE, 
-            vdname dept.dname%TYPE, -- ±¸ºÐÀÚ´Â ,(ÄÞ¸¶)!!
+            vdname dept.dname%TYPE, -- êµ¬ë¶„ìžëŠ” ,(ì½¤ë§ˆ)!!
             vempno emp.empno%TYPE,
             vename emp.ename%TYPE,
             vpay NUMBER
         );
         
-        vrow EmpDeptType; -- RECORDÇü º¯¼ö ¼±¾ð
+        vrow EmpDeptType; -- RECORDí˜• ë³€ìˆ˜ ì„ ì–¸
     BEGIN
         SELECT d.deptno, dname, empno, ename, sal + NVL(comm, 0) pay
             INTO vrow.vdeptno, vrow.vdname, vrow.vempno, vrow.vename, vrow.vpay
@@ -810,13 +603,13 @@ CASE¹® »ç¿ë)
 
 ----------------------------  
 5. CURSOR
-1) CURSOR ? PL/SQL ºí·° ³»¿¡¼­ ½ÇÇàµÇ´Â SELECT¹®À» ÀÇ¹Ì
-2) ¿©·¯ °³ÀÇ ·¹ÄÚµå¸¦ Ã³¸®ÇÏ±âÀ§ÇØ¼­ Ä¿¼­(CURSOR)¸¦ »ç¿ëÇØ¾ßµÈ´Ù.
-3) Ä¿¼­ÀÇ 2°¡Áö Á¾·ù
-    ¤¡. implicit cursor ¹¬½ÃÀû(¾Ï½ÃÀû, ÀÚµ¿) Ä¿¼­
-    ¿¹½Ã)
+1) CURSOR ? PL/SQL ë¸”ëŸ­ ë‚´ì—ì„œ ì‹¤í–‰ë˜ëŠ” SELECTë¬¸ì„ ì˜ë¯¸
+2) ì—¬ëŸ¬ ê°œì˜ ë ˆì½”ë“œë¥¼ ì²˜ë¦¬í•˜ê¸°ìœ„í•´ì„œ ì»¤ì„œ(CURSOR)ë¥¼ ì‚¬ìš©í•´ì•¼ëœë‹¤.
+3) ì»¤ì„œì˜ 2ê°€ì§€ ì¢…ë¥˜
+    ã„±. implicit cursor ë¬µì‹œì (ì•”ì‹œì , ìžë™) ì»¤ì„œ
+    ì˜ˆì‹œ)
         DECLARE
-            -- vrow ¼±¾ðX
+            -- vrow ì„ ì–¸X
         BEGIN
             FOR vrow IN (SELECT empno, ename, job FROM emp)
             LOOP
@@ -825,33 +618,33 @@ CASE¹® »ç¿ë)
         --EXCEPTION
         END;
 
-    ¤¤. explicit cursor ¸í½ÃÀû Ä¿¼­
-     (1) Ä¿¼­ ¼±¾ð
-     (2) Ä¿¼­ OPEN
+    ã„´. explicit cursor ëª…ì‹œì  ì»¤ì„œ
+     (1) ì»¤ì„œ ì„ ì–¸
+     (2) ì»¤ì„œ OPEN
      (3) LOOP
-            -- Ä¿¼­·ÎºÎÅÍ SELECTÇÑ °ÍÀ» °¡Á®¿À´Â ÄÚµù(FETCH)
-            EXIT WHEN Ä¿¼­°¡ ÀÐÀ» °ÍÀÌ ¾øÀ» ¶§ ±îÁöÀÇ Á¶°Ç (%NOTFOUND ÂüÀÌµÉ ¶§ ±îÁö)
+            -- ì»¤ì„œë¡œë¶€í„° SELECTí•œ ê²ƒì„ ê°€ì ¸ì˜¤ëŠ” ì½”ë”©(FETCH)
+            EXIT WHEN ì»¤ì„œê°€ ì½ì„ ê²ƒì´ ì—†ì„ ë•Œ ê¹Œì§€ì˜ ì¡°ê±´ (%NOTFOUND ì°¸ì´ë  ë•Œ ê¹Œì§€)
          END LOOP;
-     (4) Ä¿¼­ CLOSE
+     (4) ì»¤ì„œ CLOSE
      
-4) Çü½Ä
-    [Ä¿¼­¼±¾ðÇü½Ä]
-    CURSOR Ä¿¼­¸í IS (¼­ºêÄõ¸®);
-    OPEN [Ä¿¼­¸í];
+4) í˜•ì‹
+    [ì»¤ì„œì„ ì–¸í˜•ì‹]
+    CURSOR ì»¤ì„œëª… IS (ì„œë¸Œì¿¼ë¦¬);
+    OPEN [ì»¤ì„œëª…];
     FOR
-     FETCH [Ä¿¼­¸í] INTO [º¯¼ö¸í];
-     EXIT WHEN [Á¶°ÇÀý];
+     FETCH [ì»¤ì„œëª…] INTO [ë³€ìˆ˜ëª…];
+     EXIT WHEN [ì¡°ê±´ì ˆ];
     END LOOP;
-    CLOSE [Ä¿¼­¸í];
+    CLOSE [ì»¤ì„œëª…];
     
-    [Ä¿¼­ÀÇ ¼Ó¼º]
-    > %ROWCOUNT  ½ÇÇàµÈ Ä¿¼­¹®Àå¿¡¼­ ÀÐÈù ÇàÀÇ ¼ö 
-    > %FOUND  ½ÇÇàµÈ Ä¿¼­¹®Àå¿¡¼­ °Ë»öµÈ ÇàÀÌ ¹ß°ßµÇ¾ú´ÂÁö ¾Ë ¼ö ÀÖ´Â ¼Ó¼º 
-    > %NOTFOUND  ½ÇÇàµÈ Ä¿¼­¹®Àå¿¡¼­ °Ë»öµÈ ÇàÀÌ ¹ß°ßµÇÁö ¾Ê¾ÒÀ½À» ¾Ë ¼ö ÀÖ´Â ¼Ó¼º 
-    > %ISOPEN  ¼±¾ðµÈ Ä¿¼­°¡ ÇöÀç OPENµÇ¾î ÀÖ´ÂÁö¸¦ ¹ÝÈ¯ 
+    [ì»¤ì„œì˜ ì†ì„±]
+    > %ROWCOUNT  ì‹¤í–‰ëœ ì»¤ì„œë¬¸ìž¥ì—ì„œ ì½ížŒ í–‰ì˜ ìˆ˜ 
+    > %FOUND  ì‹¤í–‰ëœ ì»¤ì„œë¬¸ìž¥ì—ì„œ ê²€ìƒ‰ëœ í–‰ì´ ë°œê²¬ë˜ì—ˆëŠ”ì§€ ì•Œ ìˆ˜ ìžˆëŠ” ì†ì„± 
+    > %NOTFOUND  ì‹¤í–‰ëœ ì»¤ì„œë¬¸ìž¥ì—ì„œ ê²€ìƒ‰ëœ í–‰ì´ ë°œê²¬ë˜ì§€ ì•Šì•˜ìŒì„ ì•Œ ìˆ˜ ìžˆëŠ” ì†ì„± 
+    > %ISOPEN  ì„ ì–¸ëœ ì»¤ì„œê°€ í˜„ìž¬ OPENë˜ì–´ ìžˆëŠ”ì§€ë¥¼ ë°˜í™˜ 
    
     
-5) ¿¹½Ã
+5) ì˜ˆì‹œ
         DECLARE
             vename emp.ename%TYPE;
             vsal emp.sal%TYPE;
@@ -866,33 +659,33 @@ CASE¹® »ç¿ë)
         -- EXCEPTION
         END;
         
-        ¿¡·¯ : ORA-01422: exact fetch returns more than requested number of rows
-        ¿øÀÎ : °¡Á®¿Ã ·¹ÄÚµå°¡ ¸¹¾Æ¼­ ¹ß»ý, Ä¿¼­¸¦ »ç¿ëÇÏ¿© ÇØ°áÇÏ±â
+        ì—ëŸ¬ : ORA-01422: exact fetch returns more than requested number of rows
+        ì›ì¸ : ê°€ì ¸ì˜¬ ë ˆì½”ë“œê°€ ë§Žì•„ì„œ ë°œìƒ, ì»¤ì„œë¥¼ ì‚¬ìš©í•˜ì—¬ í•´ê²°í•˜ê¸°
         
-Ä¿¼­¸¦ »ç¿ëÇÏ±â)
+ì»¤ì„œë¥¼ ì‚¬ìš©í•˜ê¸°)
         DECLARE
             vename emp.ename%TYPE;
             vsal emp.sal%TYPE;
             vhiredate emp.hiredate%TYPE;
             
-            -- 1) Ä¿¼­ ¼±¾ð : CURSOR Ä¿¼­¸í IS (¼­ºêÄõ¸®);
+            -- 1) ì»¤ì„œ ì„ ì–¸ : CURSOR ì»¤ì„œëª… IS (ì„œë¸Œì¿¼ë¦¬);
             CURSOR emp30_cursor IS(
                                         SELECT ename, sal, hiredate
                                         FROM emp
                                         WHERE deptno = 30
                                 );
         BEGIN
-            --2) OPEN : OPEN Ä¿¼­¸í;
+            --2) OPEN : OPEN ì»¤ì„œëª…;
             OPEN emp30_cursor;
             
-            --3) LOOP ~ FETCH ÀÛ¾÷(¹Ýº¹ÀûÀ¸·Î °¡Á®¿À´Â ÀÛ¾÷)
+            --3) LOOP ~ FETCH ìž‘ì—…(ë°˜ë³µì ìœ¼ë¡œ ê°€ì ¸ì˜¤ëŠ” ìž‘ì—…)
             LOOP
                 FETCH emp30_cursor INTO vename, vsal, vhiredate;
                 DBMS_OUTPUT.PUT_LINE(vename || ', ' || vsal || ', ' || vhiredate );
                 EXIT WHEN emp30_cursor%NOTFOUND;
             END LOOP;        
             
-            --4) CLOSE : CLOSE Ä¿¼­¸í;
+            --4) CLOSE : CLOSE ì»¤ì„œëª…;
             CLOSE emp30_cursor;
             
         -- EXCEPTION
@@ -916,94 +709,94 @@ CASE¹® »ç¿ë)
             vsal emp.sal%TYPE;
             vhiredate emp.hiredate%TYPE;
             
-            -- 1) Ä¿¼­ ¼±¾ð : CURSOR Ä¿¼­¸í IS (¼­ºêÄõ¸®);
+            -- 1) ì»¤ì„œ ì„ ì–¸ : CURSOR ì»¤ì„œëª… IS (ì„œë¸Œì¿¼ë¦¬);
             CURSOR emp30_cursor IS(
                                         SELECT ename, sal, hiredate
                                         FROM emp
                                         WHERE deptno = 30
                                 );
         BEGIN
-            --2) OPEN : OPEN Ä¿¼­¸í;
+            --2) OPEN : OPEN ì»¤ì„œëª…;
             OPEN emp30_cursor;
             
-            --3) LOOP ~ FETCH ÀÛ¾÷(¹Ýº¹ÀûÀ¸·Î °¡Á®¿À´Â ÀÛ¾÷)
+            --3) LOOP ~ FETCH ìž‘ì—…(ë°˜ë³µì ìœ¼ë¡œ ê°€ì ¸ì˜¤ëŠ” ìž‘ì—…)
             LOOP
                 FETCH emp30_cursor INTO vename, vsal, vhiredate;
                 DBMS_OUTPUT.PUT_LINE(vename || ', ' || vsal || ', ' || vhiredate );
                 EXIT WHEN emp30_cursor%NOTFOUND OR emp30_cursor%ROWCOUNT >= 3;
             END LOOP;        
             
-            --4) CLOSE : CLOSE Ä¿¼­¸í;
+            --4) CLOSE : CLOSE ì»¤ì„œëª…;
             CLOSE emp30_cursor;
             
         -- EXCEPTION
         END;
 
--- Áö±Ý±îÁö ÀÍ¸í ÇÁ·Î½ÃÀú¸¦ »ç¿ëÇØ¼­ PL/SQL ±âº»(º¯¼ö ¼±¾ð, Ä¿¼­, Á¦¾î¹®) ¹®¹ý ¹è¿üÀ½ --
+-- ì§€ê¸ˆê¹Œì§€ ìµëª… í”„ë¡œì‹œì €ë¥¼ ì‚¬ìš©í•´ì„œ PL/SQL ê¸°ë³¸(ë³€ìˆ˜ ì„ ì–¸, ì»¤ì„œ, ì œì–´ë¬¸) ë¬¸ë²• ë°°ì› ìŒ --
 
-ÀúÀå ÇÁ·Î½ÃÀú(stored procedure)
-1) PL/SQL 6°¡Áö Áß¿¡ °¡Àå ´ëÇ¥ÀûÀÎ ±¸Á¶
+ì €ìž¥ í”„ë¡œì‹œì €(stored procedure)
+1) PL/SQL 6ê°€ì§€ ì¤‘ì— ê°€ìž¥ ëŒ€í‘œì ì¸ êµ¬ì¡°
 
-2) °³¹ßÀÚ°¡ ÀÚÁÖ ½ÇÇàÇØ¾ß ÇÏ´Â ¾÷¹«¸¦ ÀÌ ¹®¹ý¿¡ ÀÇÇØ ¹Ì¸® ÀÛ¼ºÇÏ°í
-    DB ³»¿¡ ÀúÀåÇØ µÎ¾ú´Ù°¡ ÇÊ¿äÇÒ ¶§ ¸¶´Ù È£ÃâÇØ¼­ »ç¿ëÇÒ ¼ö ÀÖ´Ù. (¼º´É ¶§¹®¿¡..)
+2) ê°œë°œìžê°€ ìžì£¼ ì‹¤í–‰í•´ì•¼ í•˜ëŠ” ì—…ë¬´ë¥¼ ì´ ë¬¸ë²•ì— ì˜í•´ ë¯¸ë¦¬ ìž‘ì„±í•˜ê³ 
+    DB ë‚´ì— ì €ìž¥í•´ ë‘ì—ˆë‹¤ê°€ í•„ìš”í•  ë•Œ ë§ˆë‹¤ í˜¸ì¶œí•´ì„œ ì‚¬ìš©í•  ìˆ˜ ìžˆë‹¤. (ì„±ëŠ¥ ë•Œë¬¸ì—..)
     
-3) ÀúÀå ÇÁ·Î½ÃÀú ¼±¾ð Çü½Ä
-    CREATE OR REPLACE PROCEDURE ÇÁ·Î½ÃÀú¸í
+3) ì €ìž¥ í”„ë¡œì‹œì € ì„ ì–¸ í˜•ì‹
+    CREATE OR REPLACE PROCEDURE í”„ë¡œì‹œì €ëª…
     (
-        -- ÆÄ¶ó¹ÌÅÍ¸¦ ¿©·¯°³ ÁØ´Ù¸é ,(ÄÞ¸¶) ±¸ºÐ / ÀÚ·áÇüÀº Å©±â ¼³Á¤ ¾ÈÇÑ´Ù.
-        ÆÄ¶ó¹ÌÅÍ ¼±¾ð MODE (IN/OUT/INOUT) ÀÚ·áÇü, -- ±âº»Àº IN(ÀÔ·Â¿ë) 
-        ÆÄ¶ó¹ÌÅÍ ¼±¾ð MODE (IN/OUT/INOUT) ÀÚ·áÇü, -- ±âº»Àº IN(ÀÔ·Â¿ë)
-        ÆÄ¶ó¹ÌÅÍ ¼±¾ð MODE (IN/OUT/INOUT) ÀÚ·áÇü -- ±âº»Àº IN(ÀÔ·Â¿ë)
+        -- íŒŒë¼ë¯¸í„°ë¥¼ ì—¬ëŸ¬ê°œ ì¤€ë‹¤ë©´ ,(ì½¤ë§ˆ) êµ¬ë¶„ / ìžë£Œí˜•ì€ í¬ê¸° ì„¤ì • ì•ˆí•œë‹¤.
+        íŒŒë¼ë¯¸í„° ì„ ì–¸ MODE (IN/OUT/INOUT) ìžë£Œí˜•, -- ê¸°ë³¸ì€ IN(ìž…ë ¥ìš©) 
+        íŒŒë¼ë¯¸í„° ì„ ì–¸ MODE (IN/OUT/INOUT) ìžë£Œí˜•, -- ê¸°ë³¸ì€ IN(ìž…ë ¥ìš©)
+        íŒŒë¼ë¯¸í„° ì„ ì–¸ MODE (IN/OUT/INOUT) ìžë£Œí˜• -- ê¸°ë³¸ì€ IN(ìž…ë ¥ìš©)
     )
-    IS -- DECLARE ´ë½Å¿¡ »ç¿ëÇÔ
-        -- º¯¼ö,
-        -- º¯¼ö,
-        -- º¯¼ö,
+    IS -- DECLARE ëŒ€ì‹ ì— ì‚¬ìš©í•¨
+        -- ë³€ìˆ˜,
+        -- ë³€ìˆ˜,
+        -- ë³€ìˆ˜,
     BEGIN
-        -- ½ÇÇà Äõ¸®
+        -- ì‹¤í–‰ ì¿¼ë¦¬
     EXCEPTION
-        -- ¿¹¿ÜÃ³¸®
+        -- ì˜ˆì™¸ì²˜ë¦¬
     END;
     
 
-4) ÀúÀå ÇÁ·Î½ÃÀú »ç¿ëÇÏ´Â ¹æ¹ý
-    ¤¡. EXECUTE¹® ½ÇÇà
-    ¤¤. ¶Ç ´Ù¸¥ ÀúÀå ÇÁ·Î½ÃÀú ¾È¿¡¼­ È£ÃâÇØ¼­ ½ÇÇà
-    ¤§. ÀÍ¸í ÇÁ·Î½ÃÀú¿¡¼­ È£ÃâÇÒ ¼ö ÀÖÀ½
+4) ì €ìž¥ í”„ë¡œì‹œì € ì‚¬ìš©í•˜ëŠ” ë°©ë²•
+    ã„±. EXECUTEë¬¸ ì‹¤í–‰
+    ã„´. ë˜ ë‹¤ë¥¸ ì €ìž¥ í”„ë¡œì‹œì € ì•ˆì—ì„œ í˜¸ì¶œí•´ì„œ ì‹¤í–‰
+    ã„·. ìµëª… í”„ë¡œì‹œì €ì—ì„œ í˜¸ì¶œí•  ìˆ˜ ìžˆìŒ
 
-5) ¿¹½Ã up == user procedure
-(1) ÇÁ·Î½ÃÀú »ý¼º
+5) ì˜ˆì‹œ up == user procedure
+(1) í”„ë¡œì‹œì € ìƒì„±
 CREATE OR REPLACE PROCEDURE up_delDept
 (
-    -- ÆÄ¶ó¹ÌÅÍ MODE IN ÀÚ·áÇü,
-    pdeptno IN NUMBER -- »èÁ¦ÇÏ°íÀÚ ÇÏ´Â ºÎ¼­¹øÈ£¸¦ ÀÔ·Â¹ÞÀ» ÆÄ¶ó¹ÌÅÍ(ÀÎÀÚ)
+    -- íŒŒë¼ë¯¸í„° MODE IN ìžë£Œí˜•,
+    pdeptno IN NUMBER -- ì‚­ì œí•˜ê³ ìž í•˜ëŠ” ë¶€ì„œë²ˆí˜¸ë¥¼ ìž…ë ¥ë°›ì„ íŒŒë¼ë¯¸í„°(ì¸ìž)
 )
 IS
-    -- º¯¼ö
+    -- ë³€ìˆ˜
 BEGIN
-    -- ½ÇÇà
+    -- ì‹¤í–‰
     DELETE FROM dept
     WHERE deptno = pdeptno;
     
-    -- COMMIT; -- Ä¿¹Ô ¶Ç´Â ·Ñ¹éÇØÁà¾ß ÀÛ¾÷ÀÌ ¿Ï·áµÊ ÇöÀç´Â ´Ù½Ã µ¹¸± °Å¶ó ÇÏÁö ¾ÊÀ½
+    -- COMMIT; -- ì»¤ë°‹ ë˜ëŠ” ë¡¤ë°±í•´ì¤˜ì•¼ ìž‘ì—…ì´ ì™„ë£Œë¨ í˜„ìž¬ëŠ” ë‹¤ì‹œ ëŒë¦´ ê±°ë¼ í•˜ì§€ ì•ŠìŒ
     
 -- EXCEPTION
 END up_delDept;
---> rocedure UP_DELDEPTÀÌ(°¡) ÄÄÆÄÀÏµÇ¾ú½À´Ï´Ù.
+--> rocedure UP_DELDEPTì´(ê°€) ì»´íŒŒì¼ë˜ì—ˆìŠµë‹ˆë‹¤.
 
 
 
-(2) ÀÍ¸í ÇÁ·Î½ÃÀú¿¡¼­ ÀúÀå ÇÁ·Î½ÃÀú È£Ãâ
+(2) ìµëª… í”„ë¡œì‹œì €ì—ì„œ ì €ìž¥ í”„ë¡œì‹œì € í˜¸ì¶œ
 DECLARE
 BEGIN
-    up_deldept(40); -- 40ÀÌ pdeptnoÀÓ!
+    up_deldept(40); -- 40ì´ pdeptnoìž„!
 --EXCEPTION
 END;
---> PL/SQL ÇÁ·Î½ÃÀú°¡ ¼º°øÀûÀ¸·Î ¿Ï·áµÇ¾ú½À´Ï´Ù.
+--> PL/SQL í”„ë¡œì‹œì €ê°€ ì„±ê³µì ìœ¼ë¡œ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.
 
 
 
-(3) EXECUTE¿¡¼­ »ç¿ë
+(3) EXECUTEì—ì„œ ì‚¬ìš©
 EXECUTE up_deldept(40);
 
 ROLLBACK;
@@ -1012,13 +805,13 @@ ROLLBACK;
 SELECT *
 FROM dept;
 
-<º¯°æÀü>
+<ë³€ê²½ì „>
 10	ACCOUNTING	NEW YORK
 20	RESEARCH	DALLAS
 30	SALES	CHICAGO
 40	OPERATIONS	BOSTON
 
-<º¯°æÈÄ>
+<ë³€ê²½í›„>
 10	ACCOUNTING	NEW YORK
 20	RESEARCH	DALLAS
 30	SALES	CHICAGO
