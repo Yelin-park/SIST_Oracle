@@ -1,24 +1,24 @@
--- [ SCOTT¿¡ Á¢¼ÓµÈ ½ºÅ©¸³Æ® ÆÄÀÏ ]    
-1. ÀúÀåÇÁ·Î½ÃÀú ¿¹Á¦ ´Ù·ç±â
-¿¹Á¦1) È¸¿ø°¡ÀÔÇÒ¶§ ID Áßº¹Ã¼Å© ÇÏ´Â ÀúÀå ÇÁ·Î½ÃÀú »ý¼º
-      °¡Á¤ : emp Å×ÀÌºí¿¡¼­ empno(ID)¶ó°í °¡Á¤
-      ÇÁ·Î½ÃÀú¿¡ Ãâ·Â¿ë ÆÄ¶ó¹ÌÅÍ ¼±¾ðÀ»ÇØ¼­ ±× °ªÀÌ 0À» µ¹¸®¸é ID »ç¿ë°¡´É, 1À» µ¹¸®¸é ID »ç¿ëºÒ°¡´É
-    <»ý¼º>
+-- [ SCOTTì— ì ‘ì†ëœ ìŠ¤í¬ë¦½íŠ¸ íŒŒì¼ ]    
+1. ì €ìž¥í”„ë¡œì‹œì € ì˜ˆì œ ë‹¤ë£¨ê¸°
+ì˜ˆì œ1) íšŒì›ê°€ìž…í• ë•Œ ID ì¤‘ë³µì²´í¬ í•˜ëŠ” ì €ìž¥ í”„ë¡œì‹œì € ìƒì„±
+      ê°€ì • : emp í…Œì´ë¸”ì—ì„œ empno(ID)ë¼ê³  ê°€ì •
+      í”„ë¡œì‹œì €ì— ì¶œë ¥ìš© íŒŒë¼ë¯¸í„° ì„ ì–¸ì„í•´ì„œ ê·¸ ê°’ì´ 0ì„ ëŒë¦¬ë©´ ID ì‚¬ìš©ê°€ëŠ¥, 1ì„ ëŒë¦¬ë©´ ID ì‚¬ìš©ë¶ˆê°€ëŠ¥
+    <ìƒì„±>
     CREATE OR REPLACE PROCEDURE up_idCheck
     (
-        pempno IN emp.empno%TYPE -- ID¸¦ ¹ÞÀ» ÆÄ¶ó¹ÌÅÍ
-        , pempnoCheck OUT NUMBER -- »ç¿ë°¡´É¿©ºÎ(0, 1)¸¦ µ¹·ÁÁÖ´Â ÆÄ¶ó¹ÌÅÍ
+        pempno IN emp.empno%TYPE -- IDë¥¼ ë°›ì„ íŒŒë¼ë¯¸í„°
+        , pempnoCheck OUT NUMBER -- ì‚¬ìš©ê°€ëŠ¥ì—¬ë¶€(0, 1)ë¥¼ ëŒë ¤ì£¼ëŠ” íŒŒë¼ë¯¸í„°
     )
     IS
     BEGIN
         SELECT COUNT(*) INTO pempnoCheck
         FROM emp
         WHERE empno = pempno;
-        -- ID°¡ ÀÖ´Ù¸é °¹¼ö°¡ ´Ã¾î³ª´Ï±î ¹Ù·Î È®ÀÎ °¡´É.
+        -- IDê°€ ìžˆë‹¤ë©´ ê°¯ìˆ˜ê°€ ëŠ˜ì–´ë‚˜ë‹ˆê¹Œ ë°”ë¡œ í™•ì¸ ê°€ëŠ¥.
     -- EXCEPTION
     END;
     
-    <½ÇÇà>
+    <ì‹¤í–‰>
     DECLARE
         vempnoCheck NUMBER;
     BEGIN
@@ -34,41 +34,41 @@
     END;    
 
 --------------
-¿¹Á¦2) È¸¿ø°¡ÀÔÇÑ ÈÄ¿¡ ID/PW ÀÔ·ÂÇÏ°í ·Î±×ÀÎ(ÀÎÁõ) -> ID : empno PW : ename
-        ·Î±×ÀÎ ¼º°ø, ·Î±×ÀÎ ½ÇÆÐ(ID, PW µÑ Áß¿¡ Æ²·È´Ù´Â ¸Þ½ÃÁö)
-    <»ý¼º>
+ì˜ˆì œ2) íšŒì›ê°€ìž…í•œ í›„ì— ID/PW ìž…ë ¥í•˜ê³  ë¡œê·¸ì¸(ì¸ì¦) -> ID : empno PW : ename
+        ë¡œê·¸ì¸ ì„±ê³µ, ë¡œê·¸ì¸ ì‹¤íŒ¨(ID, PW ë‘˜ ì¤‘ì— í‹€ë ¸ë‹¤ëŠ” ë©”ì‹œì§€)
+    <ìƒì„±>
     CREATE OR REPLACE PROCEDURE up_logon
     (
-        pempno IN emp.empno%TYPE -- ID¸¦ ¹ÞÀ» ÆÄ¶ó¹ÌÅÍ(ID ´ë½Å »ç¿ë)
-        , pename IN emp.ename%TYPE -- PW ¹ÞÀ» ÆÄ¶ó¹ÌÅÍ
-        , plogonCheck OUT NUMBER -- ·Î±×ÀÎ ¼º°ø 0, ID°¡ Á¸ÀçX 1, PW°¡ ÀÏÄ¡ÇÏÁö¾ÊÀ¸¸é -1
+        pempno IN emp.empno%TYPE -- IDë¥¼ ë°›ì„ íŒŒë¼ë¯¸í„°(ID ëŒ€ì‹  ì‚¬ìš©)
+        , pename IN emp.ename%TYPE -- PW ë°›ì„ íŒŒë¼ë¯¸í„°
+        , plogonCheck OUT NUMBER -- ë¡œê·¸ì¸ ì„±ê³µ 0, IDê°€ ì¡´ìž¬X 1, PWê°€ ì¼ì¹˜í•˜ì§€ì•Šìœ¼ë©´ -1
     )
     IS
-        vename emp.ename%TYPE; -- ½ÇÁ¦ ºñ¹Ð¹øÈ£¸¦ ÀúÀåÇÒ º¯¼ö
+        vename emp.ename%TYPE; -- ì‹¤ì œ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì €ìž¥í•  ë³€ìˆ˜
     BEGIN
         SELECT COUNT(*) INTO plogonCheck
         FROM emp
         WHERE empno = pempno;
         
-        IF plogonCheck = 1 THEN -- ID°¡ Á¸ÀçÇÑ´Ù¸é
+        IF plogonCheck = 1 THEN -- IDê°€ ì¡´ìž¬í•œë‹¤ë©´
             
             SELECT ename INTO vename
             FROM emp
             WHERE empno = pempno;
             
-            IF vename = pename THEN -- ID°¡ Á¸ÀçÇÏ°í PW ÀÏÄ¡ÇÏ¸é
-              plogonCheck := 0; -- ·Î±×ÀÎ ¼º°ø
+            IF vename = pename THEN -- IDê°€ ì¡´ìž¬í•˜ê³  PW ì¼ì¹˜í•˜ë©´
+              plogonCheck := 0; -- ë¡œê·¸ì¸ ì„±ê³µ
             ELSE
-              plogonCheck := -1; -- ID°¡ Á¸ÀçÇÏÁö¸¸ PW ÀÏÄ¡ÇÏÁö ¾ÊÀ¸¸é -1 ¹ÝÈ¯
+              plogonCheck := -1; -- IDê°€ ì¡´ìž¬í•˜ì§€ë§Œ PW ì¼ì¹˜í•˜ì§€ ì•Šìœ¼ë©´ -1 ë°˜í™˜
             END IF;
             
         ELSE
-            plogonCheck := 1; -- ID°¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì
+            plogonCheck := 1; -- IDê°€ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ê²½ìš°
         END IF;
     -- EXCEPTION
     END;        
 
-    <½ÇÇà>
+    <ì‹¤í–‰>
     DECLARE
         vlogonCheck NUMBER;
     BEGIN
@@ -79,54 +79,54 @@
     END;     
 
 --------------    
-2. STORED FUNCTION(ÀúÀåÇÔ¼ö)
+2. STORED FUNCTION(ì €ìž¥í•¨ìˆ˜)
 
 SELECT num, name, ssn
 FROM insa;
 
-ssn ÁÖ¹Îµî·Ï¹øÈ£¸¦ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ°ÜÁÖ¸é ³²ÀÚ/¿©ÀÚ¸¦ ¹ÝÈ¯ÇÏ´Â ÀúÀå ÇÔ¼ö
-ÀúÀåÇÔ¼ö == ÀúÀåÇÁ·Î½ÃÀú 99% °°Áö¸¸, Â÷ÀÌÁ¡Àº ¸®ÅÏ°ªÀÇ À¯¹«(ÀúÀåÇÔ¼ö´Â ¸®ÅÏ°ªÀÌ ÀÖÀ½)
+ssn ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ë¥¼ íŒŒë¼ë¯¸í„°ë¡œ ë„˜ê²¨ì£¼ë©´ ë‚¨ìž/ì—¬ìžë¥¼ ë°˜í™˜í•˜ëŠ” ì €ìž¥ í•¨ìˆ˜
+ì €ìž¥í•¨ìˆ˜ == ì €ìž¥í”„ë¡œì‹œì € 99% ê°™ì§€ë§Œ, ì°¨ì´ì ì€ ë¦¬í„´ê°’ì˜ ìœ ë¬´(ì €ìž¥í•¨ìˆ˜ëŠ” ë¦¬í„´ê°’ì´ ìžˆìŒ)
 
-    <Çü½Ä> uf = user function
-    CREATE OR REPLACE FUNCTION uf_ÀúÀåÇÔ¼ö¸í
+    <í˜•ì‹> uf = user function
+    CREATE OR REPLACE FUNCTION uf_ì €ìž¥í•¨ìˆ˜ëª…
     (
     )
-    RETURN ¸®ÅÏÀÚ·áÇü
+    RETURN ë¦¬í„´ìžë£Œí˜•
     IS
     BEGIN
     
     
-        RETURN (¸®ÅÏ°ª); -- °ýÈ£´Â ÀÖ¾îµµ µÇ°í, ¾ø¾îµµ µÊ
+        RETURN (ë¦¬í„´ê°’); -- ê´„í˜¸ëŠ” ìžˆì–´ë„ ë˜ê³ , ì—†ì–´ë„ ë¨
     -- EXCEPTION
     END;
 
 --------
-¿¹Á¦1) ÁÖ¹Îµî·Ï¹øÈ£¸¦ ÀÔ·Â¹Þ¾Æ¼­ ¼ºº°À» ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö uf_gender »ý¼º
+ì˜ˆì œ1) ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ë¥¼ ìž…ë ¥ë°›ì•„ì„œ ì„±ë³„ì„ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ uf_gender ìƒì„±
 
-    <ÀúÀåÇÔ¼ö »ý¼º>
+    <ì €ìž¥í•¨ìˆ˜ ìƒì„±>
     CREATE OR REPLACE FUNCTION uf_gender
     (
-      prrn VARCHAR2 -- ÁÖ¹Î¹øÈ£¸¦ ÀÔ·Â¹Þ´Â ÆÄ¶ó¹ÌÅÍ
+      prrn VARCHAR2 -- ì£¼ë¯¼ë²ˆí˜¸ë¥¼ ìž…ë ¥ë°›ëŠ” íŒŒë¼ë¯¸í„°
     )
-    RETURN VARCHAR2 -- ¸®ÅÏÀÚ·áÇü ¼±¾ð, '³²ÀÚ'/'¿©ÀÚ'¶ó°í ¸®ÅÏ
+    RETURN VARCHAR2 -- ë¦¬í„´ìžë£Œí˜• ì„ ì–¸, 'ë‚¨ìž'/'ì—¬ìž'ë¼ê³  ë¦¬í„´
     IS
-        vgender VARCHAR2(6) := '¿©ÀÚ'; -- °á°ú¹°À» ´ã´Â º¯¼ö
+        vgender VARCHAR2(6) := 'ì—¬ìž'; -- ê²°ê³¼ë¬¼ì„ ë‹´ëŠ” ë³€ìˆ˜
     BEGIN
         
         IF MOD(SUBSTR(prrn, -7, 1), 2) = 1 THEN
-            vgender := '³²ÀÚ';
+            vgender := 'ë‚¨ìž';
         END IF;
         
         RETURN vgender;
     -- EXCEPTION
     END;
 
-    <½ÇÇà>
+    <ì‹¤í–‰>
     SELECT num, name, ssn, uf_gender(ssn) gender
     FROM insa;
 
 --
-¿¹Á¦2) uf_sum(10) 1~10±îÁö ÇÕÀ» ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö + Å×½ºÆ® ÄÚµù
+ì˜ˆì œ2) uf_sum(10) 1~10ê¹Œì§€ í•©ì„ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ + í…ŒìŠ¤íŠ¸ ì½”ë”©
     CREATE OR REPLACE FUNCTION uf_sum
     (
         pnum NUMBER
@@ -134,7 +134,7 @@ ssn ÁÖ¹Îµî·Ï¹øÈ£¸¦ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ°ÜÁÖ¸é ³²ÀÚ/¿©ÀÚ¸¦ ¹ÝÈ¯ÇÏ´Â ÀúÀå ÇÔ¼ö
     RETURN NUMBER
     IS
         vi NUMBER;
-        vsum NUMBER := 0; -- ±âº»°ªÀ» 0À¸·Î ¼³Á¤ÇØÁà¾ßÇÔ
+        vsum NUMBER := 0; -- ê¸°ë³¸ê°’ì„ 0ìœ¼ë¡œ ì„¤ì •í•´ì¤˜ì•¼í•¨
     BEGIN
         FOR vi IN 1..pnum
         LOOP
@@ -149,8 +149,8 @@ ssn ÁÖ¹Îµî·Ï¹øÈ£¸¦ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ°ÜÁÖ¸é ³²ÀÚ/¿©ÀÚ¸¦ ¹ÝÈ¯ÇÏ´Â ÀúÀå ÇÔ¼ö
     FROM dual;
 
 --
-¹®Á¦1) ÁÖ¹Îµî·Ï¹øÈ£¸¦ ÀÔ·Â¹Þ¾Æ¼­ »ý³â¿ùÀÏ(yyyy.mm.dd)·Î ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö uf_birth()
-    <ÀúÀåÇÔ¼ö »ý¼º>
+ë¬¸ì œ1) ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ë¥¼ ìž…ë ¥ë°›ì•„ì„œ ìƒë…„ì›”ì¼(yyyy.mm.dd)ë¡œ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ uf_birth()
+    <ì €ìž¥í•¨ìˆ˜ ìƒì„±>
     CREATE OR REPLACE FUNCTION uf_birth
     (
         prrn VARCHAR2
@@ -159,7 +159,7 @@ ssn ÁÖ¹Îµî·Ï¹øÈ£¸¦ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ°ÜÁÖ¸é ³²ÀÚ/¿©ÀÚ¸¦ ¹ÝÈ¯ÇÏ´Â ÀúÀå ÇÔ¼ö
     IS
         vbirth VARCHAR2(10);
         vgender NUMBER(1);
-        vcentry NUMBER(2); -- ¼¼±â¸¦ ¹Þ´Â º¯¼ö
+        vcentry NUMBER(2); -- ì„¸ê¸°ë¥¼ ë°›ëŠ” ë³€ìˆ˜
         vrrn6 VARCHAR2(6);
     BEGIN
         vrrn6 := SUBSTR(prrn, 0, 6);
@@ -173,16 +173,16 @@ ssn ÁÖ¹Îµî·Ï¹øÈ£¸¦ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ°ÜÁÖ¸é ³²ÀÚ/¿©ÀÚ¸¦ ¹ÝÈ¯ÇÏ´Â ÀúÀå ÇÔ¼ö
         RETURN vbirth;
     END;
     
-    <½ÇÇà>
+    <ì‹¤í–‰>
     SELECT name, ssn, uf_birth(ssn)
     FROM insa;
 
-¹®Á¦2) ÁÖ¹Îµî·Ï¹øÈ£¸¦ ÀÔ·Â¹Þ¾Æ¼­ ¸¸³ªÀÌ¸¦ ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö uf_age()
+ë¬¸ì œ2) ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ë¥¼ ìž…ë ¥ë°›ì•„ì„œ ë§Œë‚˜ì´ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ uf_age()
 CREATE OR REPLACE FUNCTION uf_age
 (
     prrn VARCHAR2
 )
-RETURN VARCHAR2
+RETURN NUMBER;
 IS
     vischeck NUMBER(1);
     vtyear NUMBER(4);
@@ -198,7 +198,7 @@ BEGIN
                 END;
                 
    vage :=  CASE  VISCHECK
-                WHEN -1 THEN  -- »ýÀÏ ¾ÈÁö³­°Í
+                WHEN -1 THEN  -- ìƒì¼ ì•ˆì§€ë‚œê²ƒ
                  vt_year - vb_year-1
                 ELSE   -- 0, 1
                  vt_year - vb_year
@@ -208,10 +208,10 @@ BEGIN
 END;
 
 ------------------------
-¿¹Á¦´Ù·ç±â) ÀúÀå ÇÁ·Î½ÃÀúÀÎµ¥ MODE : INOUT(ÀÔÃâ·Â¿ë) ÆÄ¶ó¹ÌÅÍ ¸Å°³º¯¼ö »ç¿ë
-ÀüÈ­¹øÈ£¸¦ 8765-8652
-         8765 ÀüÈ­¹øÈ£ ¾ÕÀÚ¸®¸¸ Ãâ·Â¿ë ¸Å°³º¯¼ö·Î ¾²°Ú´Ù.
-    <ÇÁ·Î½ÃÀú »ý¼º>
+ì˜ˆì œë‹¤ë£¨ê¸°) ì €ìž¥ í”„ë¡œì‹œì €ì¸ë° MODE : INOUT(ìž…ì¶œë ¥ìš©) íŒŒë¼ë¯¸í„° ë§¤ê°œë³€ìˆ˜ ì‚¬ìš©
+ì „í™”ë²ˆí˜¸ë¥¼ 8765-8652
+         8765 ì „í™”ë²ˆí˜¸ ì•žìžë¦¬ë§Œ ì¶œë ¥ìš© ë§¤ê°œë³€ìˆ˜ë¡œ ì“°ê² ë‹¤.
+    <í”„ë¡œì‹œì € ìƒì„±>
     CREATE OR REPLACE PROCEDURE up_tel4
     (
         pphone IN OUT VARCHAR2
@@ -222,7 +222,7 @@ END;
     -- EXCEPTION
     END;
     
-    <½ÇÇà>
+    <ì‹¤í–‰>
     DECLARE
         vphone VARCHAR2(9) := '8765-8652';
     BEGIN
