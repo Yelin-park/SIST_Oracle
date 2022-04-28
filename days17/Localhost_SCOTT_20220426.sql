@@ -182,7 +182,7 @@ CREATE OR REPLACE FUNCTION uf_age
 (
     prrn VARCHAR2
 )
-RETURN NUMBER;
+RETURN NUMBER
 IS
     vischeck NUMBER(1);
     vtyear NUMBER(4);
