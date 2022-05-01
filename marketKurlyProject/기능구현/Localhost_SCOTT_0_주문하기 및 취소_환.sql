@@ -69,11 +69,8 @@ BEGIN
 ----        RAISE ex_inventory;
 --    END IF;
     
-    IF vo_price < 40000 THEN
-        v_shipping_pay := 3000;
-    ELSE
-        v_shipping_pay := 0;
-    END IF;
+    -- {배송비} 계산
+    v_shipping_pay := mk_f_shipping_pay(pc_code, vo_price);
     
     -- [회원주문내역] INSERT하는 프로시저
     mk_p_order_insert(pc_code, v_curr_time, vo_price, ps_code, po_rspot, po_lobbypw, po_message, po_pay_method, v_shipping_pay);
